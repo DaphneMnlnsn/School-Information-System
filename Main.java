@@ -9,7 +9,7 @@ public class Main {
             Scanner scn = new Scanner(System.in);
             //Chatbot
             lineGenerator();
-            System.out.println("Good day! I am Owlie, your automated TBD Assistant. What is your concern today?");
+            System.out.println("Good day! I am Owlie, your automated TBD Assistant. What is your concern for today?");
             lineGenerator();
             System.out.print("""
                     1 - How do I register?
@@ -71,31 +71,16 @@ public class Main {
             try{
                 lineGenerator();
                 System.out.println();
-                int width = 120;
-                int height = 50;
-
-                BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-                Graphics g = image.getGraphics();
-                g.setFont(new Font("SansSerif", Font.BOLD, 18));
-
-                Graphics2D graphics = (Graphics2D) g;
-                graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-                graphics.drawString("TBD College", 3, 20);
-
-                for (int y = 0; y < height; y++) {
-                    StringBuilder sb = new StringBuilder();
-                    for (int x = 0; x < width; x++) {
-
-                        sb.append(image.getRGB(x, y) == -16777216 ? " " : "*");
-
-                    }
-
-                    if (sb.toString().trim().isEmpty()) {
-                        continue;
-                    }
-
-                    System.out.println(sb);
+                String title = """
+                                 ████████╗██████╗ ██████╗      ██████╗ ██████╗ ██╗     ██╗     ███████╗ ██████╗ ███████╗              
+                                 ╚══██╔══╝██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗██║     ██║     ██╔════╝██╔════╝ ██╔════╝              
+                    -------------   ██║   ██████╔╝██║  ██║    ██║     ██║   ██║██║     ██║     █████╗  ██║  ███╗█████╗  ---------------
+                                    ██║   ██╔══██╗██║  ██║    ██║     ██║   ██║██║     ██║     ██╔══╝  ██║   ██║██╔══╝                
+                                    ██║   ██████╔╝██████╔╝    ╚██████╗╚██████╔╝███████╗███████╗███████╗╚██████╔╝███████╗              
+                                    ╚═╝   ╚═════╝ ╚═════╝      ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝              
+                                                                                       """;
+                for(int i = 0; i < title.length(); i++){
+                    System.out.print(title.charAt(i));
                 }
                 new Main();
         }
