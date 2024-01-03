@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Admission extends Variables{
+public class Admission extends Variables implements Courses{
     Admission(){
         Scanner scn = new Scanner(System.in);
         System.out.println("--------------------------------------------------- ADMISSIONS ----------------------------------------------------");
@@ -26,7 +26,7 @@ public class Admission extends Variables{
     }
     public void applicationForm(){
         Scanner scn = new Scanner(System.in);
-        System.out.println("""
+        System.out.print("""
                 \n---------------------------------------------- ONLINE APPLICATION ------------------------------------------------
                 Kindly fill-out the online application form for a fast and efficient admissions procedure.
                 What type of student are you?
@@ -53,51 +53,18 @@ public class Admission extends Variables{
     public void newStudent(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                \n--------------------------------------------- NEW STUDENT APPLICATION ---------------------------------------------
+                --------------------------------------------- NEW STUDENT APPLICATION ---------------------------------------------
                 Please select the course you would like to take.
-                1 - BSTM (Bachelor of Science in Tourism Management)
-                2 - BSHM (Bachelor of Science in Hospitality Management)
-                3 - BSCpE (Bachelor of Science In Computer Engineering)
-                4 - BSIT (Bachelor of Science in Information Technology)
-                5 - BEEd (Bachelor of Elementary Education)
-                6 - BSCS (Bachelor of Science in Computer Science)
-                7 - BSBA (Bachelor of Science in Business Administration)
-                8 - BSP (Bachelor of Science in Psychology)
                 """);
+        for(Map.Entry e: courses.entrySet()){
+            System.out.println(e.getKey() + " - " + e.getValue());
+        }
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int type = scn.nextInt();
-            if(type == 1){
-                studentCourse = "BSTM";
-                break;
-            }
-            if(type == 2){
-                studentCourse = "BSHM";
-                break;
-            }
-            if(type == 3){
-                studentCourse = "BSCpE";
-                break;
-            }
-            if(type == 4){
-                studentCourse = "BSIT";
-                break;
-            }
-            if(type == 5){
-                studentCourse = "BEEd";
-                break;
-            }
-            if(type == 6){
-                studentCourse = "BSCS";
-                break;
-            }
-            if(type == 7){
-                studentCourse = "BSBA";
-                break;
-            }
-            if(type == 8){
-                studentCourse = "BSP";
+            if(courses.containsKey(type)){
+                studentCourse = courses.get(type);
                 break;
             }
             else{
@@ -112,6 +79,7 @@ public class Admission extends Variables{
                 1 - New Student
                 2 - Transferee
                 """);
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int admit = scn.nextInt();
@@ -136,6 +104,7 @@ public class Admission extends Variables{
                 3 - Third Year
                 4 - Fourth Year
                 """);
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int year = scn.nextInt();
@@ -166,6 +135,7 @@ public class Admission extends Variables{
                 1 - First Term
                 2 - Second Term
                 """);
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int term = scn.nextInt();
@@ -182,8 +152,8 @@ public class Admission extends Variables{
             }
         }
         studentInfo.put("Term", yearTerm);
-        System.out.println("""
-                \n---------------------------------------------------- PERSONAL INFORMATION -----------------------------------------
+        System.out.print("""
+                ---------------------------------------------------- PERSONAL INFORMATION -----------------------------------------
                 """);
         System.out.print("Enter student's first name: ");
         scn.nextLine();
@@ -255,7 +225,6 @@ public class Admission extends Variables{
                 lineGenerator();
                 System.out.println("Your application has been submitted! Please pay to finalize your enrollment.");
                 enrolled.put(sNum++, studentInfo);
-                System.out.println(enrolled.toString());
                 System.out.println("Proceed to Payments (Press Y for yes or any key for no)?");
                 char next = scn.next().toUpperCase().charAt(0);
                 if(next == 'Y'){
@@ -283,7 +252,7 @@ public class Admission extends Variables{
     public void oldStudent(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                \n------------------------------------------- APPLICATION FOR EXISTING STUDENTS -------------------------------------
+                ------------------------------------------- APPLICATION FOR EXISTING STUDENTS -------------------------------------
                 Fill out the form to reserve a slot in your preferred college program in TBD College.
                 """);
         System.out.print("Enter student ID number: ");
@@ -327,6 +296,7 @@ public class Admission extends Variables{
                 1 - First Term
                 2 - Second Term
                 """);
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int term = scn.nextInt();
@@ -351,6 +321,7 @@ public class Admission extends Variables{
                 3 - Third Year
                 4 - Fourth Year
                 """);
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int year = scn.nextInt();
@@ -381,6 +352,7 @@ public class Admission extends Variables{
                 1 - Regular
                 2 - Irregular
                 """);
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int type = scn.nextInt();
@@ -399,49 +371,17 @@ public class Admission extends Variables{
         studentInfo.put("Student Type", admitType);
         lineGenerator();
         System.out.print("""
-                Please select the student's program.
-                1 - BSTM (Bachelor of Science in Tourism Management)
-                2 - BSHM (Bachelor of Science in Hospitality Management)
-                3 - BSCpE (Bachelor of Science In Computer Engineering)
-                4 - BSIT (Bachelor of Science in Information Technology)
-                5 - BEEd (Bachelor of Elementary Education)
-                6 - BSCS (Bachelor of Science in Computer Science)
-                7 - BSBA (Bachelor of Science in Business Administration)
-                8 - BSP (Bachelor of Science in Psychology)
+                Please enter the student's program.
                 """);
+        for(Map.Entry e: courses.entrySet()){
+            System.out.println(e.getKey() + " - " + e.getValue());
+        }
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int type = scn.nextInt();
-            if(type == 1){
-                studentCourse = "BSTM";
-                break;
-            }
-            if(type == 2){
-                studentCourse = "BSHM";
-                break;
-            }
-            if(type == 3){
-                studentCourse = "BSCpE";
-                break;
-            }
-            if(type == 4){
-                studentCourse = "BSIT";
-                break;
-            }
-            if(type == 5){
-                studentCourse = "BEEd";
-                break;
-            }
-            if(type == 6){
-                studentCourse = "BSCS";
-                break;
-            }
-            if(type == 7){
-                studentCourse = "BSBA";
-                break;
-            }
-            if(type == 8){
-                studentCourse = "BSP";
+            if(courses.containsKey(type)){
+                studentCourse = courses.get(type);
                 break;
             }
             else{
@@ -451,13 +391,14 @@ public class Admission extends Variables{
         studentInfo.put("Course", studentCourse);
         lineGenerator();
         System.out.print("\nPrevious Section: ");
-        studentInfo.put("Previous Section", scn.nextLine());
+        studentInfo.put("Previous Section", scn.next());
         lineGenerator();
         System.out.print("""
                 Preferred Schedule
                 1 - AM
                 2 - PM
                 """);
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int sched = scn.nextInt();
@@ -484,6 +425,7 @@ public class Admission extends Variables{
                 2 - Low Downpayment
                 3 - Low Monthly Payment
                 """);
+        lineGenerator();
         while(true){
             System.out.print("Your answer: ");
             int term = scn.nextInt();
@@ -505,7 +447,7 @@ public class Admission extends Variables{
         }
         studentInfo.put("Payment Term", paymentTerm);
         System.out.print("""
-                \n-------------------------------------------------- CONFIRM RESERVATION --------------------------------------------
+                -------------------------------------------------- CONFIRM RESERVATION --------------------------------------------
                 """);
         while(true){
             System.out.print("""
