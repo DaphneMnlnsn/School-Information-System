@@ -25,8 +25,11 @@ public class Main {
 
             switch(choice){
                 case 0:
-                    System.out.println("\nThank you for visiting TBD College!");
+                    lineGenerator();
+                    System.out.println("Thank you for visiting TBD College!");
+                    lineGenerator();
                     loop = false;
+                    System.exit(0);
                     break;
                 case 1:
                     new Admission();
