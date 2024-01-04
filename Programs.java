@@ -31,7 +31,9 @@ public class Programs extends Variables implements Courses{
                     new Programs();
                 }
                 else{
-                    System.out.println("\nThank you for visiting TBD College!");
+                    lineGenerator();
+                    System.out.println("Thank you for visiting TBD College!");
+                    lineGenerator();
                     System.exit(0);
                 }
                 break;
