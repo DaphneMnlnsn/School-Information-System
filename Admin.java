@@ -8,8 +8,8 @@ public abstract class Admin extends Variables implements Courses  {
         LinkedList<Integer> list = new LinkedList<>(courses.keySet());
         int newKey = list.getLast()+1;
         courses.put(newKey, newCourse);
-        topSkills.put(newCourse, topSkill);
-        opportunities.put(newCourse, opportunity);
+        topSkills.put(newCourse, "- " + topSkill);
+        opportunities.put(newCourse, "- " + opportunity);
         return newKey;
     }
     public void addSkill(int courseNum, String skill){
