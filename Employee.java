@@ -23,7 +23,7 @@ public class Employee extends Admin{
             int choice = scn.nextInt();
 
             if(choice == 0){
-                new Employee();
+                new Main();
                 break;
             }
             if(choice == 1){
