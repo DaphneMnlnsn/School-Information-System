@@ -1,3 +1,4 @@
+import java.time.Year;
 import java.util.*;
 
 public class Admission extends Variables implements Courses{
@@ -182,7 +183,7 @@ public class Admission extends Variables implements Courses{
         studentInfo.put("Civil Status", scn.nextLine());
         System.out.print("Enter student's citizenship: ");
         studentInfo.put("Citizenship", scn.nextLine());
-        System.out.print("Enter student's date of birth (MM/DD/YY): ");
+        System.out.print("Enter student's date of birth (MM/DD/YYYY): ");
         studentInfo.put("Birthdate", scn.nextLine());
         System.out.print("Enter student's birthplace: ");
         studentInfo.put("Birthplace", scn.nextLine());
@@ -224,7 +225,12 @@ public class Admission extends Variables implements Courses{
             if(details == 'Y'){
                 lineGenerator();
                 System.out.println("Your application has been submitted! Please pay to finalize your enrollment.");
-                enrolled.put(sNum++, studentInfo);
+                int year = Year.now().getValue();
+                studentInfo.put("School Email", studentInfo.get("Last Name").toLowerCase().concat(".").concat(Integer.toString(sNum)).concat("@tbd.edu"));
+                studentInfo.put("Password", studentInfo.get("Last Name").toLowerCase().concat(studentInfo.get("Birthdate").replace("/", "")));
+                sNum = sNum+1;
+                enrolled.put(year + "-" + sNum, studentInfo);
+
                 System.out.println("Proceed to Payments (Press Y for yes or any key for no)?");
                 char next = scn.next().toUpperCase().charAt(0);
                 if(next == 'Y'){
