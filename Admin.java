@@ -6,8 +6,8 @@ public class Admin extends Variables implements Courses  {
         System.out.println("-------------------------------------------------- ADMIN PORTAL ---------------------------------------------------");
         System.out.print("""
             What would you like to do?
-            1 - View Student List
-            2 - View Teacher List
+            1 - Student List
+            2 - Teacher List
             3 - Add Blog
             4 - Add Teacher Credentials
             5 - Edit Payment Info
@@ -64,7 +64,7 @@ public class Admin extends Variables implements Courses  {
     public void studentList(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                ------------------------------------------------ VIEW STUDENT LIST ------------------------------------------------
+                --------------------------------------------------- STUDENT LIST --------------------------------------------------
                 Please pick the course you would like to view students of.
                 """);
         lineGenerator();
@@ -87,7 +87,7 @@ public class Admin extends Variables implements Courses  {
                             1 - View Student Information
                             2 - Remove a Student
                             3 - View Archived Students
-                            
+                            4 - Edit Student Information
                             """);
                 lineGenerator();
                 while(true){
@@ -130,7 +130,15 @@ public class Admin extends Variables implements Courses  {
                                         }
                                     }
                                 }
-                                
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Press 0 to go back: ");
+                                    int back = scn.nextInt();
+                                    if(back == 0){
+                                        studentList();
+                                        break;
+                                    }
+                                }
                                 break;
                             }
                             else{
@@ -306,6 +314,87 @@ public class Admin extends Variables implements Courses  {
                                 System.out.println("Invalid input. Please try again.");
                             }
                         }
+                    }
+                    if(doAdmin == 4){
+                        lineGenerator();
+                        for(Map.Entry e: enrolled.entrySet()){
+                            Map<String, String> value = (Map<String, String>) e.getValue();
+                            if(value.get("Course") == courses.get(choice)){
+                                System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                                if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                    System.out.print(value.get(" Middle Name"));
+                                }
+                                if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                                    System.out.print(value.get(" Suffix"));
+                                }
+                            }
+                        }
+                        lineGenerator();
+                        while(true){
+                            System.out.print("Enter the student number of the student you would like to edit information of (0 to go back): ");
+                            String editInfo = scn.next();
+                            if(editInfo.equals("0")){
+                                studentList();
+                                break;
+                            }
+                            if(enrolled.containsKey(editInfo)){
+                                lineGenerator();
+                                System.out.println("Here is the student's current information: ");
+                                for(Map.Entry e: enrolled.entrySet()){
+                                    if(e.getKey().equals(editInfo)){
+                                        Map<String, String> value = (Map<String, String>) e.getValue();
+                                        System.out.println(e.getKey());
+                                        for(Map.Entry f: value.entrySet()){
+                                            System.out.println(f.getKey() + ": " + f.getValue());
+                                        }
+                                    }
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter the information you would like to edit (e.g. Contact Number) (Press 0 to go back): ");
+                                    scn.nextLine();
+                                    String edit = scn.nextLine();
+                                    
+                                    if(edit.equals("0")){
+                                        studentList();
+                                        break;
+                                    }
+                                    if(enrolled.get(editInfo).containsKey(edit)){
+                                        System.out.print("Enter the updated information: ");
+                                        enrolled.get(editInfo).replace(edit, scn.nextLine());
+                                        lineGenerator();
+                                        System.out.println("Here is the student's updated information: ");
+                                        for(Map.Entry e: enrolled.entrySet()){
+                                            if(e.getKey().equals(editInfo)){
+                                                Map<String, String> value = (Map<String, String>) e.getValue();
+                                                System.out.println(e.getKey());
+                                                for(Map.Entry f: value.entrySet()){
+                                                    System.out.println(f.getKey() + ": " + f.getValue());
+                                                }
+                                            }
+                                        }
+                                        lineGenerator();
+                                        while(true){
+                                            System.out.print("Press 0 to go back: ");
+                                            int back = scn.nextInt();
+                                            if(back == 0){
+                                                studentList();
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("That information does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Student does not exist. Please try again.");
+                            }
+                        }
+                        break;
                     }
                 }
                 break;
@@ -632,7 +721,7 @@ public class Admin extends Variables implements Courses  {
         }
     }
     //Edit Programs
-    public int addCourse(String newCourse, String topSkill, String opportunity){
+    int addCourse(String newCourse, String topSkill, String opportunity){
         LinkedList<Integer> list = new LinkedList<>(courses.keySet());
         int newKey = list.getLast()+1;
         courses.put(newKey, newCourse);
@@ -640,13 +729,13 @@ public class Admin extends Variables implements Courses  {
         opportunities.put(newCourse, "- " + opportunity);
         return newKey;
     }
-    public void addSkill(int courseNum, String skill){
+    void addSkill(int courseNum, String skill){
         topSkills.replace(courses.get(courseNum), topSkills.get(courses.get(courseNum)).concat("\n- " + skill));
     }
-    public void addOpp(int courseNum, String opp){
+    void addOpp(int courseNum, String opp){
         opportunities.replace(courses.get(courseNum), opportunities.get(courses.get(courseNum)).concat("\n- " + opp));
     }
-    public void removeCourse(int courseNum){
+    void removeCourse(int courseNum){
         archivedCourses.put(courseNum, courses.get(courseNum));
         archivedSkills.put(courses.get(courseNum), topSkills.get(courses.get(courseNum)));
         archivedOpp.put(courses.get(courseNum), opportunities.get(courses.get(courseNum)));
@@ -654,12 +743,12 @@ public class Admin extends Variables implements Courses  {
         topSkills.remove(courses.get(courseNum));
         courses.remove(courseNum);   
     }
-    public void removeCourseP(int courseNum){
+    void removeCourseP(int courseNum){
         archivedOpp.remove(archivedCourses.get(courseNum));
         archivedSkills.remove(archivedCourses.get(courseNum));
         archivedCourses.remove(courseNum);
     }
-    public void restoreCourse(int courseNum){
+    void restoreCourse(int courseNum){
         courses.put(courseNum, archivedCourses.get(courseNum));
         topSkills.put(archivedCourses.get(courseNum), archivedSkills.get(archivedCourses.get(courseNum)));
         opportunities.put(archivedCourses.get(courseNum), archivedOpp.get(archivedCourses.get(courseNum)));
@@ -667,15 +756,15 @@ public class Admin extends Variables implements Courses  {
         archivedSkills.remove(courses.get(courseNum));
         archivedCourses.remove(courseNum);
     }
-    public void archiveStudent(String studentNum){
+    void archiveStudent(String studentNum){
         archivedStud.put(studentNum, enrolled.get(studentNum));
         enrolled.remove(studentNum);
     }
-    public void removeStudentP(String studentNum){
+    void removeStudentP(String studentNum){
         archivedStud.put(studentNum, enrolled.get(studentNum));
         enrolled.remove(studentNum);
     }
-    public void restoreStudent(String studentNum){
+    void restoreStudent(String studentNum){
         enrolled.put(studentNum, archivedStud.get(studentNum));
         archivedStud.remove(studentNum);
     }
