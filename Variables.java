@@ -29,8 +29,32 @@ public abstract class Variables {
     static int sNum = 1002;
     static Map<String, Map<String, String>> archivedStud = new LinkedHashMap<>();
     static Map<Integer, Map<String, String>> reserved = new LinkedHashMap<>();
-    String teacherUser[] = {"mauricio.123", "manalansan.456", "lagula.789", "cabangon.038"};
-    String teacherPass[] = {"mau0000", "man0000", "lag0000", "cab0000"};
+    static Map<String, String> tInitialize = new LinkedHashMap<>(){{
+            put("Full Name", "Johnwin Vendi");
+            put("Birthdate", "02/28/1998");
+            put("Date Employed", "05/14/2019");
+            put("Email", "jwvendi@gmail.com");
+            put("Username", "vendi.9001");
+            put("Password", "vendi0000");
+        }};
+    static Map<String, String> tInitialize2 = new LinkedHashMap<>(){{
+            put("Full Name", "Johnwin Vendi");
+            put("Birthdate", "02/28/1998");
+            put("Date Employed", "05/14/2019");
+            put("Email", "jwvendi@gmail.com");
+            put("Username", "vendi.9001");
+            put("Password", "vendi0000");
+        }};
+    static Map<String, String> tInitialize3 = new LinkedHashMap<>(){{
+            put("BSIT 1A", "Computer Programming 1");
+            put("BSIT 2A", "Object-Oriented Programming");
+            put("BSIT 2B", "Object-Oriented Programming");
+            put("BSCpE 2A", "Introduction to Robotics");
+            put("BSCpE 3A", "Programming Fundamentals");
+            put("BSCS 4A", "Theories in Programming");
+        }};
+    static Map<String, Map<String, String>> tInfo = new LinkedHashMap<>(){{put("2019-9001", tInitialize); put("2019-9009", tInitialize2);}};
+    static Map<String, Map<String, String>> tSub = new LinkedHashMap<>(){{put("2019-9001", tInitialize3); put("2019-9009", tInitialize3);}};
     String adminUser = "admin";
     String adminPass = "0000";
     public void lineGenerator(){
