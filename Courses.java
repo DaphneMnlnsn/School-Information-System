@@ -42,5 +42,8 @@ public interface Courses {
             "- Art Director\n" + "- Media Director\n" + "- User Experience Designer\n" + "- Marketing/Advertising Manager\n" + "- Product Development Manager\n" + "- Media Strategist\n" + "- Digital Camera Operator\n" + "- Sound Engineer\n" + "- Multimedia Artist/Producer\n" +
             "- Film/Video Editor\n" + "- Installation Artist\n" + "- Photographer/Videographer\n" + "- Special Effects Artist\n" + "- VFX Artist\n" + "- Level Designer\n" + "- Digital Marketing Manager\n" + "- Web Developer\n" + "- Digital Imaging Specialist\n" + "- Interactive Designer");
         }};
+        Map<Integer, String> archivedCourses = new LinkedHashMap<>();
+        Map<String, String> archivedSkills = new LinkedHashMap<>();
+        Map<String, String> archivedOpp = new LinkedHashMap<>();
 
 }
