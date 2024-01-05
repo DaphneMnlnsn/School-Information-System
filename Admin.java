@@ -29,7 +29,7 @@ public class Admin extends Variables implements Courses  {
                 break;
             }
             if(adminDo == 2){
-                //teacherList();
+                teacherList();
                 break;
             }
             if(adminDo == 3){
@@ -62,6 +62,7 @@ public class Admin extends Variables implements Courses  {
         }
     }
     public void studentList(){
+        //Student List
         Scanner scn = new Scanner(System.in);
         System.out.print("""
                 --------------------------------------------------- STUDENT LIST --------------------------------------------------
@@ -406,6 +407,320 @@ public class Admin extends Variables implements Courses  {
                 System.out.println("Invalid input. Please try again.");
             }
         }
+    }
+    public void teacherList(){
+        //Teacher List
+        Scanner scn = new Scanner(System.in);
+        System.out.print("""
+                --------------------------------------------------- TEACHER LIST --------------------------------------------------
+                """);
+        lineGenerator();
+        System.out.print("""
+            What would you like to do?
+            1 - View Teacher Information
+            2 - Remove a Teacher
+            3 - View Archived Teachers
+            4 - Edit Teacher Information
+        """);
+        lineGenerator();
+        while(true){
+            System.out.print("Your Answer (0 to go back): ");
+            int doAdmin = scn.nextInt();
+            if(doAdmin == 0){
+                teacherList();
+                break;
+            }
+            if(doAdmin == 1){
+                lineGenerator();
+                for(Map.Entry e: tInfo.entrySet()){
+                    Map<String, String> value = (Map<String, String>) e.getValue();
+                    System.out.println(e.getKey() + " - " + value.get("Full Name"));
+                }
+                lineGenerator();
+                while(true){
+                    System.out.print("Enter the employee number of the teacher you would like to view information of (0 to go back): ");
+                    String viewInfo = scn.next();
+                    if(viewInfo.equals("0")){
+                        teacherList();
+                        break;
+                    }
+                    if(tInfo.containsKey(viewInfo)){
+                        lineGenerator();
+                        for(Map.Entry e: tInfo.entrySet()){
+                            if(e.getKey().equals(viewInfo)){
+                                Map<String, String> value = (Map<String, String>) e.getValue();
+                                System.out.println(e.getKey());
+                                for(Map.Entry f: value.entrySet()){
+                                    System.out.println(f.getKey() + ": " + f.getValue());
+                                }
+                            }
+                        }
+                        lineGenerator();
+                        while(true){
+                            System.out.print("Press 0 to go back: ");
+                            int back = scn.nextInt();
+                            if(back == 0){
+                                studentList();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Student does not exist. Please try again.");
+                    }
+                    break;
+                }
+            }
+            if(doAdmin == 2){
+                lineGenerator();
+                for(Map.Entry e: enrolled.entrySet()){
+                    Map<String, String> value = (Map<String, String>) e.getValue();
+                    System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                    if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                        System.out.print(value.get(" Middle Name"));
+                    }
+                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                            System.out.print(value.get(" Suffix"));
+                        }
+                }
+                lineGenerator();
+                while(true){
+                    System.out.print("Enter the student number of the student you would like to remove (0 to go back): ");
+                    String removeStd = scn.next();
+                    if(removeStd.equals(0)){
+                        studentList();
+                        break;
+                    }
+                    if(enrolled.containsKey(removeStd)){
+                        System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                        char yn = scn.next().toUpperCase().charAt(0);
+                        if(yn == 'Y'){
+                            archiveStudent(removeStd);
+                            System.out.println("The student has been removed successfully and moved to archives.");
+                            while(true){
+                                System.out.print("Press 0 to go back: ");
+                                int back = scn.nextInt();
+                                if(back == 0){
+                                    studentList();
+                                    break;
+                                }
+                            }
+                        }
+                        else{
+                            studentList();
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.print("Student does not exist. Please try again.");
+                    }
+                }
+                break;
+            }
+            if(doAdmin == 3){
+                lineGenerator();
+                System.out.println("Here are the archived students: ");
+                for(Map.Entry e: archivedStud.entrySet()){
+                    Map<String, String> value = (Map<String, String>) e.getValue();
+                    if(value.get("Course") == courses.get(choice)){
+                        System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                        if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                            System.out.print(value.get(" Middle Name"));
+                        }
+                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                            System.out.print(value.get(" Suffix"));
+                        }
+                    }
+                }
+                lineGenerator();
+                System.out.print("""
+                    What would you like to do?
+                    1 - Restore a Student's Information
+                    2 - Delete a Student's Information Permanently
+                    """);
+                lineGenerator();
+                while(true){
+                    System.out.print("Your Answer (0 to go back): ");
+                    int archive = scn.nextInt();
+
+                    if(archive == 0){
+                        studentList();
+                        break;
+                    }
+                    if(archive == 1){
+                        System.out.println("Here are the archived students: ");
+                        for(Map.Entry e: archivedStud.entrySet()){
+                            Map<String, String> value = (Map<String, String>) e.getValue();
+                            if(value.get("Course") == courses.get(choice)){
+                                System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                                if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                    System.out.print(value.get(" Middle Name"));
+                                }
+                                if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                                    System.out.print(value.get(" Suffix"));
+                                }
+                            }
+                        }
+                        while(true){
+                            System.out.println("Enter the student number of the student you would like to restore (0 to go back): ");
+                            String restore = scn.next();
+                            if(restore.equals("0")){
+                                studentList();
+                                break;
+                            }
+                            if(archivedStud.containsKey(restore)){
+                                restoreStudent(restore);
+                                System.out.println("The student has been restored.");
+                                while(true){
+                                    System.out.print("Press 0 to go back to student list: ");
+                                    int back = scn.nextInt();
+                                    if(back == 0){
+                                        studentList();
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Student does not exist. Please try again.");
+                            }
+                        }
+                    }
+                    if(archive == 2){
+                        System.out.println("Here are the archived students: ");
+                        for(Map.Entry e: archivedStud.entrySet()){
+                            Map<String, String> value = (Map<String, String>) e.getValue();
+                            if(value.get("Course") == courses.get(choice)){
+                                System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                                if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                    System.out.print(value.get(" Middle Name"));
+                                }
+                                if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                                    System.out.print(value.get(" Suffix"));
+                                }
+                            }
+                        }
+                        while(true){
+                            System.out.println("Enter the student number of the student you would like to remove (0 to go back): ");
+                            String removeP = scn.next();
+                            if(removeP.equals("0")){
+                                studentList();
+                                break;
+                            }
+                            if(archivedStud.containsKey(removeP)){
+                                System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                                char yn = scn.next().toUpperCase().charAt(0);
+                                if(yn == 'Y'){
+                                    archiveStudent(removeP);
+                                    System.out.println("The student has been removed permanently.");
+                                    while(true){
+                                        System.out.print("Press 0 to go back: ");
+                                        int back = scn.nextInt();
+                                        if(back == 0){
+                                            studentList();
+                                            break;
+                                        }
+                                    }
+                                }
+                                else{
+                                    studentList();
+                                }
+                                        break;
+                            }
+                            else{
+                                System.out.println("Student does not exist. Please try again.");
+                            }
+                        }
+                    }
+                    else{
+                        System.out.println("Invalid input. Please try again.");
+                    }
+                }
+            }
+            if(doAdmin == 4){
+                lineGenerator();
+                for(Map.Entry e: enrolled.entrySet()){
+                    Map<String, String> value = (Map<String, String>) e.getValue();
+                    if(value.get("Course") == courses.get(choice)){
+                        System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                        if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                            System.out.print(value.get(" Middle Name"));
+                        }
+                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                            System.out.print(value.get(" Suffix"));
+                        }
+                    }
+                }
+                lineGenerator();
+                while(true){
+                    System.out.print("Enter the student number of the student you would like to edit information of (0 to go back): ");
+                    String editInfo = scn.next();
+                    if(editInfo.equals("0")){
+                        studentList();
+                        break;
+                    }
+                    if(enrolled.containsKey(editInfo)){
+                        lineGenerator();
+                        System.out.println("Here is the student's current information: ");
+                        for(Map.Entry e: enrolled.entrySet()){
+                            if(e.getKey().equals(editInfo)){
+                                Map<String, String> value = (Map<String, String>) e.getValue();
+                                System.out.println(e.getKey());
+                                for(Map.Entry f: value.entrySet()){
+                                    System.out.println(f.getKey() + ": " + f.getValue());
+                                }
+                            }
+                        }
+                        lineGenerator();
+                        while(true){
+                            System.out.print("Enter the information you would like to edit (e.g. Contact Number) (Press 0 to go back): ");
+                            scn.nextLine();
+                            String edit = scn.nextLine();
+                                    
+                            if(edit.equals("0")){
+                                studentList();
+                                break;
+                            }
+                            if(enrolled.get(editInfo).containsKey(edit)){
+                                System.out.print("Enter the updated information: ");
+                                enrolled.get(editInfo).replace(edit, scn.nextLine());
+                                lineGenerator();
+                                System.out.println("Here is the student's updated information: ");
+                                for(Map.Entry e: enrolled.entrySet()){
+                                    if(e.getKey().equals(editInfo)){
+                                        Map<String, String> value = (Map<String, String>) e.getValue();
+                                        System.out.println(e.getKey());
+                                        for(Map.Entry f: value.entrySet()){
+                                            System.out.println(f.getKey() + ": " + f.getValue());
+                                        }
+                                    }
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Press 0 to go back: ");
+                                    int back = scn.nextInt();
+                                    if(back == 0){
+                                        studentList();
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("That information does not exist. Please try again.");
+                            }
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Student does not exist. Please try again.");
+                    }
+                }
+                break;
+            }
+        }
+        break;
     }
     public void editCourse(){
         //Edit Course/Programs
