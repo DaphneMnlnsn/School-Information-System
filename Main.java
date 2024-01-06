@@ -14,7 +14,7 @@ public class Main {
                     2 - What are the courses/program offerings?
                     3 - I have registered online. How can I pay?
                     4 - I am an Alumni and would like to request for documents
-                    5 - I am an Ongoing student and would like to check my grades or account balance
+                    5 - I am an Ongoing student and would like to check my grades
                     6 - I am an Employee and would like to go to the system portal
                     7 - TBD Blog
                     8 - About TBD
@@ -40,7 +40,74 @@ public class Main {
                     loop = false;
                     break;
                 case 3:
-                    new Payments();
+                        System.out.print("""
+                    ------------------------------------------------------- PAYMENT METHODS -------------------------------------------
+                    """);
+                        Payments payment = new Payments();
+                        String allPaymentMethods = payment.getPaymentMethod();
+                        System.out.println("All Payment Methods are following below " + allPaymentMethods);
+                        System.out.println("Please choose what payment method you preferred!");
+                        lineGenerator();
+                        System.out.print("Your answer: ");
+                        int PaymentChoice = scn.nextInt();
+                        lineGenerator();
+                        switch(PaymentChoice){
+                            case 1:
+                                System.out.println("GCash: " + payment.getGCash());
+                                System.out.println("Send a copy or a photo of the receipt to the email down below");
+                                System.out.println(payment.getEmailLink());
+                                lineGenerator();
+                                System.out.println("Press any key to go back to the main menu");
+                                String paymentResetKey1 = scn.next();
+                                if(paymentResetKey1 != null){
+                                    new Main();
+                                }
+                                break;
+                            case 2:
+                                System.out.println("BDO: " + payment.getBDO());
+                                System.out.println("Send a copy or a photo of the receipt to the email down below");
+                                System.out.println(payment.getEmailLink());
+                                lineGenerator();
+                                System.out.println("Press any key to go back to the main menu");
+                                String paymentResetKey2 = scn.next();
+                                if(paymentResetKey2 != null){
+                                    new Main();
+                                }
+                                break;
+                            case 3:
+                                System.out.println("ChinaBank: " + payment.getChinaBank());
+                                System.out.println("Send a copy or a photo of the receipt to the email down below");
+                                System.out.println(payment.getEmailLink());
+                                lineGenerator();
+                                System.out.println("Press any key to go back to the main menu");
+                                String paymentResetKey3 = scn.next();
+                                if(paymentResetKey3 != null){
+                                    new Main();
+                                }
+                                break;
+                            case 4:
+                                System.out.println("LandBank: " + payment.getLandBank());
+                                System.out.println("Send a copy or a photo of the receipt to the email down below");
+                                System.out.println(payment.getEmailLink());
+                                lineGenerator();
+                                System.out.println("Press any key to go back to the main menu");
+                                String paymentResetKey4 = scn.next();
+                                if(paymentResetKey4 != null){
+                                    new Main();
+                                }
+                                break;
+                            case 5:
+                                System.out.println("PayPal: " + payment.getPayPal());
+                                System.out.println("Send a copy or a photo of the receipt to the email down below");
+                                System.out.println(payment.getEmailLink());
+                                lineGenerator();
+                                System.out.println("Press any key to go back to the main menu");
+                                String paymentResetKey5 = scn.next();
+                                if(paymentResetKey5 != null){
+                                    new Main();
+                                }
+                                break;
+                        }
                     loop = false;
                     break;
                 case 4:
@@ -87,6 +154,7 @@ public class Main {
         }
         catch(Exception e){
             System.out.println("Something went wrong. Please try again.");
+            new Main();
         }
     }
     public static void lineGenerator(){
