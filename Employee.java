@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Employee extends Teacher{
+public class Employee extends Variables{
     Employee(){
         System.out.println("------------------------------------------------ EMPLOYEE PORTAL --------------------------------------------------");
             while(true){
@@ -11,24 +11,31 @@ public class Employee extends Teacher{
                 System.out.print("Enter Password : ");
                 String password = scn.next();
 
-                List<String> teacherUserList = Arrays.asList(teacherUser);
-                List<String> teacherPassList = Arrays.asList(teacherPass);
-                boolean match = teacherUserList.indexOf(username) == teacherPassList.indexOf(password);
-                    
-                if (teacherUserList.contains(username) && teacherPassList.contains(password) && match) {
-                    teacher();
+                boolean match = false;
+                boolean containsUsername = false;
+                for(Map.Entry e: tInfo.entrySet()){
+                    if(tInfo.get(e.getKey()).get("Username").equals(username)){
+                        if(tInfo.get(e.getKey()).get("Password").equals(password)){
+                            match = true;
+                        }
+                        else{
+                            containsUsername = true;
+                        }
+                    }
+                } 
+                if (match) {
+                    new Teacher();
                     break;
                 }
                 else if (username.equalsIgnoreCase(adminUser) && password.equalsIgnoreCase(adminPass)){
                     new Admin();
                     break;
                 }
-                else if (teacherUserList.contains(username) && !match) {
-                    System.out.print("\nInvalid Password. ");
-                } else if (teacherPassList.contains(password) && !match) {
+                else if (!containsUsername) {
                     System.out.print("\nInvalid Username. ");
-                } else {
-                    System.out.print("\nInvalid Username & Password. ");
+                } 
+                else if (!match) {
+                    System.out.print("\nInvalid Password. ");
                 }
                 System.out.print("Try again (Press Y for yes and any key to go back to Owlie)? ");
                 char again = scn.next().toUpperCase().charAt(0);
@@ -39,8 +46,4 @@ public class Employee extends Teacher{
                 System.out.println();
             }
     }
-    void teacher(){
-        System.out.println("Welcome, Teacher!");
-    }
-    
 }
