@@ -46,7 +46,7 @@ public class Main {
                         Payments payment = new Payments();
                         String allPaymentMethods = payment.getPaymentMethod();
                         System.out.println("All Payment Methods are following below " + allPaymentMethods);
-                        System.out.println("Please choose what payment method you preferred!");
+                        System.out.println("Please choose what payment method you prefer.");
                         lineGenerator();
                         System.out.print("Your answer: ");
                         int PaymentChoice = scn.nextInt();
@@ -154,6 +154,7 @@ public class Main {
         }
         catch(Exception e){
             System.out.println("Something went wrong. Please try again.");
+            System.out.println(e.getMessage());
             new Main();
         }
     }
