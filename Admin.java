@@ -1,3 +1,4 @@
+import java.time.Year;
 import java.util.*;
 
 public class Admin extends Variables implements Courses  {
@@ -14,6 +15,7 @@ public class Admin extends Variables implements Courses  {
             6 - Edit Admission Requirements/Steps
             7 - Edit About
             8 - Edit Courses
+            9 - View Alumni Document Requests
             """);
         lineGenerator();
         while(true){
@@ -37,15 +39,15 @@ public class Admin extends Variables implements Courses  {
                 break;
             }
             if(adminDo == 4){
-                //addTeacher();
+                addTeacherCredentials();
                 break;
             }
             if(adminDo == 5){
-                //editPInfo();
+                editPInfo();
                 break;
             }
             if(adminDo == 6){
-                //editAdmission();
+                editAdmission();
                 break;
             }
             if(adminDo == 7){
@@ -54,6 +56,10 @@ public class Admin extends Variables implements Courses  {
             }
             if(adminDo == 8){
                 editCourse();
+                break;
+            }
+            if(adminDo == 9){
+                //viewDocuReq();
                 break;
             }
             else{
@@ -104,7 +110,7 @@ public class Admin extends Variables implements Courses  {
                             Map<String, String> value = (Map<String, String>) e.getValue();
                             if(value.get("Course") == courses.get(choice)){
                                 System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                if(!value.get("Middle Name").equals("NA")){
                                     System.out.print(value.get(" Middle Name"));
                                 }
                                 if(!value.get("Suffix").equalsIgnoreCase("NA")){
@@ -154,7 +160,7 @@ public class Admin extends Variables implements Courses  {
                             Map<String, String> value = (Map<String, String>) e.getValue();
                             if(value.get("Course") == courses.get(choice)){
                                 System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                if(!value.get("Middle Name").equals("NA")){
                                     System.out.print(value.get(" Middle Name"));
                                 }
                                 if(!value.get("Suffix").equalsIgnoreCase("NA")){
@@ -203,7 +209,7 @@ public class Admin extends Variables implements Courses  {
                             Map<String, String> value = (Map<String, String>) e.getValue();
                             if(value.get("Course") == courses.get(choice)){
                                 System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                if(!value.get("Middle Name").equals("NA")){
                                     System.out.print(value.get(" Middle Name"));
                                 }
                                 if(!value.get("Suffix").equalsIgnoreCase("NA")){
@@ -232,7 +238,7 @@ public class Admin extends Variables implements Courses  {
                                     Map<String, String> value = (Map<String, String>) e.getValue();
                                     if(value.get("Course") == courses.get(choice)){
                                         System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                        if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                        if(!value.get("Middle Name").equals("NA")){
                                             System.out.print(value.get(" Middle Name"));
                                         }
                                         if(!value.get("Suffix").equalsIgnoreCase("NA")){
@@ -271,7 +277,7 @@ public class Admin extends Variables implements Courses  {
                                     Map<String, String> value = (Map<String, String>) e.getValue();
                                     if(value.get("Course") == courses.get(choice)){
                                         System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                        if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                        if(!value.get("Middle Name").equals("NA")){
                                             System.out.print(value.get(" Middle Name"));
                                         }
                                         if(!value.get("Suffix").equalsIgnoreCase("NA")){
@@ -322,7 +328,7 @@ public class Admin extends Variables implements Courses  {
                             Map<String, String> value = (Map<String, String>) e.getValue();
                             if(value.get("Course") == courses.get(choice)){
                                 System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                if(!value.get("Middle Name").equalsIgnoreCase("NA")){
+                                if(!value.get("Middle Name").equals("NA")){
                                     System.out.print(value.get(" Middle Name"));
                                 }
                                 if(!value.get("Suffix").equalsIgnoreCase("NA")){
@@ -426,7 +432,7 @@ public class Admin extends Variables implements Courses  {
             System.out.print("Your Answer (0 to go back): ");
             int doAdmin = scn.nextInt();
             if(doAdmin == 0){
-                teacherList();
+                new Admin();
                 break;
             }
             if(doAdmin == 1){
@@ -434,7 +440,14 @@ public class Admin extends Variables implements Courses  {
                 System.out.println("Here are the current teachers:");
                 for(Map.Entry e: tInfo.entrySet()){
                     Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.println(e.getKey() + " - " + value.get("Full Name"));
+                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                    if(!value.get("Middle Name").equals("NA")){
+                        System.out.print(" " + value.get("Middle Name"));
+                    }
+                    if(!value.get("Suffix").equals("NA")){
+                        System.out.print(" " + value.get("Suffix"));
+                    }
+                    System.out.println();
                 }
                 lineGenerator();
                 while(true){
@@ -488,7 +501,14 @@ public class Admin extends Variables implements Courses  {
                 System.out.println("Here are the current teachers:");
                 for(Map.Entry e: tInfo.entrySet()){
                     Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.println(e.getKey() + " - " + value.get("Full Name"));
+                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                    if(!value.get("Middle Name").equals("NA")){
+                        System.out.print(" " + value.get("Middle Name"));
+                    }
+                    if(!value.get("Suffix").equals("NA")){
+                        System.out.print(" " + value.get("Suffix"));
+                    }
+                    System.out.println();
                 }
                 lineGenerator();
                 while(true){
@@ -529,7 +549,14 @@ public class Admin extends Variables implements Courses  {
                 System.out.println("Here are the archived teachers:");
                 for(Map.Entry e: archivedTInfo.entrySet()){
                     Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.println(e.getKey() + " - " + value.get("Full Name"));
+                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                    if(!value.get("Middle Name").equals("NA")){
+                        System.out.print(" " + value.get("Middle Name"));
+                    }
+                    if(!value.get("Suffix").equals("NA")){
+                        System.out.print(" " + value.get("Suffix"));
+                    }
+                    System.out.println();
                 }
                 lineGenerator();
                 System.out.print("""
@@ -548,10 +575,17 @@ public class Admin extends Variables implements Courses  {
                     }
                     if(archive == 1){
                         lineGenerator();
-                        System.out.println("Here are the archived teachers: ");
+                        System.out.println("Here are the archived teachers:");
                         for(Map.Entry e: archivedTInfo.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
-                            System.out.println(e.getKey() + " - " + value.get("Full Name"));
+                            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                            if(!value.get("Middle Name").equals("NA")){
+                                System.out.print(" " + value.get("Middle Name"));
+                            }
+                            if(!value.get("Suffix").equals("NA")){
+                                System.out.print(" " + value.get("Suffix"));
+                            }
+                            System.out.println();
                         }
                         lineGenerator();
                         while(true){
@@ -581,10 +615,17 @@ public class Admin extends Variables implements Courses  {
                     }
                     if(archive == 2){
                         lineGenerator();
-                        System.out.println("Here are the archived teachers: ");
+                        System.out.println("Here are the archived teachers:");
                         for(Map.Entry e: archivedTInfo.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
-                            System.out.println(e.getKey() + " - " + value.get("Full Name"));
+                            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                            if(!value.get("Middle Name").equals("NA")){
+                                System.out.print(" " + value.get("Middle Name"));
+                            }
+                            if(!value.get("Suffix").equals("NA")){
+                                System.out.print(" " + value.get("Suffix"));
+                            }
+                            System.out.println();
                         }
                         lineGenerator();
                         while(true){
@@ -626,9 +667,17 @@ public class Admin extends Variables implements Courses  {
             }
             if(doAdmin == 4){
                 lineGenerator();
+                System.out.println("Here are the current teachers:");
                 for(Map.Entry e: tInfo.entrySet()){
                     Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.println(e.getKey() + " - " + value.get("Full Name"));
+                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                    if(!value.get("Middle Name").equals("NA")){
+                        System.out.print(" " + value.get("Middle Name"));
+                    }
+                    if(!value.get("Suffix").equals("NA")){
+                        System.out.print(" " + value.get("Suffix"));
+                    }
+                    System.out.println();
                 }
                 lineGenerator();
                 while(true){
@@ -884,7 +933,676 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-        break;
+            else{
+                System.out.println("Invalid Input. Please try again.");
+            }
+        }
+    }
+    public void addTeacherCredentials(){
+        Scanner scn = new Scanner(System.in);
+        lineGenerator();
+        System.out.println("Here are the current teachers:");
+        for(Map.Entry e: tInfo.entrySet()){
+            Map<String, String> value = (Map<String, String>) e.getValue();
+            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+            if(!value.get("Middle Name").equals("NA")){
+                System.out.print(" " + value.get("Middle Name"));
+            }
+            if(!value.get("Suffix").equals("NA")){
+                System.out.print(" " + value.get("Suffix"));
+            }
+            System.out.println();
+        }
+        lineGenerator();
+        System.out.print("Enter first name: ");
+        teacherInfo.put("First Name", scn.nextLine());
+        System.out.print("Enter middle name (NA if no middle): ");
+        teacherInfo.put("Middle Name", scn.nextLine());
+        System.out.print("Enter last name: ");
+        teacherInfo.put("Last Name", scn.nextLine());
+        System.out.print("Enter suffix name (NA if no suffix): ");
+        teacherInfo.put("Suffix", scn.nextLine());
+        System.out.print("Enter birthday (MM/DD/YYYY): ");
+        teacherInfo.put("Birthdate", scn.nextLine());
+        System.out.print("Enter date employed (MM/DD/YYYY): ");
+        teacherInfo.put("Date Employed", scn.nextLine());
+        System.out.print("Enter email address: ");
+        teacherInfo.put("Email", scn.nextLine());
+        System.out.print("Enter the section handled (e.g. BSIT 2A): ");
+        String section = scn.nextLine();
+        System.out.print("Enter the subject handled: ");
+        String subject = scn.nextLine();
+        
+
+        System.out.print("""
+        \n------------------------------------------------ VALIDATION OF DETAILS --------------------------------------------
+        """);
+        System.out.print("Teacher Name: " + teacherInfo.get("Last Name") + ", " + teacherInfo.get("First Name"));
+        if(!teacherInfo.get("Middle Name").equals("NA")){
+            System.out.print(" " + teacherInfo.get("Middle Name"));
+        }
+        if(!teacherInfo.get("Suffix").equals("NA")){
+            System.out.print(" " + teacherInfo.get("Suffix"));
+        }
+        System.out.println();
+        for(Map.Entry e : teacherInfo.entrySet()){
+            if(e.getKey() == "First Name" || e.getKey() == "Middle Name" || e.getKey() == "Last Name" || e.getKey() == "Suffix"){
+                continue;
+            }
+            else{
+                System.out.println(e.getKey() + ": " + e.getValue());
+            }
+        }
+        System.out.println("Section Handled: " + section);
+        System.out.println("Subject Handled: " + subject);
+        while(true){
+            System.out.print("Are the details above correct (Press Y for Yes or any key to re-fill out the form)? ");
+            char details = scn.next().toUpperCase().charAt(0);
+            if(details == 'Y'){
+                lineGenerator();
+                System.out.println("The teacher has been added.\n");
+                String year = teacherInfo.get("Date Employed").substring(6);
+                eNum = eNum+1;
+                String employeeNumber = year + "-" + eNum;
+                teacherInfo.put("Username", teacherInfo.get("Last Name").toLowerCase().concat(".").concat(Integer.toString(eNum)));
+                teacherInfo.put("Password", teacherInfo.get("Last Name").toLowerCase().concat("." + teacherInfo.get("Date Employed").replace("/", "")));
+                tInfo.put(employeeNumber, teacherInfo);
+                addHandledNew(employeeNumber, section, subject);
+                System.out.println("Your username is " + teacherInfo.get("Username"));
+                System.out.println("Your password is " + teacherInfo.get("Password"));
+                lineGenerator();
+                
+                while(true){
+                    System.out.print("Press 0 to go back: ");
+                    int back = scn.nextInt();
+                    if(back == 0){
+                        new Admin();
+                        break;
+                    }
+                }
+                break;
+            }
+            else{
+                Set<String> keys = new HashSet<>();
+                for(Map.Entry e : teacherInfo.entrySet()){
+                    keys.add(e.getKey().toString());
+                }
+                teacherInfo.keySet().removeAll(keys);
+                addTeacherCredentials();
+                break;
+            }
+        }
+    }
+    public void editPInfo(){
+        //Edit Payment Info
+        Scanner scn = new Scanner(System.in);
+        System.out.print("""
+                ----------------------------------------------------- EDIT PAYMENT INFO ------------------------------------------
+                """);
+        System.out.print("""
+            What would you like to edit?
+            1 - GCash
+            2 - BDO
+            3 - ChinaBank
+            4 - LandBank
+            5 - PayPal
+            6 - Email
+            """);
+        lineGenerator();
+        while(true){
+            Payments p = new Payments();
+            System.out.print("Your Answer (0 to go back): ");
+            int choice = scn.nextInt();
+
+            if(choice == 0){
+                new Admin();
+                break;
+            }
+            if(choice == 1){
+                System.out.print("Enter contact number of GCash account: ");
+                scn.nextLine();
+                String cNumber = scn.nextLine();
+                System.out.print("Enter name of owner: ");
+                p.setGCash(cNumber + " " + scn.nextLine());
+                lineGenerator();
+                System.out.println("Updated successfully!");
+                System.out.println("Current GCash Account: " + p.getGCash()); 
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    editPInfo();
+                }
+            }
+            if(choice == 2){
+                System.out.print("Enter account number of BDO account: ");
+                scn.nextLine();
+                String acc = scn.nextLine();
+                System.out.print("Enter name of account: ");
+                p.setBDO(acc + " " + scn.nextLine());
+                lineGenerator();
+                System.out.println("Updated successfully!");
+                System.out.println("Current BDO Account: " + p.getBDO());
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    editPInfo();
+                }  
+            }
+            if(choice == 3){
+                System.out.print("Enter account number of ChinaBank account: ");
+                scn.nextLine();
+                String acc = scn.nextLine();
+                System.out.print("Enter name of account: ");
+                p.setChinaBank(acc + " " + scn.nextLine());
+                lineGenerator();
+                System.out.println("Updated successfully!");
+                System.out.println("Current ChinaBank Account: " + p.getChinaBank()); 
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    editPInfo();
+                }
+            }
+            if(choice == 4){
+                System.out.print("Enter account number of Landbank account: ");
+                scn.nextLine();
+                String acc = scn.nextLine();
+                System.out.print("Enter name of account: ");
+                p.setLandBank(acc + " " + scn.nextLine());
+                lineGenerator();
+                System.out.println("Updated successfully!");
+                System.out.println("Current LandBank Account: " + p.getLandBank());
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    editPInfo();
+                }
+            }
+            if(choice == 5){
+                System.out.print("Enter email of PayPal account: ");
+                scn.nextLine();
+                String acc = scn.nextLine();
+                System.out.print("Enter name of account: ");
+                p.setPayPal(acc + " " + scn.nextLine());
+                lineGenerator();
+                System.out.println("Updated successfully!");
+                System.out.println("Current PayPal Account: " + p.getPayPal());
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    editPInfo();
+                }
+            }
+            if(choice == 6){
+                System.out.print("Enter email where receipt can be sent: ");
+                scn.nextLine();
+                String acc = scn.nextLine();
+                p.setEmail(acc);
+                lineGenerator();
+                System.out.println("Updated successfully!");
+                System.out.println("Current Email Address: " + p.getEmailLink());
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    editPInfo();
+                }
+            }
+            else{
+                System.out.println("Invalid Input. Please try again.");
+            }
+        }
+    }
+    public void editAdmission(){
+        //Edit Admission Steps/Requirements
+        Scanner scn = new Scanner(System.in);
+        System.out.print("""
+                ------------------------------------------------------- EDIT ADMISSION --------------------------------------------
+                """);
+        System.out.print("""
+            What would you like to edit?
+            1 - Admission Steps
+            2 - Admission Requirements
+            """);
+        lineGenerator();
+        while(true){
+            System.out.print("Your Answer (0 to go back): ");
+            int choice = scn.nextInt();
+
+            if(choice == 0){
+                new Admin();
+                break;
+            }
+            if(choice == 1){
+                while(true){
+                    lineGenerator();
+                    System.out.print("""
+                        What would you like to do?
+                        1 - Edit a Step
+                        2 - Add a Step
+                        3 - Remove a Step
+                        """);
+                    lineGenerator();
+                    System.out.print("Your answer (0 to go back): ");
+                    int doEdit = scn.nextInt();
+                    if(doEdit == 0){
+                        editAdmission();
+                        break;
+                    }
+                    if(doEdit == 1){
+                        while(true){
+                            System.out.print("Press N to edit steps for New Students and L for Old Students: ");
+                            char newOld = scn.next().toUpperCase().charAt(0);
+                            if(newOld == 'N'){
+                                lineGenerator();
+                                System.out.println("Here are the current steps:");
+                                for (Map.Entry entryy : newSteps.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter Step and then its number you would like to edit (e.g. Step 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String stepEdit = scn.nextLine();
+                                    if(stepEdit.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(newSteps.containsKey(stepEdit)){
+                                        System.out.print("Enter the new step details: ");
+                                        newSteps.replace(stepEdit, scn.nextLine());
+                                        System.out.println("Step edited successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("This step does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            if(newOld == 'L'){
+                                lineGenerator();
+                                System.out.println("Here are the current steps:");
+                                for (Map.Entry entryy : oldSteps.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter Step and then its number you would like to edit (e.g. Step 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String stepEdit = scn.nextLine();
+                                    if(stepEdit.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(oldSteps.containsKey(stepEdit)){
+                                        System.out.print("Enter the new step details: ");
+                                        oldSteps.replace(stepEdit, scn.nextLine());
+                                        System.out.println("Step edited successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("This step does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Invalid input. Please try again.");
+                            }
+                        }
+                        break;
+                    }
+                    if(doEdit == 2){
+                        while(true){
+                            System.out.print("Press N to add steps for New Students and L for Old Students: ");
+                            char newOld = scn.next().toUpperCase().charAt(0);
+                            if(newOld == 'N'){
+                                lineGenerator();
+                                System.out.println("Here are the current steps:");
+                                for (Map.Entry entryy : newSteps.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                System.out.print("Enter step number (0 to go back): ");
+                                scn.nextLine();
+                                String stepAdd = scn.nextLine();
+                                if(stepAdd.equals("0")){
+                                    editAdmission();
+                                    break;
+                                }
+                                System.out.print("Enter step details: ");
+                                newSteps.put(stepAdd, scn.nextLine());
+                                System.out.println("Step added successfully.");
+                                System.out.print("\nPress any key to go back: ");
+                                if(scn.next() != null){
+                                    editAdmission();
+                                }
+                                break;
+                            }
+                            if(newOld == 'L'){
+                                lineGenerator();
+                                System.out.println("Here are the current steps:");
+                                for (Map.Entry entryy : oldSteps.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                System.out.print("Enter step number (0 to go back): ");
+                                scn.nextLine();
+                                String stepAdd = scn.nextLine();
+                                if(stepAdd.equals("0")){
+                                    editAdmission();
+                                    break;
+                                }
+                                System.out.print("Enter step details: ");
+                                oldSteps.put(stepAdd, scn.nextLine());
+                                System.out.println("Step added successfully.");
+                                System.out.print("\nPress any key to go back: ");
+                                if(scn.next() != null){
+                                    editAdmission();
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Invalid input. Please try again.");
+                            }
+                        }
+                        break;
+                    }
+                    if(doEdit == 3){
+                        while(true){
+                            System.out.print("Press N to remove steps for New Students and L for Old Students: ");
+                            char newOld = scn.next().toUpperCase().charAt(0);
+                            if(newOld == 'N'){
+                                lineGenerator();
+                                System.out.println("Here are the current steps:");
+                                for (Map.Entry entryy : newSteps.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter the step you would like to remove (e.g. Step 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String stepEdit = scn.nextLine();
+                                    if(stepEdit.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(newSteps.containsKey(stepEdit)){
+                                        newSteps.remove(stepEdit);
+                                        System.out.println("Step deleted successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("This step does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            if(newOld == 'L'){
+                                lineGenerator();
+                                System.out.println("Here are the current steps:");
+                                for (Map.Entry entryy : oldSteps.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter the step you would like to remove (e.g. Step 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String stepEdit = scn.nextLine();
+                                    if(stepEdit.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(oldSteps.containsKey(stepEdit)){
+                                        oldSteps.remove(stepEdit, scn.nextLine());
+                                        System.out.println("Step deleted successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("This step does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Invalid input. Please try again.");
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+            if(choice == 2){
+                while(true){
+                    lineGenerator();
+                    System.out.print("""
+                        What would you like to do?
+                        1 - Edit a Requirement
+                        2 - Add a Requirement
+                        3 - Remove a Requirement
+                        """);
+                    lineGenerator();
+                    System.out.print("Your answer (0 to go back): ");
+                    int doEdit = scn.nextInt();
+                    if(doEdit == 0){
+                        editAdmission();
+                        break;
+                    }
+                    if(doEdit == 1){
+                        while(true){
+                            System.out.print("Press F to edit requirements for Freshmen and T for Transferees: ");
+                            char newOld = scn.next().toUpperCase().charAt(0);
+                            if(newOld == 'F'){
+                                lineGenerator();
+                                System.out.println("Here are the current requirements:");
+                                for (Map.Entry entryy : freshmenReq.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter requirement and then its number you would like to edit (e.g. Requirement 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String reqEdit = scn.nextLine();
+                                    if(reqEdit.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(freshmenReq.containsKey(reqEdit)){
+                                        System.out.print("Enter the new requirement details: ");
+                                        newSteps.replace(reqEdit, scn.nextLine());
+                                        System.out.println("Requirement edited successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("This requirement does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            if(newOld == 'T'){
+                                lineGenerator();
+                                System.out.println("Here are the current requirements:");
+                                for (Map.Entry entryy : transfereesReq.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter requirement and then its number you would like to edit (e.g. Requirement 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String reqEdit = scn.nextLine();
+                                    if(reqEdit.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(transfereesReq.containsKey(reqEdit)){
+                                        System.out.print("Enter the new requirement details: ");
+                                        transfereesReq.replace(reqEdit, scn.nextLine());
+                                        System.out.println("Requirement edited successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("This requirement does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Invalid input. Please try again.");
+                            }
+                        }
+                        break;
+                    }
+                    if(doEdit == 2){
+                        while(true){
+                            System.out.print("Press F to add steps for Freshmen and T for Transferees: ");
+                            char newOld = scn.next().toUpperCase().charAt(0);
+                            if(newOld == 'F'){
+                                lineGenerator();
+                                System.out.println("Here are the current requirements:");
+                                for (Map.Entry entryy : freshmenReq.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                System.out.print("Enter requirement number (e.g. Requirement 1)(0 to go back): ");
+                                scn.nextLine();
+                                String reqAdd = scn.nextLine();
+                                if(reqAdd.equals("0")){
+                                    editAdmission();
+                                    break;
+                                }
+                                System.out.print("Enter requirement details: ");
+                                freshmenReq.put(reqAdd, scn.nextLine());
+                                System.out.println("Requirement added successfully.");
+                                System.out.print("\nPress any key to go back: ");
+                                if(scn.next() != null){
+                                    editAdmission();
+                                }
+                                break;
+                            }
+                            if(newOld == 'T'){
+                                lineGenerator();
+                                System.out.println("Here are the current requirements:");
+                                for (Map.Entry entryy : transfereesReq.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                System.out.print("Enter requirement number (e.g. Requirement 1)(0 to go back): ");
+                                scn.nextLine();
+                                String reqAdd = scn.nextLine();
+                                if(reqAdd.equals("0")){
+                                    editAdmission();
+                                    break;
+                                }
+                                System.out.print("Enter requirement details: ");
+                                transfereesReq.put(reqAdd, scn.nextLine());
+                                System.out.println("Requirement added successfully.");
+                                System.out.print("\nPress any key to go back: ");
+                                if(scn.next() != null){
+                                    editAdmission();
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Invalid input. Please try again.");
+                            }
+                        }
+                        break;
+                    }
+                    if(doEdit == 3){
+                        while(true){
+                            System.out.print("Press F to remove requirements for Freshmen and T for Transferees: ");
+                            char newOld = scn.next().toUpperCase().charAt(0);
+                            if(newOld == 'F'){
+                                lineGenerator();
+                                System.out.println("Here are the current requirements:");
+                                for (Map.Entry entryy : freshmenReq.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter the requirement you would like to remove (e.g. Requirement 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String reqRemove = scn.nextLine();
+                                    if(reqRemove.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(freshmenReq.containsKey(reqRemove)){
+                                        freshmenReq.remove(reqRemove);
+                                        System.out.println("Requirement deleted successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("This requirement does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            if(newOld == 'T'){
+                                lineGenerator();
+                                System.out.println("Here are the current requirements:");
+                                for (Map.Entry entryy : transfereesReq.entrySet()) {
+                                    System.out.println(entryy.getKey() + ": " + entryy.getValue());
+                                }
+                                lineGenerator();
+                                while(true){
+                                    System.out.print("Enter the requirement you would like to remove (e.g. Requirement 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String reqRemove = scn.nextLine();
+                                    if(reqRemove.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(transfereesReq.containsKey(reqRemove)){
+                                        transfereesReq.remove(reqRemove, scn.nextLine());
+                                        System.out.println("Requirement deleted successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
+                                    else{
+                                        System.out.println("This requirement does not exist. Please try again.");
+                                    }
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Invalid input. Please try again.");
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+            else{
+                System.out.println("Invalid input. Please try again.");
+            }
         }
     }
     public void editCourse(){
@@ -1270,6 +1988,13 @@ public class Admin extends Variables implements Courses  {
         LinkedList<String> subjects = new LinkedList<String>();
         subjects.add(subject);
         tSub.get(employeeNum).put(section, subjects);
+    }
+    void addHandledNew(String employeeNum, String section, String subject){
+        LinkedList<String> subjects = new LinkedList<String>();
+        subjects.add(subject);
+        Map<String, LinkedList<String>> newSection = new LinkedHashMap<>();
+        newSection.put(section, subjects);
+        tSub.put(employeeNum, newSection);
     }
     void addHandledSub(String employeeNum, String section, String subject){
         tSub.get(employeeNum).get(section).add(subject);
