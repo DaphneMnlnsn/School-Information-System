@@ -1,17 +1,17 @@
 public class Payments{
-    public static String GCASH = "(09232139095 NameOfOwner)";
-    public static String BDO = "(0000 0000 0000 000 NameOfOwner)";
-    public static String CHINABANK = "(123456 78910 11 NameOfOwner)";
-    public static String LANDBANK = "(0001 0001 0001 5538 NameOfOwner)";
-    public static String PAYPAL = "(AA11 BB22 CC33 DD44)";
-    public static String EMAILLINK = "name@tbd.edu";
+    public static final String GCASH = "(09232139095 NameOfOwner)";
+    public static final String BDO = "(0000 0000 0000 000 NameOfOwner)";
+    public static final String CHINABANK = "(123456 78910 11 NameOfOwner)";
+    public static final String LANDBANK = "(0001 0001 0001 5538 NameOfOwner)";
+    public static final String PAYPAL = "(tbdPayments@gmail.com TBDCollege)";
+    public static final String EMAILLINK = "name@tbd.edu";
 
-    private String gcash;
-    private String bdo;
-    private String chinaBank;
-    private String landBank;
-    private String payPal;
-    private String emailLink;
+    private static String gcash;
+    private static String bdo;
+    private static String chinaBank;
+    private static String landBank;
+    private static String payPal;
+    private static String emailLink;
 
     public String getGCash() {
         return gcash != null ? gcash : GCASH;
