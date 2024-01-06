@@ -1,6 +1,6 @@
 import java.util.*;
 
-public interface Courses {
+interface Courses {
         Map<Integer, String> courses = new LinkedHashMap<>(){{
             put(1, "Bachelor of Science in Tourism Management (BSTM)");
             put(2, "Bachelor of Science In Computer Engineering (BSCpE)");
