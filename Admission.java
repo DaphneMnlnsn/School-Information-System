@@ -1,14 +1,30 @@
 import java.time.Year;
 import java.util.*;
 
-public class Admission extends Variables implements Courses{
+public class Admission extends Variables implements Courses, Grades{
     Admission(){
         Scanner scn = new Scanner(System.in);
         System.out.println("--------------------------------------------------- ADMISSIONS ----------------------------------------------------");
         System.out.println("------------------------------------------------ Admission Steps --------------------------------------------------");
         //Steps
+        System.out.println("For New Students:");
+        for (Map.Entry entryy : newSteps.entrySet()) {
+            System.out.println(entryy.getKey() + ": " + entryy.getValue());
+        }
+        System.out.println("\nFor Old Students:");
+        for (Map.Entry entryy : oldSteps.entrySet()) {
+            System.out.println(entryy.getKey() + ": " + entryy.getValue());
+        }
         System.out.println("--------------------------------------------- Admission Requirements ----------------------------------------------");
         //Requirements
+        System.out.println("For Freshmen:");
+        for (Map.Entry entry : freshmenReq.entrySet()) {
+            System.out.println("- " + entry.getValue());
+        }
+        System.out.println("\nFor Transferees:");
+        for (Map.Entry entry : transfereesReq.entrySet()) {
+            System.out.println("- " + entry.getValue());
+        }
         while(true){
             System.out.print("\nProceed to Online Application? Press Y for yes and N to go back: ");
             char proceed = scn.next().toUpperCase().charAt(0);
@@ -224,18 +240,34 @@ public class Admission extends Variables implements Courses{
             char details = scn.next().toUpperCase().charAt(0);
             if(details == 'Y'){
                 lineGenerator();
-                System.out.println("Your application has been submitted! Please pay to finalize your enrollment.");
+                System.out.println("Your application has been submitted! Please pay to finalize your enrollment.\n");
                 int year = Year.now().getValue();
+                sNum = sNum+1;
+                String studentNumber = year + "-" + sNum;
                 studentInfo.put("School Email", studentInfo.get("Last Name").toLowerCase().concat(".").concat(Integer.toString(sNum)).concat("@tbd.edu"));
                 studentInfo.put("Password", studentInfo.get("Last Name").toLowerCase().concat("." + studentInfo.get("Birthdate").replace("/", "")));
                 studentInfo.put("Section", studentCourse.substring(studentCourse.indexOf("(")+1, studentCourse.indexOf(")")).concat(" " + yearL) + "A");
-                sNum = sNum+1;
-                enrolled.put(year + "-" + sNum, studentInfo);
+                enrolled.put(studentNumber, studentInfo);
                 System.out.println("Your email address is " + studentInfo.get("School Email"));
                 System.out.println("Your password is " + studentInfo.get("Password"));
                 System.out.println("Your section is " + studentInfo.get("Section"));
-
-                System.out.println("Proceed to Payments (Press Y for yes or any key for no)?");
+                for(int i = 0; i < 8; i++){
+                    prelimGrades.put(subjectCourse.get(studentInfo.get("Course")).get(studentInfo.get("Year Level")).get(studentInfo.get("Term"))[i], (float) defaultGrade);
+                    midGrades.put(subjectCourse.get(studentInfo.get("Course")).get(studentInfo.get("Year Level")).get(studentInfo.get("Term"))[i], (float) defaultGrade);
+                    prefGrades.put(subjectCourse.get(studentInfo.get("Course")).get(studentInfo.get("Year Level")).get(studentInfo.get("Term"))[i], (float) defaultGrade);
+                    finGrades.put(subjectCourse.get(studentInfo.get("Course")).get(studentInfo.get("Year Level")).get(studentInfo.get("Term"))[i], (float) defaultGrade);
+                }
+                defaultQuarter.put("Prelims", prelimGrades);
+                defaultQuarter.put("Midterms", midGrades);
+                defaultQuarter.put("Prefinals", prefGrades);
+                defaultQuarter.put("Finals", finGrades);
+                studentGrades.put(studentNumber, defaultQuarter);
+                Set<String> keys = new HashSet<>();
+                for(Map.Entry e : studentInfo.entrySet()){
+                    keys.add(e.getKey().toString());
+                }
+                studentInfo.keySet().removeAll(keys);
+                System.out.println("\nProceed to Payments (Press Y for yes or any key for no)?");
                 char next = scn.next().toUpperCase().charAt(0);
                 if(next == 'Y'){
                     System.out.print("""
@@ -244,7 +276,7 @@ public class Admission extends Variables implements Courses{
                     Payments payment = new Payments();
                     String allPaymentMethods = payment.getPaymentMethod();
                     System.out.println("All Payment Methods are following below " + allPaymentMethods);
-                    System.out.println("Please choose what payment method you preferred!");
+                    System.out.println("Please choose what payment method you prefer.");
                     lineGenerator();
                     System.out.print("Your answer: ");
                     int PaymentChoice = scn.nextInt();
@@ -312,7 +344,7 @@ public class Admission extends Variables implements Courses{
                 }
                 break;
             }
-            if(details == 'N'){
+            else{
                 Set<String> keys = new HashSet<>();
                 for(Map.Entry e : studentInfo.entrySet()){
                     keys.add(e.getKey().toString());
@@ -320,9 +352,6 @@ public class Admission extends Variables implements Courses{
                 studentInfo.keySet().removeAll(keys);
                 newStudent();
                 break;
-            }
-            else{
-                System.out.println("Invalid input. Please try again.");
             }
         }
     }
@@ -547,7 +576,7 @@ public class Admission extends Variables implements Courses{
                     Payments payment = new Payments();
                     String allPaymentMethods = payment.getPaymentMethod();
                     System.out.println("All Payment Methods are following below " + allPaymentMethods);
-                    System.out.println("Please choose what payment method you preferred!");
+                    System.out.println("Please choose what payment method you prefer.");
                     lineGenerator();
                     System.out.print("Your answer: ");
                     int PaymentChoice = scn.nextInt();
