@@ -42,19 +42,33 @@ public abstract class Variables {
             put("Birthdate", "02/28/1998");
             put("Date Employed", "05/14/2019");
             put("Email", "jwvendi@gmail.com");
-            put("Username", "vendi.9001");
+            put("Email", "jwvendi@gmail.com");
+            put("Username", "vendi.9009");
             put("Password", "vendi0000");
         }};
-    static Map<String, String> tInitialize3 = new LinkedHashMap<>(){{
-            put("BSIT 1A", "Computer Programming 1");
-            put("BSIT 2A", "Object-Oriented Programming");
-            put("BSIT 2B", "Object-Oriented Programming");
-            put("BSCpE 2A", "Introduction to Robotics");
-            put("BSCpE 3A", "Programming Fundamentals");
-            put("BSCS 4A", "Theories in Programming");
+    static LinkedList<String> subInitialize = new LinkedList<String>(){{
+        add("Computer Programming 1");
+        add("Introduction to Computing");
+    }};
+    static LinkedList<String> subInitialize3 = new LinkedList<String>(){{
+        add("Computer Programming 1");
+        add("Systems Administration and Maintenance");
+    }};
+    static LinkedList<String> subInitialize2 = new LinkedList<String>(){{
+        add("Object-Oriented Programming");
+    }};
+    static Map<String, LinkedList<String>> tInitialize3 = new LinkedHashMap<>(){{
+            put("BSIT 1A", subInitialize);
+            put("BSIT 2A", subInitialize2);
+        }};
+    static Map<String, LinkedList<String>> tInitialize4 = new LinkedHashMap<>(){{
+            put("BSIT 1A", subInitialize3);
+            put("BSIT 2A", subInitialize2);
         }};
     static Map<String, Map<String, String>> tInfo = new LinkedHashMap<>(){{put("2019-9001", tInitialize); put("2019-9009", tInitialize2);}};
-    static Map<String, Map<String, String>> tSub = new LinkedHashMap<>(){{put("2019-9001", tInitialize3); put("2019-9009", tInitialize3);}};
+    static Map<String, Map<String, LinkedList<String>>> tSub = new LinkedHashMap<>(){{put("2019-9001", tInitialize3); put("2019-9009", tInitialize4);}};
+    static Map<String, Map<String, String>> archivedTInfo = new LinkedHashMap<>();
+    static Map<String, Map<String, LinkedList<String>>> archivedTSub = new LinkedHashMap<>();
     String adminUser = "admin";
     String adminPass = "0000";
     public void lineGenerator(){
