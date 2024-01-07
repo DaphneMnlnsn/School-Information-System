@@ -1,68 +1,110 @@
+import java.util.*;
+
 public class Payments{
-    public static final String GCASH = "(09232139095 NameOfOwner)";
-    public static final String BDO = "(0000 0000 0000 000 NameOfOwner)";
-    public static final String CHINABANK = "(123456 78910 11 NameOfOwner)";
-    public static final String LANDBANK = "(0001 0001 0001 5538 NameOfOwner)";
-    public static final String PAYPAL = "(tbdPayments@gmail.com TBDCollege)";
     public static final String EMAILLINK = "name@tbd.edu";
 
-    private static String gcash;
-    private static String bdo;
-    private static String chinaBank;
-    private static String landBank;
-    private static String payPal;
+    private static Stack<String> paymentMethod = new Stack<>(){{
+        push("GCash");  push("BDO");    push("China Bank");
+        push("Land Bank");  push("PayPal");
+    }};
+    private static Stack<String> account = new Stack<>(){{
+        push("09232139095");  push("0000 0000 0000 000");    push("123456 78910 11");
+        push("0001 0001 0001 5538");  push("tbdPayments@gmail.com");
+    }};
+    private static Stack<String> accountName = new Stack<>(){{
+        push("TBD College");  push("Name of Owner");    push("TBD College");
+        push("Owner Name");  push("TBDCollege");
+    }};
+    private static int paymentSize;
+    private static int toRetrieve;
     private static String emailLink;
 
-    public String getGCash() {
-        return gcash != null ? gcash : GCASH;
+    public String getPaymentMethod() {
+        Queue<String> paymentCopy = new LinkedList<String>(paymentMethod);
+        String paymentM = "";
+        for(int i = 0; i < paymentMethod.size(); i ++){
+            if((i+1) == toRetrieve){
+                 paymentM = paymentCopy.poll();
+            }
+            else{
+                paymentCopy.poll();
+            }
+        }
+        return paymentM;
     }
-
-    public String getBDO() {
-        return bdo != null ? bdo : BDO;
+    public int getPaymentSize() {
+        return Payments.paymentSize;
     }
-
-    public String getChinaBank() {
-        return chinaBank != null ? chinaBank : CHINABANK;
+    public void setPaymentSize(){
+        Payments.paymentSize = paymentMethod.size();
     }
-
-    public String getLandBank() {
-        return landBank != null ? landBank : LANDBANK;
+    public String getAccount() {
+        Queue<String> accountCopy = new LinkedList<String>(account);
+        String accountNum = "";
+        for(int i = 0; i < account.size(); i ++){
+            if((i+1) == toRetrieve){
+                 accountNum = accountCopy.poll();
+            }
+            else{
+                accountCopy.poll();
+            }
+        }
+        return accountNum;
     }
-
-    public String getPayPal() {
-        return payPal != null ? payPal : PAYPAL;
+    public String getAccountName() {
+        Queue<String> accountNCopy = new LinkedList<String>(accountName);
+        String accountN = "";
+        for(int i = 0; i < accountName.size(); i ++){
+            if((i+1) == toRetrieve){
+                 accountN = accountNCopy.poll();
+            }
+            else{
+                accountNCopy.poll();
+            }
+        }
+        return accountN;
     }
-    
     public String getEmailLink() {
         return emailLink != null ? emailLink : EMAILLINK;
     }
-    
+    public void setToRetrieve(int i){
+        Payments.toRetrieve = i;
+    }
     public void setEmail(String Email) {
-        this.emailLink = Email;
+        Payments.emailLink = Email;
     }
-
-    public void setGCash(String gcash) {
-        this.gcash = gcash;
+    public void setAccount(String newAccount) {
+        for(int i = 0; i < account.size(); i ++){
+            if((i+1) == toRetrieve){
+                 Payments.account.set(i, newAccount);
+            }
+        }
     }
-
-    public void setBDO(String bdo) {
-        this.bdo = bdo;
+    public void setAccountName(String newAccountName) {
+        for(int i = 0; i < account.size(); i ++){
+            if((i+1) == toRetrieve){
+                 Payments.accountName.set(i, newAccountName);
+            }
+        }
     }
-
-    public void setChinaBank(String chinaBank) {
-        this.chinaBank = chinaBank;
+    public void setAccount(String newMethod, String newAccount, String newAccountName) {
+        Payments.paymentMethod.push(newMethod);
+        Payments.account.push(newAccount);
+        Payments.accountName.push(newAccountName);
     }
-
-    public void setLandBank(String landBank) {
-        this.landBank = landBank;
+    public void removeAccount(){
+        for(int i = 0; i < account.size(); i ++){
+            if((i+1) == toRetrieve){
+                Payments.paymentMethod.remove(i);
+                Payments.account.remove(i);
+                Payments.accountName.remove(i);
+            }
+        }
     }
-
-    public void setPayPal(String payPal) {
-        this.payPal = payPal;
-    }
-
-    public String getPaymentMethod() {
-        return "\n1 - GCash" + "\n2 - BDO" + "\n3 - ChinaBank"
-                + "\n4 - nLandBank" + "\n5 - PayPal";
+    public void displayPaymentMethod() {
+        Queue<String> paymentCopy = new LinkedList<String>(paymentMethod);
+        for(int i = 0; i < paymentMethod.size(); i ++){
+            System.out.println((i + 1) + " - " + paymentCopy.poll());
+        }
     }
 }
