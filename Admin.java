@@ -9,7 +9,7 @@ public class Admin extends Variables implements Courses  {
             What would you like to do?
             1 - Student List
             2 - Teacher List
-            3 - Add Blog
+            3 - Add/Edit Blog
             4 - Add Teacher Credentials
             5 - Edit Payment Info
             6 - Edit Admission Requirements/Steps
@@ -35,7 +35,7 @@ public class Admin extends Variables implements Courses  {
                 break;
             }
             if(adminDo == 3){
-                //addBlog();
+                addBlog();
                 break;
             }
             if(adminDo == 4){
@@ -938,6 +938,119 @@ public class Admin extends Variables implements Courses  {
             }
         }
     }
+    public void addBlog(){
+        //Edit/Add Blog
+        Scanner scn = new Scanner(System.in);
+        Blog blog = new Blog();
+        System.out.print("""
+                ------------------------------------------------------- EDIT/ADD BLOG --------------------------------------------
+                """);
+        System.out.print("""
+            Which blog article would you like to edit?
+            """);
+        blog.displayBlog();
+        blog.setArticleSize();
+        int blogSize = blog.getArticleSize();
+        System.out.println((blogSize+1) + " - Add New Blog Article");
+        System.out.println((blogSize+2) + " - Remove Blog Article");
+        lineGenerator();
+        while(true){
+            System.out.print("Your Answer (0 to go back): ");
+            int choice = scn.nextInt();
+
+            if(choice == 0){
+                new Admin();
+                break;
+            }
+            if(choice <= blogSize){
+                blog.setToRetrieve(choice);
+                System.out.println("Current Details: ");
+                String blogCurrent = blog.getHeadline();
+                System.out.println(blogCurrent);
+                System.out.println("\n" + blog.getArticle());
+                lineGenerator();
+                System.out.print("Enter new headline of " + blogCurrent + " (press 0 if you want the headline to remain as is): ");
+                scn.nextLine();
+                String headline = scn.nextLine();
+                if(!headline.equals("0")){
+                    blog.setHeadline(headline);
+                }
+                if(headline.equals("0")){}
+                System.out.print("Enter article: ");
+                blog.setArticle(scn.nextLine());
+                lineGenerator();
+                System.out.println("Updated successfully!");
+                System.out.println("Current Headline: " + blog.getHeadline());
+                System.out.println("Current Content:\n" + blog.getArticle());
+                System.out.print("Press any key to go back: ");
+                String back = scn.next();
+                if(back != null){
+                    addBlog();
+                }
+                break;
+            }
+            if(choice == blogSize+1){
+                System.out.print("Enter headline: ");
+                scn.nextLine();
+                String newHeadline = scn.nextLine();
+                System.out.print("Enter article content: ");
+                String newArticle = scn.nextLine();
+                blog.setHeadline(newHeadline, newArticle);
+                blog.setArticleSize();
+                lineGenerator();
+                System.out.println("Article added successfully!");
+                System.out.println("New Article Details: ");
+                blog.setToRetrieve(blog.getArticleSize());
+                System.out.println(blog.getHeadline());
+                System.out.println("\n" + blog.getArticle());
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    addBlog();
+                }
+                break;
+            }
+            if(choice == blogSize+2){
+                lineGenerator();
+                System.out.print("""
+                    Which blog article would you like to edit?
+                    """);
+                blog.displayBlog();
+                lineGenerator();
+                while(true){
+                    System.out.print("Your Answer (0 to go back): ");
+                    int remove = scn.nextInt();
+                    blog.setToRetrieve(remove);
+                    if(remove == 0){
+                        addBlog();
+                        break;
+                    }
+                    if(remove <= blogSize){
+                        System.out.print("Are you sure (0 to go back or any key to continue)? ");
+                        char sure = scn.next().charAt(0);
+                        if(sure == 0){
+                            addBlog();
+                        }
+                        else{
+                            blog.removeHeadline();
+                            System.out.println("Article has been removed successfully!");
+                            System.out.print("\nPress any key to go back: ");
+                            if(scn.next() != null){
+                                addBlog();
+                            }
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Invalid input. Please try again.");
+                    }
+                }
+                break;  
+            }
+            else{
+                System.out.println("Invalid Input. Please try again.");
+            }
+        }
+    }
     public void addTeacherCredentials(){
         Scanner scn = new Scanner(System.in);
         lineGenerator();
@@ -1036,21 +1149,21 @@ public class Admin extends Variables implements Courses  {
     public void editPInfo(){
         //Edit Payment Info
         Scanner scn = new Scanner(System.in);
+        Payments payment = new Payments();
         System.out.print("""
                 ----------------------------------------------------- EDIT PAYMENT INFO ------------------------------------------
                 """);
         System.out.print("""
-            What would you like to edit?
-            1 - GCash
-            2 - BDO
-            3 - ChinaBank
-            4 - LandBank
-            5 - PayPal
-            6 - Email
+            Which payment method would you like to edit?
             """);
+        payment.displayPaymentMethod();
+        payment.setPaymentSize();
+        int paymentSize = payment.getPaymentSize();
+        System.out.println((paymentSize+1) + " - Edit Email");
+        System.out.println((paymentSize+2) + " - Add New Payment Method");
+        System.out.println((paymentSize+3) + " - Remove Payment Method");
         lineGenerator();
         while(true){
-            Payments p = new Payments();
             System.out.print("Your Answer (0 to go back): ");
             int choice = scn.nextInt();
 
@@ -1058,88 +1171,105 @@ public class Admin extends Variables implements Courses  {
                 new Admin();
                 break;
             }
-            if(choice == 1){
-                System.out.print("Enter contact number of GCash account: ");
+            if(choice <= paymentSize){
+                payment.setToRetrieve(choice);
+                System.out.println("Current Details: ");
+                String paymentMethodCurrent = payment.getPaymentMethod();
+                System.out.println(paymentMethodCurrent);
+                System.out.println("Account Number: " + payment.getAccount());
+                System.out.println("Account Name: " + payment.getAccountName());
+                lineGenerator();
+                System.out.print("Enter account number of " + paymentMethodCurrent + " account: ");
                 scn.nextLine();
-                String cNumber = scn.nextLine();
+                payment.setAccount(scn.nextLine());
                 System.out.print("Enter name of owner: ");
-                p.setGCash(cNumber + " " + scn.nextLine());
+                payment.setAccountName(scn.nextLine());
                 lineGenerator();
                 System.out.println("Updated successfully!");
-                System.out.println("Current GCash Account: " + p.getGCash()); 
-                System.out.print("\nPress any key to go back: ");
-                if(scn.next() != null){
+                System.out.println("Current " + paymentMethodCurrent + " Account Number: " + payment.getAccount());
+                System.out.println("Current " + paymentMethodCurrent + " Account Name: " + payment.getAccountName());
+                System.out.print("Press any key to go back: ");
+                String paymentResetKey = scn.next();
+                if(paymentResetKey != null){
                     editPInfo();
                 }
+                break;
             }
-            if(choice == 2){
-                System.out.print("Enter account number of BDO account: ");
-                scn.nextLine();
-                String acc = scn.nextLine();
-                System.out.print("Enter name of account: ");
-                p.setBDO(acc + " " + scn.nextLine());
+            if(choice == paymentSize+1){
                 lineGenerator();
-                System.out.println("Updated successfully!");
-                System.out.println("Current BDO Account: " + p.getBDO());
-                System.out.print("\nPress any key to go back: ");
-                if(scn.next() != null){
-                    editPInfo();
-                }  
-            }
-            if(choice == 3){
-                System.out.print("Enter account number of ChinaBank account: ");
-                scn.nextLine();
-                String acc = scn.nextLine();
-                System.out.print("Enter name of account: ");
-                p.setChinaBank(acc + " " + scn.nextLine());
+                System.out.println("Current Email Address: " + payment.getEmailLink());
                 lineGenerator();
-                System.out.println("Updated successfully!");
-                System.out.println("Current ChinaBank Account: " + p.getChinaBank()); 
-                System.out.print("\nPress any key to go back: ");
-                if(scn.next() != null){
-                    editPInfo();
-                }
-            }
-            if(choice == 4){
-                System.out.print("Enter account number of Landbank account: ");
-                scn.nextLine();
-                String acc = scn.nextLine();
-                System.out.print("Enter name of account: ");
-                p.setLandBank(acc + " " + scn.nextLine());
-                lineGenerator();
-                System.out.println("Updated successfully!");
-                System.out.println("Current LandBank Account: " + p.getLandBank());
-                System.out.print("\nPress any key to go back: ");
-                if(scn.next() != null){
-                    editPInfo();
-                }
-            }
-            if(choice == 5){
-                System.out.print("Enter email of PayPal account: ");
-                scn.nextLine();
-                String acc = scn.nextLine();
-                System.out.print("Enter name of account: ");
-                p.setPayPal(acc + " " + scn.nextLine());
-                lineGenerator();
-                System.out.println("Updated successfully!");
-                System.out.println("Current PayPal Account: " + p.getPayPal());
-                System.out.print("\nPress any key to go back: ");
-                if(scn.next() != null){
-                    editPInfo();
-                }
-            }
-            if(choice == 6){
                 System.out.print("Enter email where receipt can be sent: ");
                 scn.nextLine();
-                String acc = scn.nextLine();
-                p.setEmail(acc);
+                payment.setEmail(scn.nextLine());
                 lineGenerator();
                 System.out.println("Updated successfully!");
-                System.out.println("Current Email Address: " + p.getEmailLink());
+                System.out.println("Updated Email Address: " + payment.getEmailLink());
                 System.out.print("\nPress any key to go back: ");
                 if(scn.next() != null){
                     editPInfo();
                 }
+                break;
+            }
+            if(choice == paymentSize+2){
+                System.out.print("Enter new payment method name (e.g. Metrobank): ");
+                scn.nextLine();
+                String newMethod = scn.nextLine();
+                System.out.print("Enter account number: ");
+                String newAccount = scn.nextLine();
+                System.out.print("Enter name of owner: ");
+                String newOwner = scn.nextLine();
+                payment.setAccount(newMethod, newAccount, newOwner);
+                payment.setPaymentSize();
+                lineGenerator();
+                System.out.println("Payment method added successfully!");
+                System.out.println("New Payment Method Details: ");
+                payment.setToRetrieve(payment.getPaymentSize());
+                System.out.println(payment.getPaymentMethod());
+                System.out.println("Account Number: " + payment.getAccount());
+                System.out.println("Account Name: " + payment.getAccountName());
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    editPInfo();
+                }
+                break;
+            }
+            if(choice == paymentSize+3){
+                lineGenerator();
+                System.out.print("""
+                    Which payment method would you like to edit?
+                    """);
+                payment.displayPaymentMethod();
+                lineGenerator();
+                while(true){
+                    System.out.print("Your Answer (0 to go back): ");
+                    int remove = scn.nextInt();
+                    payment.setToRetrieve(remove);
+                    if(remove == 0){
+                        editPInfo();
+                        break;
+                    }
+                    if(remove <= paymentSize){
+                        System.out.print("Are you sure (0 to go back or any key to continue)? ");
+                        char sure = scn.next().charAt(0);
+                        if(sure == 0){
+                            editPInfo();
+                        }
+                        else{
+                            payment.removeAccount();
+                            System.out.println("Payment Method has been removed successfully!");
+                            System.out.print("\nPress any key to go back: ");
+                            if(scn.next() != null){
+                                editPInfo();
+                            }
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Invalid input. Please try again.");
+                    }
+                }
+                break;  
             }
             else{
                 System.out.println("Invalid Input. Please try again.");
