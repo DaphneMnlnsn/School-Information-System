@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Student extends Variables implements Grades {
     Student(){
-        System.out.println("------------------------------------------------ STUDENT PORTAL ---------------------------------------------------");
+        System.out.println("---------------------------------------------------------- STUDENT PORTAL ----------------------------------------------------------------");
         while(true){
             Scanner scn = new Scanner(System.in);
             System.out.print("Enter Email : ");
