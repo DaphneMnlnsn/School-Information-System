@@ -1,24 +1,41 @@
 import java.util.*;
 
-public class Request extends Variables{
-    Request(){
+public class Request extends Variables {
+    Request() {
         System.out.println("--------------------------------------------------------- DOCUMENT REQUEST ---------------------------------------------------------------");
         Scanner scn = new Scanner(System.in);
         lineGenerator();
         System.out.println("Enter your full name (Last Name, First Name, Middle Name, Suffix Name)(NA if no middle or suffix name): ");
         System.out.println("Please follow the format");
         String fullName = scn.nextLine();
-		
-        String[] names = fullName.split(",");
 
-        String lastName = names[0].trim();
-        String firstName = names[1].trim();
-        String middleName = names[2].trim();
-        String suffixName = names[3].trim();
+        String[] names = fullName.split(",");
+        String lastName = "";
+        String firstName = "";
+        String middleName = "";
+        String suffixName = "";
+
+        if (names.length >= 2) {
+            lastName = names[0].trim();
+            firstName = names[1].trim();
+        } else {
+            System.out.println("Invalid input format. Please provide Last Name, First Name, Middle Name, Suffix Name separated by commas.");
+            new Request();
+        }
+
+        if (names.length >= 3) {
+            middleName = names[2].trim();
+        }
+
+        if (names.length >= 4) {
+            suffixName = names[3].trim();
+        }
+
         reqInfo.put("First Name", firstName);
         reqInfo.put("Middle Name", middleName);
         reqInfo.put("Last Name", lastName);
         reqInfo.put("Suffix", suffixName);
+
     
         System.out.print("When did you graduate? ");
         String yrGraduate = scn.nextLine();
