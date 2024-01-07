@@ -52,6 +52,7 @@ public class Student extends Variables implements Grades {
             What would you like to do?
             1 - View Grades
             2 - View Subjects
+            3 - Change Password
             """);
         lineGenerator();
         while(true){
@@ -68,6 +69,10 @@ public class Student extends Variables implements Grades {
             }
             if(stdDo == 2){
                 viewSubs(studentNum);
+                break;
+            }
+            if(stdDo == 3){
+                changePassword(studentNum);
                 break;
             }
             else{
@@ -140,6 +145,47 @@ public class Student extends Variables implements Grades {
         String back = scn.next();
         if(back != null){
             student(studentNum);
+        }
+    }
+    public void changePassword(String studentNum){
+        Scanner scn = new Scanner(System.in);
+        System.out.print("""
+                ----------------------------------------------------------- CHANGE PASSWORD --------------------------------------------------------------
+                """);
+        System.out.print("Here is your current account password: ");
+        for(Map.Entry e: enrolled.entrySet()){
+            if(e.getKey() == studentNum){
+                System.out.println(enrolled.get(studentNum).get("Password"));
+            }
+        }
+        System.out.print("Enter the new password (Press 0 to go back): ");
+        String passNew = scn.nextLine();
+        if(passNew.equals("0")){
+            student(studentNum);
+        }
+        else{
+            while(true){
+                System.out.print("Confirm password (0 to cancel): ");
+                String confirmPass = scn.nextLine();
+                if(confirmPass.equals(0)){
+                    changePassword(studentNum);
+                    break;
+                }
+                if(confirmPass.equals(passNew)){
+                    enrolled.get(studentNum).replace("Password", passNew);
+                    System.out.println("Password changed!");
+                    lineGenerator();
+                    System.out.print("Press 0 to re-login: ");
+                    if(scn.next() != null){
+                        new Student();
+                        break;
+                    }
+                    break;
+                }
+                else{
+                    System.out.println("Passwords do not match. Please try again.");
+                }
+            }
         }
     }
 }
