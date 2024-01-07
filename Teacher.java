@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Teacher extends Variables implements Grades{
     Teacher(String employeeNum){
