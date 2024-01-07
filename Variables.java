@@ -8,6 +8,7 @@ public abstract class Variables {
     float defaultGrade = 0;
     Map<String, String> studentInfo = new LinkedHashMap<>();
     Map<String, String> teacherInfo = new LinkedHashMap<>();
+    Map<String, String> reqInfo = new TreeMap<>();
     static Map<String, String> newSteps = new TreeMap<>(){{
 	    put("Step 1" ,"Fill out the application form provided.");
 	    put("Step 2" ,"Pay the required amount indicated on the assessment form or the reservation fee at the Cashier's window or through other payment methods.");
@@ -46,15 +47,33 @@ public abstract class Variables {
             put("Last Name", "Penduco"); put("Suffix", "NA"); put("Gender", "Male"); put("Civil Status", "Single");
             put("Citizenship", "Filipino"); put("Birthdate", "09/09/2002"); put("Birthplace", "Marilao, Bulacan");
             put("Religion", "Roman Catholic"); put("Address", "Saog, Marilao, Bulacan"); put("Contact Number", "09566245046");
-            put("Email Address", "juandelacruz@gmail.com"); put("Last School", "Dr. Yanga's Colleges, Inc."); put("Last Program", "Senior High - ICT"); 
+            put("Email Address", "juanpenduco@gmail.com"); put("Last School", "Dr. Yanga's Colleges, Inc."); put("Last Program", "Senior High - ICT"); 
             put("Guardian Name", "Juliana Dela Cruz"); put("Guardian's Number", "09664484142"); put("Guardian's Email", "julianadelacruz@gmail.com");
             put("School Email", "penduco.1002@tbd.edu"); put("Password", "penduco.09092002"); put("Section", "BSIT 2A");
         }};
     static Map<String, Map<String, String>> enrolled = new TreeMap<>(){{put("2024-1001", initialize); put("2024-1002", initialize2);}};
     static int sNum = 1002;
     static int eNum = 9002;
+    static int rNum = 1;
+    static Map<String, String> req1 = new LinkedHashMap<>(){{
+            put("First Name", "Juan"); put("Middle Name", "NA"); put("Last Name", "Penduco");
+            put("Suffix", "NA"); put("Year Graduated", "2022");  
+            put("Course","Bachelor of Science in Information Technology (BSIT)"); put("Record Requested", "Diploma");
+            put("Purpose", "For Job Application"); 
+            put("Email Address", "juanpenduco@gmail.com"); put("Contact Number", "09566245046");            
+        }};
+    static Map<Integer, Map<String, String>> docuRequest = new TreeMap<>(){{put(1, req1);}};
     static Map<String, Map<String, String>> archivedStud = new TreeMap<>();
-    static Map<Integer, Map<String, String>> reserved = new LinkedHashMap<>();
+    static Map<String, String> resInitialize = new LinkedHashMap<>(){{
+            put("First Name", "Juan"); put("Middle Name", "Penduco"); put("Last Name", "Dela Cruz"); put("Suffix", "NA");
+            put("Contact Number", "09566245046"); put("Email Address", "juandelacruz@gmail.com"); put("Facebook Account", "Juan Dela Cruz");
+            put("Guardian Name", "Juliana Dela Cruz"); put("Guardian's Number", "09664484142"); put("Guardian's Email", "julianadelacruz@gmail.com");
+            put("Term", "1st Term"); put("Year Level", "3rd Year"); put("Student Type", "Regular"); 
+            put("Course","Bachelor of Science in Information Technology (BSIT)"); put("Previous Section", "BSIT 2A");
+            put("Preferred Schedule", "AM"); put("Existing Scholarship", "President's List"); put("Payment Terms", "Cash");
+        }};
+    static Map<String, Map<String, String>> reserved = new LinkedHashMap<>(){{put("2023-1001", resInitialize);}};
+    
     static Map<String, String> tInitialize = new LinkedHashMap<>(){{
             put("First Name", "Johnwin");
             put("Middle Name", "NA");
@@ -104,7 +123,7 @@ public abstract class Variables {
     String adminPass = "0000";
     public void lineGenerator(){
         for(int i = 0; i < 23; i++){
-            System.out.print("-----");
+            System.out.print("------");
         }
         System.out.println();
     }
