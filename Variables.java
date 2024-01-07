@@ -63,6 +63,7 @@ public abstract class Variables {
             put("Email Address", "juanpenduco@gmail.com"); put("Contact Number", "09566245046");            
         }};
     static Map<Integer, Map<String, String>> docuRequest = new TreeMap<>(){{put(1, req1);}};
+    static Map<Integer, Map<String, String>> finishedReq = new TreeMap<>();
     static Map<String, Map<String, String>> archivedStud = new TreeMap<>();
     static Map<String, String> resInitialize = new LinkedHashMap<>(){{
             put("First Name", "Juan"); put("Middle Name", "Penduco"); put("Last Name", "Dela Cruz"); put("Suffix", "NA");
@@ -120,7 +121,7 @@ public abstract class Variables {
     static Map<String, Map<String, String>> archivedTInfo = new TreeMap<>();
     static Map<String, Map<String, LinkedList<String>>> archivedTSub = new TreeMap<>();
     String adminUser = "admin";
-    String adminPass = "0000";
+    static String adminPass = "0000";
     public void lineGenerator(){
         for(int i = 0; i < 23; i++){
             System.out.print("------");
