@@ -60,7 +60,7 @@ public class Main {
                     loop = false;
                     break;
                 case 8:
-                    new About();
+                    about();
                     loop = false;
                     break;
                 default:
@@ -73,12 +73,12 @@ public class Main {
                 lineGenerator();
                 System.out.println();
                 String title = """
-                                 ████████╗██████╗ ██████╗      ██████╗ ██████╗ ██╗     ██╗     ███████╗ ██████╗ ███████╗              
-                                 ╚══██╔══╝██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗██║     ██║     ██╔════╝██╔════╝ ██╔════╝              
-                    -------------   ██║   ██████╔╝██║  ██║    ██║     ██║   ██║██║     ██║     █████╗  ██║  ███╗█████╗  ---------------
-                                    ██║   ██╔══██╗██║  ██║    ██║     ██║   ██║██║     ██║     ██╔══╝  ██║   ██║██╔══╝                
-                                    ██║   ██████╔╝██████╔╝    ╚██████╗╚██████╔╝███████╗███████╗███████╗╚██████╔╝███████╗              
-                                    ╚═╝   ╚═════╝ ╚═════╝      ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝              
+                                           ████████╗██████╗ ██████╗      ██████╗ ██████╗ ██╗     ██╗     ███████╗ ██████╗ ███████╗              
+                                           ╚══██╔══╝██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗██║     ██║     ██╔════╝██╔════╝ ██╔════╝              
+                    -----------------------   ██║   ██████╔╝██║  ██║    ██║     ██║   ██║██║     ██║     █████╗  ██║  ███╗█████╗  ----------------------------
+                                              ██║   ██╔══██╗██║  ██║    ██║     ██║   ██║██║     ██║     ██╔══╝  ██║   ██║██╔══╝                
+                                              ██║   ██████╔╝██████╔╝    ╚██████╗╚██████╔╝███████╗███████╗███████╗╚██████╔╝███████╗              
+                                              ╚═╝   ╚═════╝ ╚═════╝      ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝              
                                                                                        """;
                 for(int i = 0; i < title.length(); i++){
                     System.out.print(title.charAt(i));
@@ -94,7 +94,7 @@ public class Main {
     public void payments(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-        ------------------------------------------------------- PAYMENT METHODS -------------------------------------------
+        ------------------------------------------------------------------ PAYMENT METHODS -------------------------------------------------------
         """);
         Payments payment = new Payments();
         System.out.println("All Payment Methods are following below ");
@@ -133,7 +133,7 @@ public class Main {
     public void blog(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-        ------------------------------------------------------- TBD COLLEGE BLOG ------------------------------------------
+        ------------------------------------------------------------------ TBD COLLEGE BLOG ------------------------------------------------------
         """);
         Blog blog = new Blog();
         System.out.println("Here are the blog article headlines.");
@@ -165,9 +165,75 @@ public class Main {
             } 
         }
     }
+    public void about(){
+        Scanner scn = new Scanner(System.in);
+        System.out.print("""
+        ------------------------------------------------------------------ ABOUT TBD COLLEGE -----------------------------------------------------
+        """);
+        About about = new About();
+        about.displayAbout();
+        lineGenerator();
+        about.setAboutSize();
+        while(true){
+            System.out.print("Your answer (Press 0 to go back): ");
+            int aboutChoice = scn.nextInt();
+            lineGenerator();
+            if(aboutChoice == 0){
+                new Main();
+                break;
+            }
+            if(aboutChoice <= about.getAboutSize() && aboutChoice != about.getIndex()){
+                about.setToRetrieve(aboutChoice);
+                System.out.println(about.getAbout());
+                System.out.println("\n" + about.getAboutContent());
+                lineGenerator();
+                System.out.print("Press any key to go back: ");
+                String back = scn.next();
+                if(back != null){
+                    about();
+                }
+                break;
+            }
+            if(aboutChoice <= about.getAboutSize() && aboutChoice == about.getIndex()){
+                about.setPoliciesPrint();
+                System.out.print("Current Policies: ");
+                System.out.println(about.getPoliciesPrint());
+                lineGenerator();
+                System.out.print("Select the policy you would like to view (0 to go back): ");
+                int policyChoice = scn.nextInt();
+                lineGenerator();
+                about.setPolicySize();
+                while(true){
+                    if(policyChoice == 0){
+                        about();
+                        break;
+                    }
+                    if(policyChoice <= about.getPolicySize()){
+                        about.setToRetrieve(policyChoice);
+                        System.out.println(about.getPolicy());
+                        System.out.println("\n" + about.getPolicyContent());
+                        lineGenerator();
+                        System.out.print("Press any key to go back: ");
+                        String back = scn.next();
+                        if(back != null){
+                            about();
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Invalid input. Please try again.");
+                    }
+                }
+                break;
+            }
+            else{
+                System.out.println("Invalid input. Please try again.");
+            } 
+        }
+    }
     public static void lineGenerator(){
         for(int i = 0; i < 23; i++){
-            System.out.print("-----");
+            System.out.print("------");
         }
         System.out.println();
     }
