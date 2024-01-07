@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Employee extends Variables{
     Employee(){
-        System.out.println("------------------------------------------------ EMPLOYEE PORTAL --------------------------------------------------");
+        System.out.println("----------------------------------------------------------- EMPLOYEE PORTAL --------------------------------------------------------------");
         while(true){
             Scanner scn = new Scanner(System.in);
             String employeeNum = "2019-0000";
