@@ -11,6 +11,7 @@ public class Teacher extends Variables implements Grades{
             What would you like to do?
             1 - Edit Student Grades
             2 - View Students
+            3 - Change Password
             """);
         lineGenerator();
         while(true){
@@ -27,6 +28,10 @@ public class Teacher extends Variables implements Grades{
             }
             if(tchDo == 2){
                 viewStudents(employeeNum);
+                break;
+            }
+            if(tchDo == 3){
+                changePassword(employeeNum);
                 break;
             }
             else{
@@ -180,6 +185,47 @@ public class Teacher extends Variables implements Grades{
         String back = scn.next();
         if(back != null){
             new Teacher(employeeNum);
+        }
+    }
+    public void changePassword(String employeeNum){
+        Scanner scn = new Scanner(System.in);
+        System.out.print("""
+                ----------------------------------------------------------- CHANGE PASSWORD --------------------------------------------------------------
+                """);
+        System.out.print("Here is your current account password: ");
+        for(Map.Entry e: tInfo.entrySet()){
+            if(e.getKey() == employeeNum){
+                System.out.println(tInfo.get(employeeNum).get("Password"));
+            }
+        }
+        System.out.print("Enter the new password (Press 0 to go back): ");
+        String passNew = scn.nextLine();
+        if(passNew.equals("0")){
+            new Teacher(employeeNum);
+        }
+        else{
+            while(true){
+                System.out.print("Confirm password (0 to cancel): ");
+                String confirmPass = scn.nextLine();
+                if(confirmPass.equals(0)){
+                    changePassword(employeeNum);
+                    break;
+                }
+                if(confirmPass.equals(passNew)){
+                    tInfo.get(employeeNum).replace("Password", passNew);
+                    System.out.println("Password changed!");
+                    lineGenerator();
+                    System.out.print("Press 0 to re-login: ");
+                    if(scn.next() != null){
+                        new Employee();
+                        break;
+                    }
+                    break;
+                }
+                else{
+                    System.out.println("Passwords do not match. Please try again.");
+                }
+            }
         }
     }
 }
