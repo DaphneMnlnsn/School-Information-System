@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Teacher extends Variables implements Grades{
     Teacher(String employeeNum){
-        System.out.println("------------------------------------------------ TEACHER PORTAL ---------------------------------------------------");
+        System.out.println("---------------------------------------------------------- TEACHER PORTAL ----------------------------------------------------------------");
         Scanner scn = new Scanner(System.in);
         System.out.println("Welcome, " + tInfo.get(employeeNum).get("First Name") + "!");
         System.out.print("""
