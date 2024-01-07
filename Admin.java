@@ -1,4 +1,3 @@
-import java.time.Year;
 import java.util.*;
 
 public class Admin extends Variables implements Courses  {
@@ -16,6 +15,7 @@ public class Admin extends Variables implements Courses  {
             7 - Edit About
             8 - Edit Courses
             9 - View Alumni Document Requests
+            10 - Change Password
             """);
         lineGenerator();
         while(true){
@@ -59,7 +59,11 @@ public class Admin extends Variables implements Courses  {
                 break;
             }
             if(adminDo == 9){
-                //viewDocuReq();
+                viewDocuReq();
+                break;
+            }
+            if(adminDo == 10){
+                changePassword();
                 break;
             }
             else{
@@ -1107,8 +1111,10 @@ public class Admin extends Variables implements Courses  {
         }
     }
     public void addTeacherCredentials(){
+        System.out.print("""
+                --------------------------------------------------------------- ADD TEACHER --------------------------------------------------------------
+                """);
         Scanner scn = new Scanner(System.in);
-        lineGenerator();
         System.out.println("Here are the current teachers:");
         for(Map.Entry e: tInfo.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
@@ -1122,82 +1128,88 @@ public class Admin extends Variables implements Courses  {
             System.out.println();
         }
         lineGenerator();
-        System.out.print("Enter first name: ");
-        teacherInfo.put("First Name", scn.nextLine());
-        System.out.print("Enter middle name (NA if no middle): ");
-        teacherInfo.put("Middle Name", scn.nextLine());
-        System.out.print("Enter last name: ");
-        teacherInfo.put("Last Name", scn.nextLine());
-        System.out.print("Enter suffix name (NA if no suffix): ");
-        teacherInfo.put("Suffix", scn.nextLine());
-        System.out.print("Enter birthday (MM/DD/YYYY): ");
-        teacherInfo.put("Birthdate", scn.nextLine());
-        System.out.print("Enter date employed (MM/DD/YYYY): ");
-        teacherInfo.put("Date Employed", scn.nextLine());
-        System.out.print("Enter email address: ");
-        teacherInfo.put("Email", scn.nextLine());
-        System.out.print("Enter the section handled (e.g. BSIT 2A): ");
-        String section = scn.nextLine();
-        System.out.print("Enter the subject handled: ");
-        String subject = scn.nextLine();
-        
+        System.out.print("Enter first name (Press 0 to go back): ");
+        String firstName = scn.nextLine();
+        if(firstName.equals("0")){
+            new Admin();
+        }
+        else{
+            teacherInfo.put("First Name", firstName);
+            System.out.print("Enter middle name (NA if no middle): ");
+            teacherInfo.put("Middle Name", scn.nextLine());
+            System.out.print("Enter last name: ");
+            teacherInfo.put("Last Name", scn.nextLine());
+            System.out.print("Enter suffix name (NA if no suffix): ");
+            teacherInfo.put("Suffix", scn.nextLine());
+            System.out.print("Enter birthday (MM/DD/YYYY): ");
+            teacherInfo.put("Birthdate", scn.nextLine());
+            System.out.print("Enter date employed (MM/DD/YYYY): ");
+            teacherInfo.put("Date Employed", scn.nextLine());
+            System.out.print("Enter email address: ");
+            teacherInfo.put("Email", scn.nextLine());
+            System.out.print("Enter the section handled (e.g. BSIT 2A): ");
+            String section = scn.nextLine();
+            System.out.print("Enter the subject handled: ");
+            String subject = scn.nextLine();
+            
 
-        System.out.print("""
-        \n---------------------------------------------------------- VALIDATION OF DETAILS ---------------------------------------------------------
-        """);
-        System.out.print("Teacher Name: " + teacherInfo.get("Last Name") + ", " + teacherInfo.get("First Name"));
-        if(!teacherInfo.get("Middle Name").equals("NA")){
-            System.out.print(" " + teacherInfo.get("Middle Name"));
-        }
-        if(!teacherInfo.get("Suffix").equals("NA")){
-            System.out.print(" " + teacherInfo.get("Suffix"));
-        }
-        System.out.println();
-        for(Map.Entry e : teacherInfo.entrySet()){
-            if(e.getKey() == "First Name" || e.getKey() == "Middle Name" || e.getKey() == "Last Name" || e.getKey() == "Suffix"){
-                continue;
+            System.out.print("""
+            \n---------------------------------------------------------- VALIDATION OF DETAILS ---------------------------------------------------------
+            """);
+            System.out.print("Teacher Name: " + teacherInfo.get("Last Name") + ", " + teacherInfo.get("First Name"));
+            if(!teacherInfo.get("Middle Name").equals("NA")){
+                System.out.print(" " + teacherInfo.get("Middle Name"));
             }
-            else{
-                System.out.println(e.getKey() + ": " + e.getValue());
+            if(!teacherInfo.get("Suffix").equals("NA")){
+                System.out.print(" " + teacherInfo.get("Suffix"));
             }
-        }
-        System.out.println("Section Handled: " + section);
-        System.out.println("Subject Handled: " + subject);
-        while(true){
-            System.out.print("Are the details above correct (Press Y for Yes or any key to re-fill out the form)? ");
-            char details = scn.next().toUpperCase().charAt(0);
-            if(details == 'Y'){
-                lineGenerator();
-                System.out.println("The teacher has been added.\n");
-                String year = teacherInfo.get("Date Employed").substring(6);
-                eNum = eNum+1;
-                String employeeNumber = year + "-" + eNum;
-                teacherInfo.put("Username", teacherInfo.get("Last Name").toLowerCase().concat(".").concat(Integer.toString(eNum)));
-                teacherInfo.put("Password", teacherInfo.get("Last Name").toLowerCase().concat("." + teacherInfo.get("Date Employed").replace("/", "")));
-                tInfo.put(employeeNumber, teacherInfo);
-                addHandledNew(employeeNumber, section, subject);
-                System.out.println("Your username is " + teacherInfo.get("Username"));
-                System.out.println("Your password is " + teacherInfo.get("Password"));
-                lineGenerator();
-                
-                while(true){
-                    System.out.print("Press 0 to go back: ");
-                    int back = scn.nextInt();
-                    if(back == 0){
-                        new Admin();
-                        break;
+            System.out.println();
+            for(Map.Entry e : teacherInfo.entrySet()){
+                if(e.getKey() == "First Name" || e.getKey() == "Middle Name" || e.getKey() == "Last Name" || e.getKey() == "Suffix"){
+                    continue;
+                }
+                else{
+                    System.out.println(e.getKey() + ": " + e.getValue());
+                }
+            }
+            System.out.println("Section Handled: " + section);
+            System.out.println("Subject Handled: " + subject);
+            while(true){
+                System.out.print("Are the details above correct (Press Y for Yes or any key to re-fill out the form)? ");
+                char details = scn.next().toUpperCase().charAt(0);
+                if(details == 'Y'){
+                    lineGenerator();
+                    System.out.println("The teacher has been added.\n");
+                    String year = teacherInfo.get("Date Employed").substring(6);
+                    eNum = eNum+1;
+                    String employeeNumber = year + "-" + eNum;
+                    teacherInfo.put("Username", teacherInfo.get("Last Name").toLowerCase().concat(".").concat(Integer.toString(eNum)));
+                    teacherInfo.put("Password", teacherInfo.get("Last Name").toLowerCase().concat("." + teacherInfo.get("Date Employed").replace("/", "")));
+                    tInfo.put(employeeNumber, teacherInfo);
+                    addHandledNew(employeeNumber, section, subject);
+                    System.out.println("Your username is " + teacherInfo.get("Username"));
+                    System.out.println("Your password is " + teacherInfo.get("Password"));
+                    lineGenerator();
+                    
+                    while(true){
+                        System.out.print("Press 0 to go back: ");
+                        int back = scn.nextInt();
+                        if(back == 0){
+                            new Admin();
+                            break;
+                        }
                     }
+                    break;
                 }
-                break;
-            }
-            else{
-                Set<String> keys = new HashSet<>();
-                for(Map.Entry e : teacherInfo.entrySet()){
-                    keys.add(e.getKey().toString());
+                else{
+                    Set<String> keys = new HashSet<>();
+                    for(Map.Entry e : teacherInfo.entrySet()){
+                        keys.add(e.getKey().toString());
+                    }
+                    teacherInfo.keySet().removeAll(keys);
+                    addTeacherCredentials();
+                    break;
                 }
-                teacherInfo.keySet().removeAll(keys);
-                addTeacherCredentials();
-                break;
             }
         }
     }
@@ -2329,30 +2341,86 @@ public class Admin extends Variables implements Courses  {
     }
     public void viewDocuReq(){
         Scanner scn = new Scanner(System.in);
-        lineGenerator();
-        for(Map.Entry e: reserved.entrySet()){
+        System.out.print("""
+                --------------------------------------------------------- VIEW DOCUMENT REQUESTS ----------------------------------------------------------
+                """);
+        for(Map.Entry e: docuRequest.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
             System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
             if(!value.get("Middle Name").equals("NA")){
                 System.out.print(" " + value.get("Middle Name"));
             }
             if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                System.out.print(" " + value.get("Suffix"));
+            }
+            System.out.println();
+        }
+        lineGenerator();
+        while(true){
+            System.out.print("Enter the number of the alumni you would like to view information of (0 to go back, 9999 to see fulfilled requests): ");
+            int viewInfo = scn.nextInt();
+            if(viewInfo == 0){
+                new Admin();
+                break;
+            }
+            if(docuRequest.containsKey(viewInfo)){
+                lineGenerator();
+                for(Map.Entry e: docuRequest.entrySet()){
+                    if(e.getKey().equals(viewInfo)){
+                        Map<String, String> value = (Map<String, String>) e.getValue();
+                        System.out.println(e.getKey());
+                        for(Map.Entry f: value.entrySet()){
+                            System.out.println(f.getKey() + ": " + f.getValue());
+                        }
+                    }
+                }
+                lineGenerator();
+                while(true){
+                    System.out.print("Move request to fulfilled (Press Y for yes and any key to go back)? ");
+                    char back = scn.next().toUpperCase().charAt(0);
+                    if(back == 'Y'){
+                        finishReq(viewInfo);
+                        System.out.println("Request has been moved to Fulfilled Requests.");
+                        lineGenerator();
+                        System.out.print("Press 0 to go back to viewing requests: ");
+                        if(scn.next() != null){
+                            viewDocuReq();
+                            break;
+                        }
+                        break;
+                    }
+                    else{
+                        viewDocuReq();
+                        break;
+                    }
+                }
+                break;
+            }
+            if(viewInfo == 9999){
+                lineGenerator();
+                for(Map.Entry e: finishedReq.entrySet()){
+                    Map<String, String> value = (Map<String, String>) e.getValue();
+                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                    if(!value.get("Middle Name").equals("NA")){
+                        System.out.print(" " + value.get("Middle Name"));
+                    }
+                    if(!value.get("Suffix").equalsIgnoreCase("NA")){
                         System.out.print(" " + value.get("Suffix"));
                     }
                     System.out.println();
                 }
                 lineGenerator();
                 while(true){
-                    System.out.print("Enter the student number of the student you would like to view information of (0 to go back): ");
-                    String viewInfo = scn.next();
-                    if(viewInfo.equals("0")){
-                        studentList();
+                    System.out.print("Enter the number of the request you would like to view information of (0 to go back): ");
+                    int viewInfoF = scn.nextInt();
+                    if(viewInfoF == 0){
+                        new Admin();
                         break;
                     }
-                    if(reserved.containsKey(viewInfo)){
+                    if(finishedReq.containsKey(viewInfoF)){
                         lineGenerator();
-                        for(Map.Entry e: reserved.entrySet()){
-                            if(e.getKey().equals(viewInfo)){
+                        for(Map.Entry e: finishedReq.entrySet()){
+                            if(e.getKey().equals(viewInfoF)){
                                 Map<String, String> value = (Map<String, String>) e.getValue();
                                 System.out.println(e.getKey());
                                 for(Map.Entry f: value.entrySet()){
@@ -2362,19 +2430,71 @@ public class Admin extends Variables implements Courses  {
                         }
                         lineGenerator();
                         while(true){
-                            System.out.print("Press 0 to go back: ");
-                            int back = scn.nextInt();
-                            if(back == 0){
-                                studentList();
+                            System.out.print("Move request back to unfulfilled (Press Y for yes and any key to go back)? ");
+                            char back = scn.next().toUpperCase().charAt(0);
+                            if(back == 'Y'){
+                                restoreReq(viewInfoF);
+                                System.out.println("Request has been moved to Unfulfilled Requests.");
+                                System.out.print("Press 0 to go back to viewing requests: ");
+                                if(scn.next() != null){
+                                    viewDocuReq();
+                                    break;
+                                }
+                                break;
+                            }
+                            else{
+                                viewDocuReq();
                                 break;
                             }
                         }
                         break;
                     }
                     else{
-                        System.out.println("Student does not exist. Please try again.");
+                        System.out.println("Finished request does not exist. Please try again.");
                     }
                 }
+                break;
+            }
+            else{
+                System.out.println("Alumni request does not exist. Please try again.");
+            }
+        }
+    }
+    public void changePassword(){
+        Scanner scn = new Scanner(System.in);
+        System.out.print("""
+                ----------------------------------------------------------- CHANGE PASSWORD --------------------------------------------------------------
+                """);
+        System.out.println("Here is the current administrator account password: " + adminPass);
+        System.out.print("Enter the new password (Press 0 to go back): ");
+        String adminPassNew = scn.nextLine();
+        if(adminPassNew.equals("0")){
+            new Admin();
+        }
+        else{
+            while(true){
+                System.out.print("Confirm password (0 to cancel): ");
+                String confirmPass = scn.nextLine();
+                if(confirmPass.equals(0)){
+                    changePassword();
+                    break;
+                }
+                if(confirmPass.equals(adminPassNew)){
+                    adminPass = adminPassNew;
+                    System.out.println("Password changed!");
+                    lineGenerator();
+                    System.out.print("Press 0 to re-login: ");
+                    if(scn.next() != null){
+                        new Employee();
+                        break;
+                    }
+                    break;
+                }
+                else{
+                    System.out.println("Passwords do not match. Please try again.");
+                }
+            }
+        }
     }
     //Edit Programs
     int addCourse(String newCourse, String topSkill, String opportunity){
@@ -2428,6 +2548,14 @@ public class Admin extends Variables implements Courses  {
         archivedTSub.put(employeeNum, tSub.get(employeeNum));
         tSub.remove(employeeNum);
         tInfo.remove(employeeNum);
+    }
+    void finishReq(int reqID){
+        finishedReq.put(reqID, docuRequest.get(reqID));
+        docuRequest.remove(reqID);
+    }
+    void restoreReq(int reqID){
+        docuRequest.put(reqID, finishedReq.get(reqID));
+        finishedReq.remove(reqID);
     }
     void removeTeacherP(String employeeNum){
         archivedTInfo.remove(employeeNum);
