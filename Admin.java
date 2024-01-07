@@ -4,7 +4,7 @@ import java.util.*;
 public class Admin extends Variables implements Courses  {
     Admin(){
         Scanner scn = new Scanner(System.in);
-        System.out.println("-------------------------------------------------- ADMIN PORTAL ---------------------------------------------------");
+        System.out.println("-------------------------------------------------------------- ADMIN PORTAL --------------------------------------------------------------");
         System.out.print("""
             What would you like to do?
             1 - Student List
@@ -51,7 +51,7 @@ public class Admin extends Variables implements Courses  {
                 break;
             }
             if(adminDo == 7){
-                //editAbout();
+                editAbout();
                 break;
             }
             if(adminDo == 8){
@@ -71,7 +71,7 @@ public class Admin extends Variables implements Courses  {
         //Student List
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                --------------------------------------------------- STUDENT LIST --------------------------------------------------
+                -------------------------------------------------------------- STUDENT LIST --------------------------------------------------------------
                 Please pick the course you would like to view students of.
                 """);
         lineGenerator();
@@ -80,11 +80,60 @@ public class Admin extends Variables implements Courses  {
         }
         lineGenerator();
         while(true){
-            System.out.print("Your Answer (0 to go back): ");
+            System.out.print("Your Answer (0 to go back, 111 to View Reserved Students): ");
             int choice = scn.nextInt();
 
             if(choice == 0){
                 new Admin();
+                break;
+            }
+            if(choice == 111){
+                lineGenerator();
+                for(Map.Entry e: reserved.entrySet()){
+                    Map<String, String> value = (Map<String, String>) e.getValue();
+                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                    if(!value.get("Middle Name").equals("NA")){
+                        System.out.print(" " + value.get("Middle Name"));
+                    }
+                    if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                        System.out.print(" " + value.get("Suffix"));
+                    }
+                    System.out.println();
+                }
+                lineGenerator();
+                while(true){
+                    System.out.print("Enter the student number of the student you would like to view information of (0 to go back): ");
+                    String viewInfo = scn.next();
+                    if(viewInfo.equals("0")){
+                        studentList();
+                        break;
+                    }
+                    if(reserved.containsKey(viewInfo)){
+                        lineGenerator();
+                        for(Map.Entry e: reserved.entrySet()){
+                            if(e.getKey().equals(viewInfo)){
+                                Map<String, String> value = (Map<String, String>) e.getValue();
+                                System.out.println(e.getKey());
+                                for(Map.Entry f: value.entrySet()){
+                                    System.out.println(f.getKey() + ": " + f.getValue());
+                                }
+                            }
+                        }
+                        lineGenerator();
+                        while(true){
+                            System.out.print("Press 0 to go back: ");
+                            int back = scn.nextInt();
+                            if(back == 0){
+                                studentList();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Student does not exist. Please try again.");
+                    }
+                }
                 break;
             }
             if(courses.containsKey(choice)){
@@ -109,14 +158,15 @@ public class Admin extends Variables implements Courses  {
                         for(Map.Entry e: enrolled.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
                             if(value.get("Course") == courses.get(choice)){
-                                System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                 if(!value.get("Middle Name").equals("NA")){
-                                    System.out.print(value.get(" Middle Name"));
+                                    System.out.print(" " + value.get("Middle Name"));
                                 }
                                 if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                    System.out.print(value.get(" Suffix"));
+                                    System.out.print(" " + value.get("Suffix"));
                                 }
                             }
+                            System.out.println();
                         }
                         lineGenerator();
                         while(true){
@@ -159,14 +209,15 @@ public class Admin extends Variables implements Courses  {
                         for(Map.Entry e: enrolled.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
                             if(value.get("Course") == courses.get(choice)){
-                                System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                 if(!value.get("Middle Name").equals("NA")){
-                                    System.out.print(value.get(" Middle Name"));
+                                    System.out.print(" " + value.get("Middle Name"));
                                 }
                                 if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                    System.out.print(value.get(" Suffix"));
+                                    System.out.print(" " + value.get("Suffix"));
                                 }
                             }
+                            System.out.println();
                         }
                         lineGenerator();
                         while(true){
@@ -208,14 +259,15 @@ public class Admin extends Variables implements Courses  {
                         for(Map.Entry e: archivedStud.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
                             if(value.get("Course") == courses.get(choice)){
-                                System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                 if(!value.get("Middle Name").equals("NA")){
-                                    System.out.print(value.get(" Middle Name"));
+                                    System.out.print(" " + value.get("Middle Name"));
                                 }
                                 if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                    System.out.print(value.get(" Suffix"));
+                                    System.out.print(" " + value.get("Suffix"));
                                 }
                             }
+                            System.out.println();
                         }
                         lineGenerator();
                         System.out.print("""
@@ -237,14 +289,15 @@ public class Admin extends Variables implements Courses  {
                                 for(Map.Entry e: archivedStud.entrySet()){
                                     Map<String, String> value = (Map<String, String>) e.getValue();
                                     if(value.get("Course") == courses.get(choice)){
-                                        System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                                        System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                         if(!value.get("Middle Name").equals("NA")){
-                                            System.out.print(value.get(" Middle Name"));
+                                            System.out.print(" " + value.get("Middle Name"));
                                         }
                                         if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                            System.out.print(value.get(" Suffix"));
+                                            System.out.print(" " + value.get("Suffix"));
                                         }
                                     }
+                                    System.out.println();
                                 }
                                 while(true){
                                     System.out.println("Enter the student number of the student you would like to restore (0 to go back): ");
@@ -276,14 +329,15 @@ public class Admin extends Variables implements Courses  {
                                 for(Map.Entry e: archivedStud.entrySet()){
                                     Map<String, String> value = (Map<String, String>) e.getValue();
                                     if(value.get("Course") == courses.get(choice)){
-                                        System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                                        System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                         if(!value.get("Middle Name").equals("NA")){
-                                            System.out.print(value.get(" Middle Name"));
+                                            System.out.print(" " + value.get("Middle Name"));
                                         }
                                         if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                            System.out.print(value.get(" Suffix"));
+                                            System.out.print(" " + value.get("Suffix"));
                                         }
                                     }
+                                    System.out.println();
                                 }
                                 while(true){
                                     System.out.println("Enter the student number of the student you would like to remove permanently (0 to go back): ");
@@ -329,12 +383,13 @@ public class Admin extends Variables implements Courses  {
                             if(value.get("Course") == courses.get(choice)){
                                 System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                 if(!value.get("Middle Name").equals("NA")){
-                                    System.out.print(value.get(" Middle Name"));
+                                    System.out.print(" " + value.get("Middle Name"));
                                 }
                                 if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                    System.out.print(value.get(" Suffix"));
+                                    System.out.print(" " + value.get("Suffix"));
                                 }
                             }
+                            System.out.println();
                         }
                         lineGenerator();
                         while(true){
@@ -418,7 +473,7 @@ public class Admin extends Variables implements Courses  {
         //Teacher List
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                --------------------------------------------------- TEACHER LIST --------------------------------------------------
+                -------------------------------------------------------------- TEACHER LIST --------------------------------------------------------------
                 """);
         System.out.print("""
             What would you like to do?
@@ -943,7 +998,7 @@ public class Admin extends Variables implements Courses  {
         Scanner scn = new Scanner(System.in);
         Blog blog = new Blog();
         System.out.print("""
-                ------------------------------------------------------- EDIT/ADD BLOG --------------------------------------------
+                ------------------------------------------------------------- EDIT/ADD BLOG --------------------------------------------------------------
                 """);
         System.out.print("""
             Which blog article would you like to edit?
@@ -1012,7 +1067,7 @@ public class Admin extends Variables implements Courses  {
             if(choice == blogSize+2){
                 lineGenerator();
                 System.out.print("""
-                    Which blog article would you like to edit?
+                    Which blog article would you like to remove?
                     """);
                 blog.displayBlog();
                 lineGenerator();
@@ -1088,7 +1143,7 @@ public class Admin extends Variables implements Courses  {
         
 
         System.out.print("""
-        \n------------------------------------------------ VALIDATION OF DETAILS --------------------------------------------
+        \n---------------------------------------------------------- VALIDATION OF DETAILS ---------------------------------------------------------
         """);
         System.out.print("Teacher Name: " + teacherInfo.get("Last Name") + ", " + teacherInfo.get("First Name"));
         if(!teacherInfo.get("Middle Name").equals("NA")){
@@ -1151,7 +1206,7 @@ public class Admin extends Variables implements Courses  {
         Scanner scn = new Scanner(System.in);
         Payments payment = new Payments();
         System.out.print("""
-                ----------------------------------------------------- EDIT PAYMENT INFO ------------------------------------------
+                ----------------------------------------------------- EDIT PAYMENT INFO ------------------------------------------------------------------
                 """);
         System.out.print("""
             Which payment method would you like to edit?
@@ -1237,7 +1292,7 @@ public class Admin extends Variables implements Courses  {
             if(choice == paymentSize+3){
                 lineGenerator();
                 System.out.print("""
-                    Which payment method would you like to edit?
+                    Which payment method would you like to remove?
                     """);
                 payment.displayPaymentMethod();
                 lineGenerator();
@@ -1280,7 +1335,7 @@ public class Admin extends Variables implements Courses  {
         //Edit Admission Steps/Requirements
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                ------------------------------------------------------- EDIT ADMISSION --------------------------------------------
+                ---------------------------------------------------------- EDIT ADMISSION ----------------------------------------------------------------
                 """);
         System.out.print("""
             What would you like to edit?
@@ -1735,11 +1790,235 @@ public class Admin extends Variables implements Courses  {
             }
         }
     }
+    public void editAbout(){
+        //Edit/Add About
+        Scanner scn = new Scanner(System.in);
+        About about = new About();
+        System.out.print("""
+                --------------------------------------------------------------- EDIT ABOUT ---------------------------------------------------------------
+                """);
+        System.out.print("""
+            Which about section would you like to edit?
+            """);
+        about.displayAbout();
+        about.setAboutSize();
+        int aboutSize = about.getAboutSize();
+        System.out.println((aboutSize+1) + " - Add an About Section");
+        System.out.println((aboutSize+2) + " - Remove an About Section");
+        lineGenerator();
+        while(true){
+            System.out.print("Your Answer (0 to go back): ");
+            int choice = scn.nextInt();
+
+            if(choice == 0){
+                new Admin();
+                break;
+            }
+            if(choice <= aboutSize && choice != about.getIndex()){
+                about.setToRetrieve(choice);
+                System.out.println("Current Details: ");
+                String aboutCurrent = about.getAbout();
+                System.out.println(aboutCurrent);
+                System.out.println("\n" + about.getAboutContent());
+                lineGenerator();
+                System.out.print("Enter new title of " + aboutCurrent + " (press 0 if you want the title to remain as is): ");
+                scn.nextLine();
+                String title = scn.nextLine();
+                if(!title.equals("0")){
+                    about.setAbout(title);
+                }
+                if(title.equals("0")){}
+                System.out.print("Enter article: ");
+                about.setAboutContent(scn.nextLine());
+                lineGenerator();
+                System.out.println("Updated successfully!");
+                System.out.println("Current Title: " + about.getAbout());
+                System.out.println("Current Content:\n" + about.getAboutContent());
+                System.out.print("Press any key to go back: ");
+                String back = scn.next();
+                if(back != null){
+                    editAbout();
+                }
+                break;
+            }
+            if(choice <= aboutSize && choice == about.getIndex()){
+                about.setPoliciesPrint();
+                about.setToRetrieve(choice);
+                lineGenerator();
+                System.out.print("Current Policies: ");
+                System.out.println(about.getPoliciesPrint());
+                about.setPolicySize();
+                int policySize = about.getPolicySize();
+                System.out.println((policySize+1) + " - Add a Policy");
+                System.out.println((policySize+2) + " - Remove a Policy");
+                lineGenerator();
+                while(true){
+                    System.out.print("Enter the number of the policy you would like to edit (0 to go back): ");
+                    int policy = scn.nextInt();
+
+                    if(policy == 0){
+                        editAbout();
+                        break;
+                    }
+                    if(policy <= policySize){
+                        about.setToRetrieve(policy);
+                        lineGenerator();
+                        System.out.println("Current Details: ");
+                        String policyCurrent = about.getPolicy();
+                        System.out.println(policyCurrent);
+                        System.out.println("\n" + about.getPolicyContent());
+                        lineGenerator();
+                        System.out.print("Enter new title of policy (press 0 if you want the title to remain as is): ");
+                        scn.nextLine();
+                        String title = scn.nextLine();
+                        if(!title.equals("0")){
+                            about.setAbout(title);
+                        }
+                        if(title.equals("0")){}
+                        System.out.print("Enter policy content: ");
+                        about.setPolicyContent(scn.nextLine());
+                        lineGenerator();
+                        System.out.println("Updated successfully!");
+                        System.out.println("Current Policy Title: " + about.getPolicy());
+                        System.out.println("Current Content:\n" + about.getPolicyContent());
+                        lineGenerator();
+                        System.out.print("Press any key to go back: ");
+                        String back = scn.next();
+                        if(back != null){
+                            editAbout();
+                        }
+                        break;
+                    }
+                    if(policy == policySize+1){
+                        System.out.print("Enter policy title: ");
+                        scn.nextLine();
+                        String newTitle = scn.nextLine();
+                        System.out.print("Enter policy content: ");
+                        String newContent = scn.nextLine();
+                        about.setPolicy(newTitle, newContent);
+                        about.setPolicySize();
+                        lineGenerator();
+                        System.out.println("Policy added successfully!");
+                        System.out.println("New Policy Details: ");
+                        about.setToRetrieve(about.getPolicySize());
+                        System.out.println(about.getPolicy());
+                        System.out.println("\n" + about.getPolicyContent());
+                        lineGenerator();
+                        System.out.print("\nPress any key to go back: ");
+                        if(scn.next() != null){
+                            editAbout();
+                        }
+                        break;
+                    }
+                    if(policy == policySize+2){
+                        lineGenerator();
+                        System.out.print("""
+                            Which policy would you like to remove?
+                            """);
+                        System.out.println(about.getPoliciesPrint());
+                        lineGenerator();
+                        while(true){
+                            System.out.print("Your Answer (0 to go back): ");
+                            int remove = scn.nextInt();
+                            about.setToRetrieve(remove);
+                            if(remove == 0){
+                                editAbout();
+                                break;
+                            }
+                            if(remove <= policySize){
+                                System.out.print("Are you sure (0 to go back or any key to continue)? ");
+                                char sure = scn.next().charAt(0);
+                                if(sure == 0){
+                                    editAbout();
+                                }
+                                else{
+                                    about.removePolicy();
+                                    System.out.println("Policy has been removed successfully!");
+                                    System.out.print("\nPress any key to go back: ");
+                                    if(scn.next() != null){
+                                        editAbout();
+                                    }
+                                }
+                                break;
+                            }
+                            else{
+                                System.out.println("Invalid input. Please try again.");
+                            }
+                        }
+                        break;  
+                    }
+                    else{
+                        System.out.println("Invalid input. Please try again.");
+                    }
+                } 
+            }
+            if(choice == aboutSize+1){
+                System.out.print("Enter about title: ");
+                scn.nextLine();
+                String newTitle = scn.nextLine();
+                System.out.print("Enter about content: ");
+                String newContent = scn.nextLine();
+                about.setAbout(newTitle, newContent);
+                about.setAboutSize();
+                lineGenerator();
+                System.out.println("About added successfully!");
+                System.out.println("New About Details: ");
+                about.setToRetrieve(about.getAboutSize());
+                System.out.println(about.getAbout());
+                System.out.println("\n" + about.getAboutContent());
+                System.out.print("\nPress any key to go back: ");
+                if(scn.next() != null){
+                    editAbout();
+                }
+                break;
+            }
+            if(choice == aboutSize+2){
+                lineGenerator();
+                System.out.print("""
+                    Which about section would you like to remove?
+                    """);
+                about.displayAbout();
+                lineGenerator();
+                while(true){
+                    System.out.print("Your Answer (0 to go back): ");
+                    int remove = scn.nextInt();
+                    about.setToRetrieve(remove);
+                    if(remove == 0){
+                        editAbout();
+                        break;
+                    }
+                    if(remove <= aboutSize){
+                        System.out.print("Are you sure (0 to go back or any key to continue)? ");
+                        char sure = scn.next().charAt(0);
+                        if(sure == 0){
+                            editAbout();
+                        }
+                        else{
+                            about.removeAbout();
+                            System.out.println("About has been removed successfully!");
+                            System.out.print("\nPress any key to go back: ");
+                            if(scn.next() != null){
+                                editAbout();
+                            }
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Invalid input. Please try again.");
+                    }
+                }
+                break;  
+            }
+            else{
+                System.out.println("Invalid Input. Please try again.");
+            }
+        }
+    }
     public void editCourse(){
         //Edit Course/Programs
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                -------------------------------------------------------- EDIT COURSES ---------------------------------------------
+                -------------------------------------------------------------- EDIT COURSES --------------------------------------------------------------
                 """);
         System.out.print("""
             What would you like to do?
@@ -2047,6 +2326,55 @@ public class Admin extends Variables implements Courses  {
                 System.out.println("Invalid input. Please try again.");
             }
         }
+    }
+    public void viewDocuReq(){
+        Scanner scn = new Scanner(System.in);
+        lineGenerator();
+        for(Map.Entry e: reserved.entrySet()){
+            Map<String, String> value = (Map<String, String>) e.getValue();
+            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+            if(!value.get("Middle Name").equals("NA")){
+                System.out.print(" " + value.get("Middle Name"));
+            }
+            if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                        System.out.print(" " + value.get("Suffix"));
+                    }
+                    System.out.println();
+                }
+                lineGenerator();
+                while(true){
+                    System.out.print("Enter the student number of the student you would like to view information of (0 to go back): ");
+                    String viewInfo = scn.next();
+                    if(viewInfo.equals("0")){
+                        studentList();
+                        break;
+                    }
+                    if(reserved.containsKey(viewInfo)){
+                        lineGenerator();
+                        for(Map.Entry e: reserved.entrySet()){
+                            if(e.getKey().equals(viewInfo)){
+                                Map<String, String> value = (Map<String, String>) e.getValue();
+                                System.out.println(e.getKey());
+                                for(Map.Entry f: value.entrySet()){
+                                    System.out.println(f.getKey() + ": " + f.getValue());
+                                }
+                            }
+                        }
+                        lineGenerator();
+                        while(true){
+                            System.out.print("Press 0 to go back: ");
+                            int back = scn.nextInt();
+                            if(back == 0){
+                                studentList();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("Student does not exist. Please try again.");
+                    }
+                }
     }
     //Edit Programs
     int addCourse(String newCourse, String topSkill, String opportunity){
