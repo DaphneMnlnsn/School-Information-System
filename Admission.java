@@ -53,8 +53,12 @@ public class Admission extends Variables implements Courses, Grades{
                 """);
         lineGenerator();
         while(true){
-            System.out.print("Your answer: ");
+            System.out.print("Your answer (0 to go back): ");
             int type = scn.nextInt();
+            if(type == 0){
+                new Admission();
+                break;
+            }
             if(type == 1){
                 newStudent();
                 break;
