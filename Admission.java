@@ -4,8 +4,8 @@ import java.util.*;
 public class Admission extends Variables implements Courses, Grades{
     Admission(){
         Scanner scn = new Scanner(System.in);
-        System.out.println("--------------------------------------------------- ADMISSIONS ----------------------------------------------------");
-        System.out.println("------------------------------------------------ Admission Steps --------------------------------------------------");
+        System.out.println("--------------------------------------------------------------- ADMISSIONS ---------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------- Admission Steps ------------------------------------------------------------");
         //Steps
         System.out.println("For New Students:");
         for (Map.Entry entryy : newSteps.entrySet()) {
@@ -15,7 +15,7 @@ public class Admission extends Variables implements Courses, Grades{
         for (Map.Entry entryy : oldSteps.entrySet()) {
             System.out.println(entryy.getKey() + ": " + entryy.getValue());
         }
-        System.out.println("--------------------------------------------- Admission Requirements ----------------------------------------------");
+        System.out.println("---------------------------------------------------------- Admission Requirements --------------------------------------------------------");
         //Requirements
         System.out.println("For Freshmen:");
         for (Map.Entry entry : freshmenReq.entrySet()) {
@@ -45,7 +45,7 @@ public class Admission extends Variables implements Courses, Grades{
     public void applicationForm(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                \n---------------------------------------------- ONLINE APPLICATION ------------------------------------------------
+                \n----------------------------------------------------------- ONLINE APPLICATION -----------------------------------------------------------
                 Kindly fill-out the online application form for a fast and efficient admissions procedure.
                 What type of student are you?
                 1 - New
@@ -71,7 +71,7 @@ public class Admission extends Variables implements Courses, Grades{
     public void newStudent(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                --------------------------------------------- NEW STUDENT APPLICATION ---------------------------------------------
+                -------------------------------------------------------- NEW STUDENT APPLICATION ---------------------------------------------------------
                 Please select the course you would like to take.
                 """);
         for(Map.Entry e: courses.entrySet()){
@@ -92,7 +92,7 @@ public class Admission extends Variables implements Courses, Grades{
         System.out.println("\nYou have chosen the course " + studentCourse);
         studentInfo.put("Course", studentCourse);
         System.out.print("""
-                \n------------------------------------------------ APPLICATION INFORMATION ------------------------------------------
+                \n-------------------------------------------------------- APPLICATION INFORMATION ---------------------------------------------------------
                 Please select your Admit Type
                 1 - New Student
                 2 - Transferee
@@ -171,29 +171,19 @@ public class Admission extends Variables implements Courses, Grades{
         }
         studentInfo.put("Term", yearTerm);
         System.out.print("""
-                ---------------------------------------------------- PERSONAL INFORMATION -----------------------------------------
+                ---------------------------------------------------------------- PERSONAL INFORMATION ----------------------------------------------------
                 """);
         System.out.print("Enter student's first name: ");
         scn.nextLine();
         studentInfo.put("First Name", scn.nextLine());
         System.out.print("Enter student's middle name (NA if no middle name): ");
         String middleName = scn.nextLine();
-        if(middleName.equalsIgnoreCase("NA")){
-            studentInfo.put("Middle Name", "");
-        }
-        else{
-            studentInfo.put("Middle Name", middleName);
-        }
+        studentInfo.put("Middle Name", middleName);
         System.out.print("Enter student's last name: ");
         studentInfo.put("Last Name", scn.nextLine());
         System.out.print("Enter student's suffix name (NA if no suffix): ");
         String suffix = scn.nextLine();
-        if(suffix.equalsIgnoreCase("NA")){
-            studentInfo.put("Suffix","");
-        }
-        else{
-            studentInfo.put("Suffix", suffix);
-        }
+        studentInfo.put("Suffix", suffix);
         System.out.print("Enter student's gender: ");
         studentInfo.put("Gender",scn.nextLine());
         System.out.print("Enter student's civil status (single or married): ");
@@ -224,7 +214,7 @@ public class Admission extends Variables implements Courses, Grades{
         studentInfo.put("Guardian's Email", scn.nextLine());
 
         System.out.print("""
-                \n------------------------------------------------ VALIDATION OF DETAILS --------------------------------------------
+                \n----------------------------------------------------------- VALIDATION OF DETAILS --------------------------------------------------------
                 """);
         System.out.println("Student Name: " + studentInfo.get("First Name") + " " + studentInfo.get("Middle Name")
         + " " + studentInfo.get("Last Name") + " " + studentInfo.get("Suffix"));
@@ -264,11 +254,6 @@ public class Admission extends Variables implements Courses, Grades{
                 defaultQuarter.put("Prefinals", prefGrades);
                 defaultQuarter.put("Finals", finGrades);
                 studentGrades.put(studentNumber, defaultQuarter);
-                Set<String> keys = new HashSet<>();
-                for(Map.Entry e : studentInfo.entrySet()){
-                    keys.add(e.getKey().toString());
-                }
-                studentInfo.keySet().removeAll(keys);
                 System.out.println("\nProceed to Payments (Press Y for yes or any key for no)?");
                 char next = scn.next().toUpperCase().charAt(0);
                 if(next == 'Y'){
@@ -293,32 +278,21 @@ public class Admission extends Variables implements Courses, Grades{
     public void oldStudent(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                ------------------------------------------- APPLICATION FOR EXISTING STUDENTS -------------------------------------
+                ------------------------------------------------------ APPLICATION FOR EXISTING STUDENTS -------------------------------------------------
                 Fill out the form to reserve a slot in your preferred college program in TBD College.
                 """);
         System.out.print("Enter student ID number: ");
-        int studentID = scn.nextInt();
-        scn.nextLine();
+        String studentID = scn.nextLine();
         System.out.print("Enter student's first name: ");
         studentInfo.put("First Name", scn.nextLine());
         System.out.print("Enter student's middle name (NA if no middle name): ");
         String middleName = scn.nextLine();
-        if(middleName.equalsIgnoreCase("NA")){
-            studentInfo.put("Middle Name", "");
-        }
-        else{
-            studentInfo.put("Middle Name", middleName);
-        }
+        studentInfo.put("Middle Name", middleName);
         System.out.print("Enter student's last name: ");
         studentInfo.put("Last Name", scn.nextLine());
         System.out.print("Enter student's suffix name (NA if no suffix): ");
         String suffix = scn.nextLine();
-        if(suffix.equalsIgnoreCase("NA")){
-            studentInfo.put("Suffix","");
-        }
-        else{
-            studentInfo.put("Suffix", suffix);
-        }
+        studentInfo.put("Suffix", suffix);
         System.out.print("Enter student's contact number: ");
         studentInfo.put("Contact Number", scn.nextLine());
         System.out.print("Enter student's email address: ");
@@ -431,8 +405,9 @@ public class Admission extends Variables implements Courses, Grades{
         }
         studentInfo.put("Course", studentCourse);
         lineGenerator();
-        System.out.print("\nPrevious Section: ");
-        studentInfo.put("Previous Section", scn.next());
+        scn.nextLine();
+        System.out.print("Previous Section: ");
+        studentInfo.put("Previous Section", scn.nextLine());
         lineGenerator();
         System.out.print("""
                 Preferred Schedule
@@ -457,6 +432,7 @@ public class Admission extends Variables implements Courses, Grades{
         }
         studentInfo.put("Preferred Schedule", schedule);
         lineGenerator();
+        scn.nextLine();
         System.out.print("Existing Scholarship: ");
         studentInfo.put("Existing Scholarship", scn.nextLine());
         lineGenerator();
@@ -488,21 +464,20 @@ public class Admission extends Variables implements Courses, Grades{
         }
         studentInfo.put("Payment Term", paymentTerm);
         System.out.print("""
-                -------------------------------------------------- CONFIRM RESERVATION --------------------------------------------
+                ------------------------------------------------------------- CONFIRM RESERVATION --------------------------------------------------------
                 """);
         while(true){
             System.out.print("""
                     Do you hereby confirm your enrollment in TBD College under the specified term and school year?
-                    Do you understand that you will settle the necessary assessment fees or pay the Minimum Reservation Fee of Php 1,000(One Thousand Pesos)
-                    to complete your enrollment (Y/N)?
+                    
+                    Do you understand that you will settle the necessary assessment fees or pay the Minimum Reservation Fee of Php 1,000(One Thousand Pesos) to complete your enrollment (Y/N)?
                     """);
             char confirm = scn.next().toUpperCase().charAt(0);
             if(confirm == 'Y'){
                 lineGenerator();
                 System.out.println("Your application has been submitted! Please pay to finalize your enrollment.");
                 reserved.put(studentID, studentInfo);
-                System.out.println(enrolled.toString());
-                System.out.println("Proceed to Payments (Press Y for yes or any key for no)?");
+                System.out.print("Proceed to Payments (Press Y for yes or any key for no)? ");
                 char next = scn.next().toUpperCase().charAt(0);
                 if(next == 'Y'){
                     payments();
@@ -525,7 +500,7 @@ public class Admission extends Variables implements Courses, Grades{
     public void payments(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-        ------------------------------------------------------- PAYMENT METHODS -------------------------------------------
+        ------------------------------------------------------------------ PAYMENT METHODS -------------------------------------------------------
         """);
         Payments payment = new Payments();
         System.out.println("All Payment Methods are following below ");
