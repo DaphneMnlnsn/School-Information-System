@@ -21,45 +21,45 @@ public class Main {
                     """);
             lineGenerator();
             System.out.print("Please enter the number of your concern (0 to exit): ");
-            int choice = scn.nextInt();
+            char choice = scn.next().charAt(0);
 
             switch(choice){
-                case 0:
+                case '0':
                     lineGenerator();
                     System.out.println("Thank you for visiting TBD College!");
                     lineGenerator();
                     loop = false;
                     System.exit(0);
                     break;
-                case 1:
+                case '1':
                     new Admission();
                     loop = false;
                     break;
-                case 2:
+                case '2':
                     new Programs();
                     loop = false;
                     break;
-                case 3:
+                case '3':
                     payments();
                     loop = false;
                     break;
-                case 4:
+                case '4':
                     new Request();
                     loop = false;
                     break;
-                case 5:
+                case '5':
                     new Student();
                     loop = false;
                     break;
-                case 6:
+                case '6':
                     new Employee();
                     loop = false;
                     break;
-                case 7:
+                case '7':
                     blog();
                     loop = false;
                     break;
-                case 8:
+                case '8':
                     about();
                     loop = false;
                     break;
@@ -87,7 +87,6 @@ public class Main {
         }
         catch(Exception e){
             System.out.println("Something went wrong. Please try again.");
-            System.out.println(e.getMessage());
             new Main();
         }
     }
@@ -104,14 +103,14 @@ public class Main {
         payment.setPaymentSize();
         while(true){
             System.out.print("Your answer (Press 0 to go back): ");
-            int PaymentChoice = scn.nextInt();
+            String PaymentChoice = scn.next();
             lineGenerator();
-            if(PaymentChoice == 0){
+            if(Integer.parseInt(PaymentChoice) == 0){
                 new Main();
                 break;
             }
-            if(PaymentChoice <= payment.getPaymentSize()){
-                payment.setToRetrieve(PaymentChoice);
+            if(Integer.parseInt(PaymentChoice) <= payment.getPaymentSize()){
+                payment.setToRetrieve(Integer.parseInt(PaymentChoice));
                 System.out.println(payment.getPaymentMethod());
                 System.out.println("Account Number: " + payment.getAccount());
                 System.out.println("Account Name: " + payment.getAccountName());
@@ -119,8 +118,7 @@ public class Main {
                 System.out.println(payment.getEmailLink());
                 lineGenerator();
                 System.out.print("Press any key to go back: ");
-                String paymentResetKey = scn.next();
-                if(paymentResetKey != null){
+                if(scn.next() != null){
                     payments();
                 }
                 break;
@@ -142,20 +140,19 @@ public class Main {
         blog.setArticleSize();
         while(true){
             System.out.print("Your answer (Press 0 to go back): ");
-            int blogChoice = scn.nextInt();
+            String blogChoice = scn.next();
             lineGenerator();
-            if(blogChoice == 0){
+            if(Integer.parseInt(blogChoice) == 0){
                 new Main();
                 break;
             }
-            if(blogChoice <= blog.getArticleSize()){
-                blog.setToRetrieve(blogChoice);
+            if(Integer.parseInt(blogChoice) <= blog.getArticleSize()){
+                blog.setToRetrieve(Integer.parseInt(blogChoice));
                 System.out.println(blog.getHeadline());
                 System.out.println("\n" + blog.getArticle());
                 lineGenerator();
                 System.out.print("Press any key to go back: ");
-                String back = scn.next();
-                if(back != null){
+                if(scn.next() != null){
                     blog();
                 }
                 break;
@@ -176,14 +173,14 @@ public class Main {
         about.setAboutSize();
         while(true){
             System.out.print("Your answer (Press 0 to go back): ");
-            int aboutChoice = scn.nextInt();
+            String aboutChoice = scn.next();
             lineGenerator();
-            if(aboutChoice == 0){
+            if(Integer.parseInt(aboutChoice) == 0){
                 new Main();
                 break;
             }
-            if(aboutChoice <= about.getAboutSize() && aboutChoice != about.getIndex()){
-                about.setToRetrieve(aboutChoice);
+            if(Integer.parseInt(aboutChoice) <= about.getAboutSize() && Integer.parseInt(aboutChoice) != about.getIndex()){
+                about.setToRetrieve(Integer.parseInt(aboutChoice));
                 System.out.println(about.getAbout());
                 System.out.println("\n" + about.getAboutContent());
                 lineGenerator();
@@ -194,28 +191,27 @@ public class Main {
                 }
                 break;
             }
-            if(aboutChoice <= about.getAboutSize() && aboutChoice == about.getIndex()){
+            if(Integer.parseInt(aboutChoice) <= about.getAboutSize() && Integer.parseInt(aboutChoice) == about.getIndex()){
                 about.setPoliciesPrint();
                 System.out.print("Current Policies: ");
                 System.out.println(about.getPoliciesPrint());
                 lineGenerator();
                 System.out.print("Select the policy you would like to view (0 to go back): ");
-                int policyChoice = scn.nextInt();
+                String policyChoice = scn.next();
                 lineGenerator();
                 about.setPolicySize();
                 while(true){
-                    if(policyChoice == 0){
+                    if(Integer.parseInt(policyChoice) == 0){
                         about();
                         break;
                     }
-                    if(policyChoice <= about.getPolicySize()){
-                        about.setToRetrieve(policyChoice);
+                    if(Integer.parseInt(policyChoice) <= about.getPolicySize()){
+                        about.setToRetrieve(Integer.parseInt(policyChoice));
                         System.out.println(about.getPolicy());
                         System.out.println("\n" + about.getPolicyContent());
                         lineGenerator();
                         System.out.print("Press any key to go back: ");
-                        String back = scn.next();
-                        if(back != null){
+                        if(scn.next() != null){
                             about();
                         }
                         break;
