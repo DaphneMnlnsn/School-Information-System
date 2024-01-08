@@ -57,6 +57,7 @@ public class Teacher extends Variables implements Grades{
             section = scn.nextLine();
             if(section.equals("0")){
                 new Teacher(employeeNum);
+                break;
             }
             if(tSub.get(employeeNum).containsKey(section)){
                 lineGenerator();
