@@ -2056,137 +2056,122 @@ public class Admin extends Variables implements Courses  {
             }
             if(choice == '5'){
                 lineGenerator();
+                boolean hasArchived = false;
                 System.out.println("Here are the currently archived courses:");
                 for(Map.Entry e: archivedCourses.entrySet()){
+                    if(archivedCourses != null){hasArchived = true;}
                     System.out.println(e.getKey() + " - " + e.getValue());
                 }
-                lineGenerator();
-                System.out.print("""
-                    What would you like to do?
-                    1 - View Course Top Skills and Opportunities
-                    2 - Delete A Course Permanently
-                    3 - Restore A Course
-                    """);
-                lineGenerator();
-                while(true){
-                    System.out.print("Your Answer (0 to go back): ");
-                    char archive = scn.next().charAt(0);
+                if(hasArchived == false){
+                    System.out.println("No archived courses.");
+                }
+                if(hasArchived == true){
+                    lineGenerator();
+                    System.out.print("""
+                        What would you like to do?
+                        1 - View Course Top Skills and Opportunities
+                        2 - Delete A Course Permanently
+                        3 - Restore A Course
+                        """);
+                    lineGenerator();
+                    while(true){
+                        System.out.print("Your Answer (0 to go back): ");
+                        char archive = scn.next().charAt(0);
 
-                    if(archive == '0'){
-                        editCourse();
-                        break;
-                    }
-                    if(archive == '1'){
-                        lineGenerator();
-                        System.out.println("Here are the currently archived courses:");
-                        for(Map.Entry e: archivedCourses.entrySet()){
-                            System.out.println(e.getKey() + " - " + e.getValue());
+                        if(archive == '0'){
+                            editCourse();
+                            break;
                         }
-                        while(true){
+                        if(archive == '1'){
                             lineGenerator();
-                            System.out.print("Please enter the number of the course you would like to view (0 to go back): ");
-                            String view = scn.next();
-                            lineGenerator();
-                            if(Integer.parseInt(view) == 0){
-                                editCourse();
-                                break;
+                            System.out.println("Here are the currently archived courses:");
+                            for(Map.Entry e: archivedCourses.entrySet()){
+                                System.out.println(e.getKey() + " - " + e.getValue());
                             }
-                            if(archivedCourses.containsKey(Integer.parseInt(view))){
-                                System.out.println(archivedCourses.get(Integer.parseInt(view)).toUpperCase());
-                                System.out.println("\nTop Skills to Learn: ");
-                                System.out.println(archivedSkills.get(archivedCourses.get(Integer.parseInt(view))));
-                            
-                                System.out.println("\nCareer Opportunities: ");
-                                System.out.println(archivedOpp.get(archivedCourses.get(Integer.parseInt(view))));
+                            while(true){
                                 lineGenerator();
-                                System.out.print("Press any key to go back: ");
-                                if(scn.next() != null){
+                                System.out.print("Please enter the number of the course you would like to view (0 to go back): ");
+                                String view = scn.next();
+                                lineGenerator();
+                                if(Integer.parseInt(view) == 0){
                                     editCourse();
+                                    break;
                                 }
-                                break;
-                            }
-                            else{
-                                System.out.println("Invalid input. Please try again.");
-                            }
-                        }
-                        break;
-                    }
-                    if(archive == '2'){
-                        lineGenerator();
-                        System.out.println("Here are the currently archived courses:");
-                        for(Map.Entry e: archivedCourses.entrySet()){
-                            System.out.println(e.getKey() + " - " + e.getValue());
-                        }
-                        while(true){
-                            lineGenerator();
-                            System.out.print("Enter the number of the course you would like to remove (0 to go back): ");
-                            String remove = scn.next();
-                            if(Integer.parseInt(remove) == 0){
-                                editCourse();
-                                break;
-                            }
-                            if(courses.containsKey(Integer.parseInt(remove))){
-                                System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                                char yn = scn.next().toUpperCase().charAt(0);
-                                if(yn == 'Y' && archivedCourses.containsKey(remove)){
-                                    removeCourseP(Integer.parseInt(remove));
-                                    System.out.println("The program has been removed permanently.");
-                                    lineGenerator();
-                                    System.out.println("Here are the currently archived courses:");
-                                    for(Map.Entry e: archivedCourses.entrySet()){
-                                        System.out.println(e.getKey() + " - " + e.getValue());
-                                    }
-                                    lineGenerator();
-                                    while(true){
-                                        System.out.print("Press 0 to go back to editing courses/programs: ");
-                                        int back = scn.nextInt();
-                                        if(back == 0){
-                                            editCourse();
-                                            break;
-                                        }
-                                        else{}
-                                    }
+                                if(archivedCourses.containsKey(Integer.parseInt(view))){
+                                    System.out.println(archivedCourses.get(Integer.parseInt(view)).toUpperCase());
+                                    System.out.println("\nTop Skills to Learn: ");
+                                    System.out.println(archivedSkills.get(archivedCourses.get(Integer.parseInt(view))));
                                     
+                                    System.out.println("\nCareer Opportunities: ");
+                                    System.out.println(archivedOpp.get(archivedCourses.get(Integer.parseInt(view)))); 
+                                    break;
                                 }
                                 else{
-                                    new Admin();
+                                    System.out.println("Invalid input. Please try again.");
                                 }
+                            }
+                        }
+                        if(archive == '2'){
+                            lineGenerator();
+                            System.out.println("Here are the currently archived courses:");
+                            for(Map.Entry e: archivedCourses.entrySet()){
+                                System.out.println(e.getKey() + " - " + e.getValue());
+                            }
+                            while(true){
+                                lineGenerator();
+                                System.out.print("Enter the number of the course you would like to remove (0 to go back): ");
+                                String remove = scn.next();
+                                if(Integer.parseInt(remove) == 0){
+                                    editCourse();
+                                    break;
+                                }
+                                if(archivedCourses.containsKey(Integer.parseInt(remove))){
+                                    System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                                    char yn = scn.next().toUpperCase().charAt(0);
+                                    if(yn == 'Y' && archivedCourses.containsKey(Integer.parseInt(remove))){
+                                        removeCourseP(Integer.parseInt(remove));
+                                        System.out.println("The program has been removed permanently.");
+                                    }
+                                    else{
+                                        new Admin();
+                                    }
+                                    break;
+                                }
+                                else{
+                                    System.out.println("This course does not exist. Please try again.");
+                                }
+                            }
+                        }
+                        if(archive == '3'){
+                            lineGenerator();
+                            System.out.println("Here are the currently archived courses:");
+                            for(Map.Entry e: archivedCourses.entrySet()){
+                                System.out.println(e.getKey() + " - " + e.getValue());
+                            }
+                            lineGenerator();
+                            System.out.print("Enter the number of the course you would like to restore (0 to go back): ");
+                            String restore = scn.next();
+                            if(Integer.parseInt(restore) == 0){
+                                editCourse();
                                 break;
+                            }
+                            if(archivedCourses.containsKey(Integer.parseInt(restore))){
+                                restoreCourse(Integer.parseInt(restore));
+                                System.out.println("The program has been restored.");   
                             }
                             else{
                                 System.out.println("This course does not exist. Please try again.");
                             }
                         }
-
-                        break;
-                    }
-                    if(archive == '3'){
-                        lineGenerator();
-                        System.out.println("Here are the currently archived courses:");
-                        for(Map.Entry e: archivedCourses.entrySet()){
-                            System.out.println(e.getKey() + " - " + e.getValue());
-                        }
-                        lineGenerator();
-                        System.out.print("Enter the number of the course you would like to restore (0 to go back): ");
-                        String restore = scn.next();
-                        if(Integer.parseInt(restore) == 0){
-                            editCourse();
-                            break;
-                        }
-                        if(archivedCourses.containsKey(Integer.parseInt(restore))){
-                            restoreCourse(Integer.parseInt(restore));
-                            System.out.println("The program has been restored.");
-                            System.out.print("Press any key to go back: ");
-                            if(scn.next() != null){
-                                editCourse();
-                            }
-                        }
-                        else{
-                            System.out.println("This course does not exist. Please try again.");
-                        }
                         break;
                     }
                 }
+            lineGenerator();
+            System.out.print("Press any key to go back: ");
+            if(scn.next() != null){
+                editCourse();
+            }
+            break;
             }
             else{
                 System.out.println("Invalid input. Please try again.");
