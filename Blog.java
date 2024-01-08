@@ -7,9 +7,9 @@ public class Blog{
         push("TBD hosts BULPRISA 2023");    push("TBD conducts 2023 graduation");
     }};
     private static Stack<String> article = new Stack<>(){{
-        push("TBD College wins first place in the US InterMathematics Competition! Competitor Juan Dela Cruz feels proud for his best achievement so far. 'Super nakaka-proud po kasi talagang pinag-practicean ko 'to.', Dela Cruz says.");  
+        push("TBD College wins first place in the US InterMathematics Competition! Competitor Juan Dela Cruz feels proud for his best achievement so far.\n'Super nakaka-proud po kasi talagang pinag-practicean ko 'to.', Dela Cruz says.");  
         push("TBD College opens new campus building, expanding the campus canteen and giving students more classrooms to learn in.");
-        push("TBD College hosts the BULPRISA for the first time. Several campus officers conducted an initial meeting to plan the programs for BULPRISA and the venues to be used.");
+        push("TBD College hosts the BULPRISA for the first time. Several campus officers conducted an initial meeting to plan the programs for BULPRISA\nand the venues to be used.");
         push("TBD College conducts the Tertiary Graduation in the Philippine International Convention Center (PICC) for A.Y. 2022-23.");
     }};
     private static int articleSize;
