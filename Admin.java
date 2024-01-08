@@ -92,9 +92,11 @@ public class Admin extends Variables implements Courses  {
                 break;
             }
             if(choice.equalsIgnoreCase("R")){
+                boolean hasStudent = false;
                 lineGenerator();
                 for(Map.Entry e: reserved.entrySet()){
                     Map<String, String> value = (Map<String, String>) e.getValue();
+                    if(value != null){hasStudent = true;}
                     System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                     if(!value.get("Middle Name").equals("NA")){
                         System.out.print(" " + value.get("Middle Name"));
@@ -104,35 +106,40 @@ public class Admin extends Variables implements Courses  {
                     }
                     System.out.println();
                 }
-                lineGenerator();
-                while(true){
-                    System.out.print("Enter the student number of the student you would like to view information of (0 to go back): ");
-                    String viewInfo = scn.next();
-                    if(viewInfo.equals("0")){
-                        studentList();
-                        break;
-                    }
-                    if(reserved.containsKey(viewInfo)){
-                        lineGenerator();
-                        for(Map.Entry e: reserved.entrySet()){
-                            if(e.getKey().equals(viewInfo)){
-                                Map<String, String> value = (Map<String, String>) e.getValue();
-                                System.out.println(e.getKey());
-                                for(Map.Entry f: value.entrySet()){
-                                    System.out.println(f.getKey() + ": " + f.getValue());
+                if(hasStudent == false){
+                    System.out.println("No students listed.");
+                }
+                if(hasStudent == true){
+                    lineGenerator();
+                    while(true){
+                        System.out.print("Enter the student number of the student you would like to view information of (0 to go back): ");
+                        String viewInfo = scn.next();
+                        if(viewInfo.equals("0")){
+                            studentList();
+                            break;
+                        }
+                        if(reserved.containsKey(viewInfo)){
+                            lineGenerator();
+                            for(Map.Entry e: reserved.entrySet()){
+                                if(e.getKey().equals(viewInfo)){
+                                    Map<String, String> value = (Map<String, String>) e.getValue();
+                                    System.out.println(e.getKey());
+                                    for(Map.Entry f: value.entrySet()){
+                                        System.out.println(f.getKey() + ": " + f.getValue());
+                                    }
                                 }
                             }
+                            break;
                         }
-                        lineGenerator();
-                        System.out.print("Press any key to go back: ");
-                        if(scn.next() != null){
-                            studentList();
+                        else{
+                            System.out.println("Student does not exist. Please try again.");
                         }
-                        break;
                     }
-                    else{
-                        System.out.println("Student does not exist. Please try again.");
-                    }
+                }
+                lineGenerator();
+                System.out.print("Press any key to go back: ");
+                if(scn.next() != null){
+                    studentList();
                 }
                 break;
             }
@@ -154,290 +161,228 @@ public class Admin extends Variables implements Courses  {
                         break;
                     }
                     if(doAdmin == '1'){
-                        lineGenerator();
-                        for(Map.Entry e: enrolled.entrySet()){
-                            Map<String, String> value = (Map<String, String>) e.getValue();
-                            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
-                                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                if(!value.get("Middle Name").equals("NA")){
-                                    System.out.print(" " + value.get("Middle Name"));
-                                }
-                                if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                    System.out.print(" " + value.get("Suffix"));
-                                }
-                            }
-                            System.out.println();
+                        boolean hasStudent = false;
+                        hasStudent = displayStd(choice, hasStudent);
+                        
+                        if(hasStudent == false){
+                            System.out.println("No students listed.");
                         }
-                        lineGenerator();
-                        while(true){
-                            System.out.print("Enter the student number of the student you would like to view information of (0 to go back): ");
-                            String viewInfo = scn.next();
-                            if(viewInfo.equals("0")){
-                                studentList();
-                                break;
-                            }
-                            if(enrolled.containsKey(viewInfo)){
-                                lineGenerator();
-                                for(Map.Entry e: enrolled.entrySet()){
-                                    if(e.getKey().equals(viewInfo)){
-                                        Map<String, String> value = (Map<String, String>) e.getValue();
-                                        System.out.println(e.getKey());
-                                        for(Map.Entry f: value.entrySet()){
-                                            System.out.println(f.getKey() + ": " + f.getValue());
-                                        }
-                                    }
-                                }
-                                lineGenerator();
-                                System.out.print("Press any key to go back: ");
-                                if(scn.next() != null){
+                        if(hasStudent == true){
+                            lineGenerator();
+                            while(true){
+                                System.out.print("Enter the student number of the student you would like to view information of (0 to go back): ");
+                                String viewInfo = scn.next();
+                                if(viewInfo.equals("0")){
                                     studentList();
                                     break;
                                 }
-                                break;
+                                if(enrolled.containsKey(viewInfo)){
+                                    lineGenerator();
+                                    for(Map.Entry e: enrolled.entrySet()){
+                                        if(e.getKey().equals(viewInfo)){
+                                            Map<String, String> value = (Map<String, String>) e.getValue();
+                                            System.out.println(e.getKey());
+                                            for(Map.Entry f: value.entrySet()){
+                                                System.out.println(f.getKey() + ": " + f.getValue());
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                                else{
+                                    System.out.println("Student does not exist. Please try again.");
+                                }
                             }
-                            else{
-                                System.out.println("Student does not exist. Please try again.");
-                            }
+                        }
+                        lineGenerator();
+                        System.out.print("Press any key to go back: ");
+                        if(scn.next() != null){
+                            studentList();
                         }
                         break;
                     }
                     if(doAdmin == '2'){
                         lineGenerator();
-                        for(Map.Entry e: enrolled.entrySet()){
-                            Map<String, String> value = (Map<String, String>) e.getValue();
-                            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
-                                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                if(!value.get("Middle Name").equals("NA")){
-                                    System.out.print(" " + value.get("Middle Name"));
-                                }
-                                if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                    System.out.print(" " + value.get("Suffix"));
-                                }
-                            }
-                            System.out.println();
+                        boolean hasStudent = false;
+                        displayStd(choice, hasStudent);
+                        if(hasStudent == false){
+                            System.out.println("No students listed.");
                         }
-                        lineGenerator();
-                        while(true){
-                            System.out.print("Enter the student number of the student you would like to remove (0 to go back): ");
-                            String removeStd = scn.next();
-                            if(removeStd.equals("0")){
-                                studentList();
-                                break;
-                            }
-                            if(enrolled.containsKey(removeStd)){
-                                System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                                char yn = scn.next().toUpperCase().charAt(0);
-                                if(yn == 'Y'){
-                                    archiveStudent(removeStd);
-                                    System.out.println("The student has been removed successfully and moved to archives.");
-                                    System.out.print("Press any key to go back: ");
-                                    if(scn.next() != null){
+                        if(hasStudent == true){
+                            lineGenerator();
+                            while(true){
+                                System.out.print("Enter the student number of the student you would like to remove (0 to go back): ");
+                                String removeStd = scn.next();
+                                if(removeStd.equals("0")){
+                                    studentList();
+                                    break;
+                                }
+                                if(enrolled.containsKey(removeStd)){
+                                    System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                                    char yn = scn.next().toUpperCase().charAt(0);
+                                    if(yn == 'Y'){
+                                        archiveStudent(removeStd);
+                                        System.out.println("The student has been removed successfully and moved to archives.");
+                                    }
+                                    else{
                                         studentList();
                                     }
+                                    break;
                                 }
                                 else{
-                                    studentList();
+                                    System.out.print("Student does not exist. Please try again.");
                                 }
-                                break;
                             }
-                            else{
-                                System.out.print("Student does not exist. Please try again.");
-                            }
+                        }
+                        lineGenerator();
+                        System.out.print("Press any key to go back: ");
+                        if(scn.next() != null){
+                            studentList();
                         }
                         break;
                     }
                     if(doAdmin == '3'){
                         lineGenerator();
-                        System.out.println("Here are the archived students: ");
-                        for(Map.Entry e: archivedStud.entrySet()){
-                            Map<String, String> value = (Map<String, String>) e.getValue();
-                            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
-                                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                if(!value.get("Middle Name").equals("NA")){
-                                    System.out.print(" " + value.get("Middle Name"));
-                                }
-                                if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                    System.out.print(" " + value.get("Suffix"));
-                                }
-                            }
-                            System.out.println();
+                        boolean hasStudent = false;
+                        hasStudent = displayArchivedStd(choice, hasStudent);
+                        if(hasStudent == false){
+                            System.out.println("No students listed.");
                         }
-                        lineGenerator();
-                        System.out.print("""
-                            What would you like to do?
-                            1 - Restore a Student's Information
-                            2 - Delete a Student's Information Permanently
-                            """);
-                        lineGenerator();
-                        while(true){
-                            System.out.print("Your Answer (0 to go back): ");
-                            char archive = scn.next().charAt(0);
+                        if(hasStudent == true){
+                            lineGenerator();
+                            System.out.print("""
+                                What would you like to do?
+                                1 - Restore a Student's Information
+                                2 - Delete a Student's Information Permanently
+                                """);
+                            lineGenerator();
+                            while(true){
+                                System.out.print("Your Answer (0 to go back): ");
+                                char archive = scn.next().charAt(0);
 
-                            if(archive == '0'){
-                                studentList();
-                                break;
-                            }
-                            if(archive == '1'){
-                                System.out.println("Here are the archived students: ");
-                                for(Map.Entry e: archivedStud.entrySet()){
-                                    Map<String, String> value = (Map<String, String>) e.getValue();
-                                    if(value.get("Course") == courses.get(Integer.parseInt(choice))){
-                                        System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                        if(!value.get("Middle Name").equals("NA")){
-                                            System.out.print(" " + value.get("Middle Name"));
-                                        }
-                                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                            System.out.print(" " + value.get("Suffix"));
-                                        }
-                                    }
-                                    System.out.println();
+                                if(archive == '0'){
+                                    studentList();
+                                    break;
                                 }
-                                while(true){
-                                    System.out.println("Enter the student number of the student you would like to restore (0 to go back): ");
-                                    String restore = scn.next();
-                                    if(restore.equals("0")){
-                                        studentList();
-                                        break;
-                                    }
-                                    if(archivedStud.containsKey(restore)){
-                                        restoreStudent(restore);
-                                        System.out.println("The student has been restored.");
-                                        System.out.print("Press any key to go back to student list: ");
-                                        if(scn.next() != null){
+                                if(archive == '1'){
+                                    displayArchivedStd(choice, hasStudent);
+                                    lineGenerator();
+                                    while(true){
+                                        System.out.println("Enter the student number of the student you would like to restore (0 to go back): ");
+                                        String restore = scn.next();
+                                        if(restore.equals("0")){
                                             studentList();
+                                            break;
                                         }
-                                        break;
-                                    }
-                                    else{
-                                        System.out.println("Student does not exist. Please try again.");
-                                    }
-                                }
-                            }
-                            if(archive == '2'){
-                                System.out.println("Here are the archived students: ");
-                                for(Map.Entry e: archivedStud.entrySet()){
-                                    Map<String, String> value = (Map<String, String>) e.getValue();
-                                    if(value.get("Course") == courses.get(Integer.parseInt(choice))){
-                                        System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                        if(!value.get("Middle Name").equals("NA")){
-                                            System.out.print(" " + value.get("Middle Name"));
-                                        }
-                                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                            System.out.print(" " + value.get("Suffix"));
-                                        }
-                                    }
-                                    System.out.println();
-                                }
-                                while(true){
-                                    System.out.println("Enter the student number of the student you would like to remove permanently (0 to go back): ");
-                                    String removeP = scn.next();
-                                    if(removeP.equals("0")){
-                                        studentList();
-                                        break;
-                                    }
-                                    if(archivedStud.containsKey(removeP)){
-                                        System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                                        char yn = scn.next().toUpperCase().charAt(0);
-                                        if(yn == 'Y'){
-                                            removeStudentP(removeP);
-                                            System.out.println("The student has been removed permanently.");
-                                            while(true){
-                                                System.out.print("Press any key to go back: ");
-                                                if(scn.next() != null){
-                                                    studentList();
-                                                }
-                                            }
+                                        if(archivedStud.containsKey(restore)){
+                                            restoreStudent(restore);
+                                            System.out.println("The student has been restored.");
+                                            break;
                                         }
                                         else{
-                                            studentList();
+                                            System.out.println("Student does not exist. Please try again.");
                                         }
-                                        break;
                                     }
-                                    else{
-                                        System.out.println("Student does not exist. Please try again.");
+                                    break;
+                                }
+                                if(archive == '2'){
+                                    displayArchivedStd(choice, hasStudent);
+                                    lineGenerator();
+                                    while(true){
+                                        System.out.print("Enter the student number of the student you would like to remove permanently (0 to go back): ");
+                                        String removeP = scn.next();
+                                        if(removeP.equals("0")){
+                                            studentList();
+                                            break;
+                                        }
+                                        if(archivedStud.containsKey(removeP)){
+                                            System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                                            char yn = scn.next().toUpperCase().charAt(0);
+                                            if(yn == 'Y'){
+                                                removeStudentP(removeP);
+                                                System.out.println("The student has been removed permanently.");
+                                            }
+                                            else{
+                                                studentList();
+                                            }
+                                            break;
+                                        }
+                                        else{
+                                            System.out.println("Student does not exist. Please try again.");
+                                        }
                                     }
+                                    break;
+                                }
+                                else{
+                                    System.out.println("Invalid input. Please try again.");
                                 }
                             }
-                            else{
-                                System.out.println("Invalid input. Please try again.");
-                            }
                         }
+                        lineGenerator();
+                        System.out.print("Press any key to go back to student list: ");
+                        if(scn.next() != null){
+                            studentList();
+                        }
+                        break;
                     }
                     if(doAdmin == '4'){
                         lineGenerator();
-                        for(Map.Entry e: enrolled.entrySet()){
-                            Map<String, String> value = (Map<String, String>) e.getValue();
-                            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
-                                System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                                if(!value.get("Middle Name").equals("NA")){
-                                    System.out.print(" " + value.get("Middle Name"));
-                                }
-                                if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                                    System.out.print(" " + value.get("Suffix"));
-                                }
-                            }
-                            System.out.println();
+                        boolean hasStudent = false;
+                        hasStudent = displayStd(choice, hasStudent);
+                        if(hasStudent == false){
+                            System.out.println("No students listed.");
                         }
-                        lineGenerator();
-                        while(true){
-                            System.out.print("Enter the student number of the student you would like to edit information of (0 to go back): ");
-                            String editInfo = scn.next();
-                            if(editInfo.equals("0")){
-                                studentList();
-                                break;
-                            }
-                            if(enrolled.containsKey(editInfo)){
-                                lineGenerator();
-                                System.out.println("Here is the student's current information: ");
-                                for(Map.Entry e: enrolled.entrySet()){
-                                    if(e.getKey().equals(editInfo)){
-                                        Map<String, String> value = (Map<String, String>) e.getValue();
-                                        System.out.println(e.getKey());
-                                        for(Map.Entry f: value.entrySet()){
-                                            System.out.println(f.getKey() + ": " + f.getValue());
-                                        }
-                                    }
+                        if(hasStudent == true){
+                            lineGenerator();
+                            while(true){
+                                System.out.print("Enter the student number of the student you would like to edit information of (0 to go back): ");
+                                String editInfo = scn.next();
+                                if(editInfo.equals("0")){
+                                    studentList();
+                                    break;
                                 }
-                                lineGenerator();
-                                while(true){
-                                    System.out.print("Enter the information you would like to edit (e.g. Contact Number) (Press 0 to go back): ");
-                                    scn.nextLine();
-                                    String edit = scn.nextLine();
-                                    
-                                    if(edit.equals("0")){
-                                        studentList();
-                                        break;
-                                    }
-                                    if(enrolled.get(editInfo).containsKey(edit)){
-                                        System.out.print("Enter the updated information: ");
-                                        enrolled.get(editInfo).replace(edit, scn.nextLine());
-                                        lineGenerator();
-                                        System.out.println("Here is the student's updated information: ");
-                                        for(Map.Entry e: enrolled.entrySet()){
-                                            if(e.getKey().equals(editInfo)){
-                                                Map<String, String> value = (Map<String, String>) e.getValue();
-                                                System.out.println(e.getKey());
-                                                for(Map.Entry f: value.entrySet()){
-                                                    System.out.println(f.getKey() + ": " + f.getValue());
-                                                }
+                                if(enrolled.containsKey(editInfo)){
+                                    lineGenerator();
+                                    System.out.println("Here is the student's current information: ");
+                                    for(Map.Entry e: enrolled.entrySet()){
+                                        if(e.getKey().equals(editInfo)){
+                                            Map<String, String> value = (Map<String, String>) e.getValue();
+                                            System.out.println(e.getKey());
+                                            for(Map.Entry f: value.entrySet()){
+                                                System.out.println(f.getKey() + ": " + f.getValue());
                                             }
                                         }
-                                        lineGenerator();
-                                        System.out.print("Press any key to go back: ");
-                                        if(scn.next() != null){
+                                    }
+                                    lineGenerator();
+                                    while(true){
+                                        System.out.print("Enter the information you would like to edit (e.g. Contact Number) (Press 0 to go back): ");
+                                        scn.nextLine();
+                                        String edit = scn.nextLine();
+                                        
+                                        if(edit.equals("0")){
                                             studentList();
+                                            break;
                                         }
-                                        break;
+                                        if(enrolled.get(editInfo).containsKey(edit)){
+                                            System.out.print("Enter the updated information: ");
+                                            enrolled.get(editInfo).replace(edit, scn.nextLine());
+                                            break;
+                                        }
+                                        else{
+                                            System.out.println("That information does not exist. Please try again.");
+                                        }
                                     }
-                                    else{
-                                        System.out.println("That information does not exist. Please try again.");
-                                    }
+                                    break;
                                 }
-                                break;
+                                else{
+                                    System.out.println("Student does not exist. Please try again.");
+                                }
                             }
-                            else{
-                                System.out.println("Student does not exist. Please try again.");
-                            }
+                        }
+                        lineGenerator();
+                        System.out.print("Press any key to go back: ");
+                        if(scn.next() != null){
+                            studentList();
                         }
                         break;
                     }
@@ -475,348 +420,242 @@ public class Admin extends Variables implements Courses  {
             }
             if(doAdmin == '1'){
                 lineGenerator();
-                System.out.println("Here are the current teachers:");
-                for(Map.Entry e: tInfo.entrySet()){
-                    Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                    if(!value.get("Middle Name").equals("NA")){
-                        System.out.print(" " + value.get("Middle Name"));
+                boolean hasTeacher = false;
+                hasTeacher = displayTch(hasTeacher);
+                if(hasTeacher == false){
+                    System.out.println("No teachers listed.");
+                }
+                if(hasTeacher == true){
+                    lineGenerator();
+                    while(true){
+                        System.out.print("Enter the employee number of the teacher you would like to view information of (0 to go back): ");
+                        String viewInfo = scn.next();
+                        if(viewInfo.equals("0")){
+                            teacherList();
+                            break;
+                        }
+                        if(tInfo.containsKey(viewInfo)){
+                            lineGenerator();
+                            for(Map.Entry e: tInfo.entrySet()){
+                                if(e.getKey().equals(viewInfo)){
+                                    Map<String, String> value = (Map<String, String>) e.getValue();
+                                    System.out.println(e.getKey());
+                                    for(Map.Entry f: value.entrySet()){
+                                        System.out.println(f.getKey() + ": " + f.getValue());
+                                    }
+                                }
+                            }
+                            lineGenerator();
+                            displayHandled(viewInfo);
+                            break;
+                        }
+                        else{
+                            System.out.println("Teacher does not exist. Please try again.");
+                        }
+                        break;
                     }
-                    if(!value.get("Suffix").equals("NA")){
-                        System.out.print(" " + value.get("Suffix"));
-                    }
-                    System.out.println();
                 }
                 lineGenerator();
-                while(true){
-                    System.out.print("Enter the employee number of the teacher you would like to view information of (0 to go back): ");
-                    String viewInfo = scn.next();
-                    if(viewInfo.equals("0")){
-                        teacherList();
-                        break;
-                    }
-                    if(tInfo.containsKey(viewInfo)){
-                        lineGenerator();
-                        for(Map.Entry e: tInfo.entrySet()){
-                            if(e.getKey().equals(viewInfo)){
-                                Map<String, String> value = (Map<String, String>) e.getValue();
-                                System.out.println(e.getKey());
-                                for(Map.Entry f: value.entrySet()){
-                                    System.out.println(f.getKey() + ": " + f.getValue());
-                                }
-                            }
-                        }
-                        lineGenerator();
-                        System.out.println("Sections and Subjects Handled: ");
-                        for(Map.Entry e: tSub.entrySet()){
-                            if(e.getKey().equals(viewInfo)){
-                                Map<String, String> value = (Map<String, String>) e.getValue();
-                                System.out.println(e.getKey());
-                                for(Map.Entry f: value.entrySet()){
-                                    System.out.println(f.getKey() + ": " + f.getValue());
-                                }
-                            }
-                        }
-                        lineGenerator();
-                        System.out.print("Press any key to go back: ");
-                        if(scn.next() != null){
-                            teacherList();
-                        }
-                        break;
-                    }
-                    else{
-                        System.out.println("Teacher does not exist. Please try again.");
-                    }
-                    break;
+                System.out.print("Press any key to go back: ");
+                if(scn.next() != null){
+                    teacherList();
                 }
+                break;
             }
             if(doAdmin == '2'){
                 lineGenerator();
-                System.out.println("Here are the current teachers:");
-                for(Map.Entry e: tInfo.entrySet()){
-                    Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                    if(!value.get("Middle Name").equals("NA")){
-                        System.out.print(" " + value.get("Middle Name"));
-                    }
-                    if(!value.get("Suffix").equals("NA")){
-                        System.out.print(" " + value.get("Suffix"));
-                    }
-                    System.out.println();
+                boolean hasTeacher = false;
+                hasTeacher = displayTch(hasTeacher);
+                if(hasTeacher == false){
+                    System.out.println("No teachers listed.");
                 }
-                lineGenerator();
-                while(true){
-                    System.out.print("Enter the employee number of the teacher you would like to remove (0 to go back): ");
-                    String removeTch = scn.next();
-                    if(removeTch.equals("0")){
-                        teacherList();
-                        break;
-                    }
-                    if(tInfo.containsKey(removeTch)){
-                        System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                        char yn = scn.next().toUpperCase().charAt(0);
-                        if(yn == 'Y'){
-                            archiveTeacher(removeTch);
-                            System.out.println("The teacher has been removed successfully and moved to archives.");
-                            System.out.print("Press any key to go back: ");
-                            if(scn.next() != null){
+                if(hasTeacher == true){
+                    lineGenerator();
+                    while(true){
+                        System.out.print("Enter the employee number of the teacher you would like to remove (0 to go back): ");
+                        String removeTch = scn.next();
+                        if(removeTch.equals("0")){
+                            teacherList();
+                            break;
+                        }
+                        if(tInfo.containsKey(removeTch)){
+                            System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                            char yn = scn.next().toUpperCase().charAt(0);
+                            if(yn == 'Y'){
+                                archiveTeacher(removeTch);
+                                System.out.println("The teacher has been removed successfully and moved to archives.");
+                            }
+                            else{
                                 teacherList();
                             }
+                            break;
                         }
                         else{
-                            teacherList();
+                            System.out.println("Teacher does not exist. Please try again.");
                         }
-                        break;
                     }
-                    else{
-                        System.out.println("Teacher does not exist. Please try again.");
-                    }
+                }
+                lineGenerator();
+                System.out.print("Press any key to go back: ");
+                if(scn.next() != null){
+                    teacherList();
                 }
                 break;
             }
             if(doAdmin == '3'){
                 lineGenerator();
-                System.out.println("Here are the archived teachers:");
-                for(Map.Entry e: archivedTInfo.entrySet()){
-                    Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                    if(!value.get("Middle Name").equals("NA")){
-                        System.out.print(" " + value.get("Middle Name"));
-                    }
-                    if(!value.get("Suffix").equals("NA")){
-                        System.out.print(" " + value.get("Suffix"));
-                    }
-                    System.out.println();
+                boolean hasTeacher = false;
+                hasTeacher = displayArchivedTch(hasTeacher);
+                if(hasTeacher == false){
+                    System.out.println("No teachers listed.");
                 }
-                lineGenerator();
-                System.out.print("""
-                    What would you like to do?
-                    1 - Restore a Teacher's Information
-                    2 - Delete a Teacher's Information Permanently
-                    """);
-                lineGenerator();
-                while(true){
-                    System.out.print("Your Answer (0 to go back): ");
-                    char archive = scn.next().charAt(0);
+                if(hasTeacher == true){
+                    lineGenerator();
+                    System.out.print("""
+                        What would you like to do?
+                        1 - Restore a Teacher's Information
+                        2 - Delete a Teacher's Information Permanently
+                        """);
+                    lineGenerator();
+                    while(true){
+                        System.out.print("Your Answer (0 to go back): ");
+                        char archive = scn.next().charAt(0);
 
-                    if(archive == '0'){
-                        teacherList();
-                        break;
-                    }
-                    if(archive == '1'){
-                        lineGenerator();
-                        System.out.println("Here are the archived teachers:");
-                        for(Map.Entry e: archivedTInfo.entrySet()){
-                            Map<String, String> value = (Map<String, String>) e.getValue();
-                            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                            if(!value.get("Middle Name").equals("NA")){
-                                System.out.print(" " + value.get("Middle Name"));
-                            }
-                            if(!value.get("Suffix").equals("NA")){
-                                System.out.print(" " + value.get("Suffix"));
-                            }
-                            System.out.println();
+                        if(archive == '0'){
+                            teacherList();
+                            break;
                         }
-                        lineGenerator();
-                        while(true){
-                            System.out.print("Enter the employee number of the teacher you would like to restore (0 to go back): ");
-                            String restore = scn.next();
-                            if(restore.equals("0")){
-                                teacherList();
-                                break;
-                            }
-                            if(archivedTInfo.containsKey(restore)){
-                                restoreTeacher(restore);
-                                System.out.println("The teacher has been restored.");
-                                System.out.print("Press any key to go back to teacher list: ");
-                                if(scn.next() != null){
+                        if(archive == '1'){
+                            lineGenerator();
+                            displayArchivedTch(hasTeacher);
+                            lineGenerator();
+                            while(true){
+                                System.out.print("Enter the employee number of the teacher you would like to restore (0 to go back): ");
+                                String restore = scn.next();
+                                if(restore.equals("0")){
                                     teacherList();
                                     break;
                                 }
-                                break;
-                            }
-                            else{
-                                System.out.println("Teacher does not exist. Please try again.");
-                            }
-                        }
-                    }
-                    if(archive == '2'){
-                        lineGenerator();
-                        System.out.println("Here are the archived teachers:");
-                        for(Map.Entry e: archivedTInfo.entrySet()){
-                            Map<String, String> value = (Map<String, String>) e.getValue();
-                            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                            if(!value.get("Middle Name").equals("NA")){
-                                System.out.print(" " + value.get("Middle Name"));
-                            }
-                            if(!value.get("Suffix").equals("NA")){
-                                System.out.print(" " + value.get("Suffix"));
-                            }
-                            System.out.println();
-                        }
-                        lineGenerator();
-                        while(true){
-                            System.out.print("Enter the employee number of the teacher you would like to remove permanently (0 to go back): ");
-                            String removeP = scn.next();
-                            if(removeP.equals("0")){
-                                teacherList();
-                                break;
-                            }
-                            if(archivedTInfo.containsKey(removeP)){
-                                System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                                char yn = scn.next().toUpperCase().charAt(0);
-                                if(yn == 'Y'){
-                                    removeTeacherP(removeP);
-                                    System.out.println("The teacher has been removed permanently.");
-                                    System.out.print("Press any key to go back: ");
-                                    if(scn.next() != null){
-                                        teacherList();
-                                        break;
-                                    }
+                                if(archivedTInfo.containsKey(restore)){
+                                    restoreTeacher(restore);
+                                    System.out.println("The teacher has been restored.");
+                                    break;
                                 }
                                 else{
-                                    teacherList();
+                                    System.out.println("Teacher does not exist. Please try again.");
                                 }
-                                        break;
                             }
-                            else{
-                                System.out.println("Teacher does not exist. Please try again.");
+                            break;
+                        }
+                        if(archive == '2'){
+                            lineGenerator();
+                            displayArchivedTch(hasTeacher);
+                            lineGenerator();
+                            while(true){
+                                System.out.print("Enter the employee number of the teacher you would like to remove permanently (0 to go back): ");
+                                String removeP = scn.next();
+                                if(removeP.equals("0")){
+                                    teacherList();
+                                    break;
+                                }
+                                if(archivedTInfo.containsKey(removeP)){
+                                    System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                                    char yn = scn.next().toUpperCase().charAt(0);
+                                    if(yn == 'Y'){
+                                        removeTeacherP(removeP);
+                                        System.out.println("The teacher has been removed permanently.");
+                                    }
+                                    else{
+                                        teacherList();
+                                    }
+                                    break;
+                                }
+                                else{
+                                    System.out.println("Teacher does not exist. Please try again.");
+                                }
                             }
+                            break;
+                        }
+                        else{
+                            System.out.println("Invalid input. Please try again.");
                         }
                     }
-                    else{
-                        System.out.println("Invalid input. Please try again.");
-                    }
                 }
+                lineGenerator();
+                System.out.print("Press any key to go back to teacher list: ");
+                if(scn.next() != null){
+                    teacherList();
+                }
+                break;
             }
             if(doAdmin == '4'){
                 lineGenerator();
-                System.out.println("Here are the current teachers:");
-                for(Map.Entry e: tInfo.entrySet()){
-                    Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                    if(!value.get("Middle Name").equals("NA")){
-                        System.out.print(" " + value.get("Middle Name"));
-                    }
-                    if(!value.get("Suffix").equals("NA")){
-                        System.out.print(" " + value.get("Suffix"));
-                    }
-                    System.out.println();
+                boolean hasTeacher = false;
+                hasTeacher = displayTch(hasTeacher);
+                if(hasTeacher == false){
+                    System.out.println("No teachers listed.");
                 }
-                lineGenerator();
-                while(true){
-                    System.out.print("Enter the employee number of the teacher you would like to edit information of (0 to go back): ");
-                    String editInfo = scn.next();
-                    if(editInfo.equals("0")){
-                        teacherList();
-                        break;
-                    }
-                    if(tInfo.containsKey(editInfo)){
-                        lineGenerator();
-                        System.out.println("Here is the teacher's current information: ");
-                        for(Map.Entry e: tInfo.entrySet()){
-                            if(e.getKey().equals(editInfo)){
-                                Map<String, String> value = (Map<String, String>) e.getValue();
-                                System.out.println(e.getKey());
-                                for(Map.Entry f: value.entrySet()){
-                                    System.out.println(f.getKey() + ": " + f.getValue());
-                                }
-                            }
+                if(hasTeacher == true){
+                    lineGenerator();
+                    while(true){
+                        System.out.print("Enter the employee number of the teacher you would like to edit information of (0 to go back): ");
+                        String editInfo = scn.next();
+                        if(editInfo.equals("0")){
+                            teacherList();
+                            break;
                         }
-                        lineGenerator();
-                        System.out.println("Sections and Subjects Handled: ");
-                        for(Map.Entry e: tSub.entrySet()){
-                            if(e.getKey().equals(editInfo)){
-                                Map<String, String> value = (Map<String, String>) e.getValue();
-                                System.out.println(e.getKey());
-                                for(Map.Entry f: value.entrySet()){
-                                    System.out.println(f.getKey() + ": " + f.getValue());
-                                }
-                            }
-                        }
-                        lineGenerator();
-                        while(true){
-                            System.out.print("Enter the information you would like to edit (e.g. Email) (Press 0 to go back, 1 to remove a section handled, 2 to add a section/subject handled): ");
-                            scn.nextLine();
-                            String edit = scn.nextLine();
-                                    
-                            if(edit.equals("0")){
-                                teacherList();
-                                break;
-                            }
-                            if(edit.equals("1")){
-                                while(true){
-                                    lineGenerator();
-                                    System.out.print("""
-                                            What would you like to do?
-                                            1 - Remove a whole handled section
-                                            2 - Remove a subject within a handled section
-                                            """);
-                                    System.out.print("Your answer (0 to go back): ");
-                                    char removeChoice = scn.next().charAt(0);
-                                    if(removeChoice == '0'){
-                                        teacherList();
-                                        break;
+                        if(tInfo.containsKey(editInfo)){
+                            lineGenerator();
+                            System.out.println("Here is the teacher's current information: ");
+                            for(Map.Entry e: tInfo.entrySet()){
+                                if(e.getKey().equals(editInfo)){
+                                    Map<String, String> value = (Map<String, String>) e.getValue();
+                                    System.out.println(e.getKey());
+                                    for(Map.Entry f: value.entrySet()){
+                                        System.out.println(f.getKey() + ": " + f.getValue());
                                     }
-                                    if(removeChoice == '1'){
-                                        System.out.print("Enter the section handled you would like to remove permanently (0 to go back): ");
-                                        scn.nextLine();
-                                        String removeP = scn.nextLine().toUpperCase();
-                                        if(removeP.equals("0")){
+                                }
+                            }
+                            lineGenerator();
+                            displayHandled(editInfo);
+                            lineGenerator();
+                            while(true){
+                                System.out.print("Enter the information you would like to edit (e.g. Email) (Press 0 to go back, 1 to remove a section handled, 2 to add a section/subject handled): ");
+                                scn.nextLine();
+                                String edit = scn.nextLine();
+                                        
+                                if(edit.equals("0")){
+                                    teacherList();
+                                    break;
+                                }
+                                if(edit.equals("1")){
+                                    while(true){
+                                        lineGenerator();
+                                        System.out.print("""
+                                                What would you like to do?
+                                                1 - Remove a whole handled section
+                                                2 - Remove a subject within a handled section
+                                                """);
+                                        System.out.print("Your answer (0 to go back): ");
+                                        char removeChoice = scn.next().charAt(0);
+                                        if(removeChoice == '0'){
                                             teacherList();
                                             break;
                                         }
-                                        if(tSub.get(editInfo).containsKey(removeP)){
-                                            System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                                            char yn = scn.next().toUpperCase().charAt(0);
-                                            if(yn == 'Y'){
-                                                removeHandled(editInfo, removeP);
-                                                System.out.println("The section handled has been removed permanently.");
-                                                System.out.print("Press any key to go back: ");
-                                                if(scn.next() != null){
-                                                    teacherList();
-                                                    break;
-                                                }
-                                            }
-                                            else{
-                                                teacherList();
-                                            }
-                                            break;
-                                        }
-                                        else{
-                                            System.out.println("Subject does not exist. Please try again.");
-                                        }
-                                        break;
-                                    }
-                                    if(removeChoice == '2'){
-                                        System.out.print("Enter the section with the subject to be removed (0 to go back): ");
-                                        scn.nextLine();
-                                        String section = scn.nextLine().toUpperCase();
-                                        lineGenerator();
-                                        System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
-                                        lineGenerator();
-                                        while(true){
-                                            System.out.print("Enter the subject to be removed permanently (0 to go back): ");
-                                            String removeSubject = scn.nextLine();
-                                            if(removeSubject.equals("0")){
+                                        if(removeChoice == '1'){
+                                            System.out.print("Enter the section handled you would like to remove permanently (0 to go back): ");
+                                            scn.nextLine();
+                                            String removeP = scn.nextLine().toUpperCase();
+                                            if(removeP.equals("0")){
                                                 teacherList();
                                                 break;
                                             }
-                                            if(tSub.get(editInfo).get(section).contains(removeSubject)){
+                                            if(tSub.get(editInfo).containsKey(removeP)){
                                                 System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
                                                 char yn = scn.next().toUpperCase().charAt(0);
                                                 if(yn == 'Y'){
-                                                    int subjectRemove = tSub.get(editInfo).get(section).indexOf(removeSubject);
-                                                    tSub.get(editInfo).get(section).remove(subjectRemove);
+                                                    removeHandled(editInfo, removeP);
                                                     System.out.println("The section handled has been removed permanently.");
-                                                    lineGenerator();
-                                                    System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
-                                                    lineGenerator();
-                                                    System.out.print("Press any key to go back: ");
-                                                    if(scn.next() != null){
-                                                        teacherList();
-                                                        break;
-                                                    }
                                                 }
                                                 else{
                                                     teacherList();
@@ -824,122 +663,139 @@ public class Admin extends Variables implements Courses  {
                                                 break;
                                             }
                                             else{
-                                                System.out.println("This subject does not exist. Please try again.");
+                                                System.out.println("Subject does not exist. Please try again.");
                                             }
+                                            break;
                                         }
-                                        break;
-                                    }
-                                    else{
-                                        System.out.println("Invalid input. Please try again.");
-                                    }
-                                }
-                                break;
-                            }
-                            if(edit.equals("2")){
-                                while(true){
-                                    lineGenerator();
-                                    System.out.print("""
-                                            What would you like to do?
-                                            1 - Add a section and subject handled
-                                            2 - Add a subject handled in an existing section handled
-                                            """);
-                                    System.out.print("Your answer (0 to go back): ");
-                                    char add = scn.next().charAt(0);
-                                    if(add == '0'){
-                                        teacherList();
-                                        break;
-                                    }
-                                    if(add == '1'){
-                                        System.out.print("Enter the section handled (e.g. BSIT 2A): ");
-                                        scn.nextLine();
-                                        String section = scn.nextLine();
-                                        System.out.print("Enter the subject handled: ");
-                                        String subject = scn.nextLine();
-                                        addHandled(editInfo, section, subject);
-                                        System.out.println("The section handled has been added.");
-                                        System.out.print("Press any key to go back: ");
-                                        if(scn.next() != null){
-                                            teacherList();
-                                        }
-                                    }
-                                    if(add == '2'){
-                                       lineGenerator();
-                                        System.out.println("Sections and Subjects Currently Handled: ");
-                                        for(Map.Entry e: tSub.entrySet()){
-                                            if(e.getKey().equals(editInfo)){
-                                                Map<String, String> value = (Map<String, String>) e.getValue();
-                                                System.out.println(e.getKey());
-                                                for(Map.Entry f: value.entrySet()){
-                                                    System.out.println(f.getKey() + ": " + f.getValue());
+                                        if(removeChoice == '2'){
+                                            System.out.print("Enter the section with the subject to be removed (0 to go back): ");
+                                            scn.nextLine();
+                                            String section = scn.nextLine().toUpperCase();
+                                            lineGenerator();
+                                            System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
+                                            lineGenerator();
+                                            while(true){
+                                                System.out.print("Enter the subject to be removed permanently (0 to go back): ");
+                                                String removeSubject = scn.nextLine();
+                                                if(removeSubject.equals("0")){
+                                                    teacherList();
+                                                    break;
+                                                }
+                                                if(tSub.get(editInfo).get(section).contains(removeSubject)){
+                                                    System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                                                    char yn = scn.next().toUpperCase().charAt(0);
+                                                    if(yn == 'Y'){
+                                                        int subjectRemove = tSub.get(editInfo).get(section).indexOf(removeSubject);
+                                                        tSub.get(editInfo).get(section).remove(subjectRemove);
+                                                        System.out.println("The section handled has been removed permanently.");
+                                                        lineGenerator();
+                                                        System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
+                                                    }
+                                                    else{
+                                                        teacherList();
+                                                    }
+                                                    break;
+                                                }
+                                                else{
+                                                    System.out.println("This subject does not exist. Please try again.");
                                                 }
                                             }
+                                            break;
                                         }
-                                        lineGenerator(); 
-                                        while(true){
-                                            System.out.print("Enter the section to add a subject handled to: ");
+                                        else{
+                                            System.out.println("Invalid input. Please try again.");
+                                        }
+                                    }
+                                    break;
+                                }
+                                if(edit.equals("2")){
+                                    while(true){
+                                        lineGenerator();
+                                        System.out.print("""
+                                                What would you like to do?
+                                                1 - Add a section and subject handled
+                                                2 - Add a subject handled in an existing section handled
+                                                """);
+                                        System.out.print("Your answer (0 to go back): ");
+                                        char add = scn.next().charAt(0);
+                                        if(add == '0'){
+                                            teacherList();
+                                            break;
+                                        }
+                                        if(add == '1'){
+                                            System.out.print("Enter the section handled (e.g. BSIT 2A): ");
                                             scn.nextLine();
                                             String section = scn.nextLine();
-                                            if(tSub.get(editInfo).containsKey(section)){
-                                                System.out.print("Enter the subject handled: ");
-                                                String subject = scn.nextLine();
-                                                addHandledSub(editInfo, section, subject);
-                                                System.out.println("The subject handled has been added.");
-                                                lineGenerator();
-                                                System.out.println("Sections and Subjects Currently Handled: ");
-                                                for(Map.Entry e: tSub.entrySet()){
-                                                    if(e.getKey().equals(editInfo)){
-                                                        Map<String, String> value = (Map<String, String>) e.getValue();
-                                                        System.out.println(e.getKey());
-                                                        for(Map.Entry f: value.entrySet()){
-                                                            System.out.println(f.getKey() + ": " + f.getValue());
-                                                        }
+                                            System.out.print("Enter the subject handled: ");
+                                            String subject = scn.nextLine();
+                                            addHandled(editInfo, section, subject);
+                                            System.out.println("The section handled has been added.");
+                                        }
+                                        if(add == '2'){
+                                        lineGenerator();
+                                            System.out.println("Sections and Subjects Currently Handled: ");
+                                            for(Map.Entry e: tSub.entrySet()){
+                                                if(e.getKey().equals(editInfo)){
+                                                    Map<String, String> value = (Map<String, String>) e.getValue();
+                                                    System.out.println(e.getKey());
+                                                    for(Map.Entry f: value.entrySet()){
+                                                        System.out.println(f.getKey() + ": " + f.getValue());
                                                     }
                                                 }
-                                                lineGenerator(); 
-                                                System.out.print("Press any key to go back: ");
-                                                if(scn.next() != null){
-                                                    teacherList();
+                                            }
+                                            lineGenerator(); 
+                                            while(true){
+                                                System.out.print("Enter the section to add a subject handled to: ");
+                                                scn.nextLine();
+                                                String section = scn.nextLine();
+                                                if(tSub.get(editInfo).containsKey(section)){
+                                                    System.out.print("Enter the subject handled: ");
+                                                    String subject = scn.nextLine();
+                                                    addHandledSub(editInfo, section, subject);
+                                                    System.out.println("The subject handled has been added.");
+                                                    lineGenerator();
+                                                    displayHandled(editInfo);
+                                                    break;
                                                 }
-                                                break;
-                                            }
-                                            else{
-                                                System.out.println("Section is not handled by this teacher. Please try again.");
+                                                else{
+                                                    System.out.println("Section is not handled by this teacher. Please try again.");
+                                                }
                                             }
                                         }
                                     }
+                                    break;
                                 }
-                                break;
-                            }
-                            if(tInfo.get(editInfo).containsKey(edit)){
-                                System.out.print("Enter the updated information: ");
-                                tInfo.get(editInfo).replace(edit, scn.nextLine());
-                                lineGenerator();
-                                System.out.println("Here is the teachers's updated information: ");
-                                for(Map.Entry e: tInfo.entrySet()){
-                                    if(e.getKey().equals(editInfo)){
-                                        Map<String, String> value = (Map<String, String>) e.getValue();
-                                        System.out.println(e.getKey());
-                                        for(Map.Entry f: value.entrySet()){
-                                            System.out.println(f.getKey() + ": " + f.getValue());
+                                if(tInfo.get(editInfo).containsKey(edit)){
+                                    System.out.print("Enter the updated information: ");
+                                    tInfo.get(editInfo).replace(edit, scn.nextLine());
+                                    lineGenerator();
+                                    System.out.println("Here is the teachers's updated information: ");
+                                    for(Map.Entry e: tInfo.entrySet()){
+                                        if(e.getKey().equals(editInfo)){
+                                            Map<String, String> value = (Map<String, String>) e.getValue();
+                                            System.out.println(e.getKey());
+                                            for(Map.Entry f: value.entrySet()){
+                                                System.out.println(f.getKey() + ": " + f.getValue());
+                                            }
                                         }
                                     }
+                                    break;
                                 }
-                                lineGenerator();
-                                    System.out.print("Press any key to go back: ");
-                                    if(scn.next() != null){
-                                        teacherList();
-                                    }
-                                break;
+                                else{
+                                    System.out.println("That information does not exist. Please try again.");
+                                }
                             }
-                            else{
-                                System.out.println("That information does not exist. Please try again.");
-                            }
+                            break;
                         }
-                        break;
+                        else{
+                            System.out.println("Teacher does not exist. Please try again.");
+                        }
                     }
-                    else{
-                        System.out.println("Teacher does not exist. Please try again.");
-                    }
+                }
+                lineGenerator();
+                System.out.print("Press any key to go back: ");
+                if(scn.next() != null){
+                    teacherList();
                 }
                 break;
             }
@@ -2569,5 +2425,84 @@ public class Admin extends Variables implements Courses  {
     }
     void addHandledSub(String employeeNum, String section, String subject){
         tSub.get(employeeNum).get(section).add(subject);
+    }
+    boolean displayArchivedStd(String choice, boolean hasStudent){
+        System.out.println("Here are the archived students: ");
+        for(Map.Entry e: archivedStud.entrySet()){
+            Map<String, String> value = (Map<String, String>) e.getValue();
+            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
+                if(value != null){ hasStudent = true;} else{ hasStudent = false;}
+                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                if(!value.get("Middle Name").equals("NA")){
+                    System.out.print(" " + value.get("Middle Name"));
+                }
+                if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                    System.out.print(" " + value.get("Suffix"));
+                }
+                System.out.println();
+            }
+        }
+        return hasStudent;
+    }
+    boolean displayStd(String choice, boolean hasStudent){
+        for(Map.Entry e: enrolled.entrySet()){
+            Map<String, String> value = (Map<String, String>) e.getValue();
+            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
+                if(value != null){hasStudent = true;} else{hasStudent = false;}
+                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                if(!value.get("Middle Name").equals("NA")){
+                    System.out.print(" " + value.get("Middle Name"));
+                }
+                if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                    System.out.print(" " + value.get("Suffix"));
+                }
+                System.out.println();
+            }
+        }
+        return hasStudent;
+    }
+    boolean displayTch(boolean hasTeacher){
+        System.out.println("Here are the current teachers:");
+        for(Map.Entry e: tInfo.entrySet()){
+            Map<String, String> value = (Map<String, String>) e.getValue();
+            if(value != null){hasTeacher = true;} else{hasTeacher = false;}
+            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+            if(!value.get("Middle Name").equals("NA")){
+                System.out.print(" " + value.get("Middle Name"));
+            }
+            if(!value.get("Suffix").equals("NA")){
+                System.out.print(" " + value.get("Suffix"));
+            }
+            System.out.println();
+        }
+        return hasTeacher;
+    }
+    boolean displayArchivedTch(boolean hasTeacher){
+        System.out.println("Here are the archived teachers:");
+        for(Map.Entry e: archivedTInfo.entrySet()){
+            Map<String, String> value = (Map<String, String>) e.getValue();
+            if(value != null){hasTeacher = true;} else{hasTeacher = false;}
+            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+            if(!value.get("Middle Name").equals("NA")){
+                System.out.print(" " + value.get("Middle Name"));
+            }
+            if(!value.get("Suffix").equals("NA")){
+                System.out.print(" " + value.get("Suffix"));
+            }
+            System.out.println();
+        }
+        return hasTeacher;
+    }
+    void displayHandled(String editInfo){
+        System.out.println("Sections and Subjects Currently Handled: ");
+        for(Map.Entry e: tSub.entrySet()){
+            if(e.getKey().equals(editInfo)){
+                Map<String, String> value = (Map<String, String>) e.getValue();
+                System.out.println(e.getKey());
+                for(Map.Entry f: value.entrySet()){
+                    System.out.println(f.getKey() + ": " + f.getValue());
+                }
+            }
+        }
     }
 }
