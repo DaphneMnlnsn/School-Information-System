@@ -54,26 +54,26 @@ public abstract class Variables implements Enrolled{
     static Map<String, Map<String, String>> reserved = new LinkedHashMap<>(){{put("2023-1001", resInitialize);}};
     
     static Map<String, String> tInitialize = new LinkedHashMap<>(){{
-            put("First Name", "Johnwin");
+            put("First Name", "Juan");
             put("Middle Name", "NA");
-            put("Last Name", "Vendi");
+            put("Last Name", "Dela Cruz");
             put("Suffix", "NA");
             put("Birthdate", "02/28/1998");
             put("Date Employed", "05/14/2019");
-            put("Email", "jwvendi@gmail.com");
-            put("Username", "vendi.9001");
-            put("Password", "vendi.05142019");
+            put("Email", "jdcruz@gmail.com");
+            put("Username", "cruz.9001");
+            put("Password", "cruz.05142019");
         }};
     static Map<String, String> tInitialize2 = new LinkedHashMap<>(){{
-            put("First Name", "Johnwin");
-            put("Middle Name", "NA");
-            put("Last Name", "Vendi");
+            put("First Name", "Juan");
+            put("Middle Name", "Pedro");
+            put("Last Name", "Penduco");
             put("Suffix", "NA");
             put("Birthdate", "02/28/1998");
             put("Date Employed", "05/14/2019");
-            put("Email", "jwvendi@gmail.com");
-            put("Username", "vendi.9002");
-            put("Password", "vendi.05142019");
+            put("Email", "jppenduco@gmail.com");
+            put("Username", "penduco.9002");
+            put("Password", "penduco.05142019");
         }};
     static LinkedList<String> subInitialize = new LinkedList<String>(){{
         add("BSIT Subject 1");
