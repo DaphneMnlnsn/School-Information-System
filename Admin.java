@@ -1637,23 +1637,29 @@ public class Admin extends Variables implements Courses  {
                 System.out.println(aboutCurrent);
                 System.out.println("\n" + about.getAboutContent());
                 lineGenerator();
-                System.out.print("Enter new title of " + aboutCurrent + " (press 0 if you want the title to remain as is): ");
+                System.out.print("Enter new title of " + aboutCurrent + " (press 0 to go back and 1 if you want the title to remain as is): ");
                 scn.nextLine();
                 String title = scn.nextLine();
-                if(!title.equals("0")){
-                    about.setAbout(title);
-                }
-                if(title.equals("0")){}
-                System.out.print("Enter article: ");
-                about.setAboutContent(scn.nextLine());
-                lineGenerator();
-                System.out.println("Updated successfully!");
-                System.out.println("Current Title: " + about.getAbout());
-                System.out.println("Current Content:\n" + about.getAboutContent());
-                System.out.print("Press any key to go back: ");
-                String back = scn.next();
-                if(back != null){
+                if(title.equals("0")){
                     editAbout();
+                    break;
+                }
+                else{
+                    if(!title.equals("1")){
+                        about.setAbout(title);
+                    }
+                    if(title.equals("1")){}
+                    System.out.print("Enter article: ");
+                    about.setAboutContent(scn.nextLine());
+                    lineGenerator();
+                    System.out.println("Updated successfully!");
+                    System.out.println("Current Title: " + about.getAbout());
+                    System.out.println("Current Content:\n" + about.getAboutContent());
+                    System.out.print("Press any key to go back: ");
+                    String back = scn.next();
+                    if(back != null){
+                        editAbout();
+                    }
                 }
                 break;
             }
