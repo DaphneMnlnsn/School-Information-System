@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Student extends Variables implements Grades {
+public class Student implements Grades, Enrolled {
     Student(){
         System.out.println("---------------------------------------------------------- STUDENT PORTAL ----------------------------------------------------------------");
         while(true){
@@ -57,21 +57,21 @@ public class Student extends Variables implements Grades {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int stdDo = scn.nextInt();
+            char stdDo = scn.next().charAt(0);
 
-            if(stdDo == 0){
+            if(stdDo == '0'){
                 new Student();
                 break;
             }
-            if(stdDo == 1){
+            if(stdDo == '1'){
                 viewGrades(studentNum);
                 break;
             }
-            if(stdDo == 2){
+            if(stdDo == '2'){
                 viewSubs(studentNum);
                 break;
             }
-            if(stdDo == 3){
+            if(stdDo == '3'){
                 changePassword(studentNum);
                 break;
             }
@@ -93,17 +93,17 @@ public class Student extends Variables implements Grades {
         lineGenerator();
         while(true){
             System.out.print("Your answer (Press 0 to go back): ");
-            int quarter = scn.nextInt();
-            if(quarter == 0){
+            String quarter = scn.next();
+            if(Integer.parseInt(quarter) == 0){
                 student(studentNum);
                 break;
             }
-            if(quarter > 0 && quarter < 5){
+            if(Integer.parseInt(quarter) > 0 && Integer.parseInt(quarter) < 5){
                 String quarterChoice = "";
-                if(quarter == 1){ quarterChoice = "Prelims"; }
-                if(quarter == 2){ quarterChoice = "Midterms"; }
-                if(quarter == 3){ quarterChoice = "Prefinals"; }
-                if(quarter == 4){ quarterChoice = "Finals"; }
+                if(Integer.parseInt(quarter) == 1){ quarterChoice = "Prelims"; }
+                if(Integer.parseInt(quarter) == 2){ quarterChoice = "Midterms"; }
+                if(Integer.parseInt(quarter) == 3){ quarterChoice = "Prefinals"; }
+                if(Integer.parseInt(quarter) == 4){ quarterChoice = "Finals"; }
                 for(Map.Entry e: studentGrades.entrySet()){
                     if(e.getKey() == studentNum){
                         for(Map.Entry f: studentGrades.get(e.getKey()).entrySet()){
@@ -117,8 +117,7 @@ public class Student extends Variables implements Grades {
                 }
                 lineGenerator();
                 System.out.println("Press any key to go back your dashboard.");
-                String back = scn.next();
-                if(back != null){
+                if(scn.next() != null){
                     student(studentNum);
                 }
                 break;
@@ -142,8 +141,7 @@ public class Student extends Variables implements Grades {
         }
         lineGenerator();
         System.out.println("Press any key to go back your dashboard.");
-        String back = scn.next();
-        if(back != null){
+        if(scn.next() != null){
             student(studentNum);
         }
     }
@@ -167,7 +165,7 @@ public class Student extends Variables implements Grades {
             while(true){
                 System.out.print("Confirm password (0 to cancel): ");
                 String confirmPass = scn.nextLine();
-                if(confirmPass.equals(0)){
+                if(confirmPass.equals("0")){
                     changePassword(studentNum);
                     break;
                 }
@@ -175,7 +173,7 @@ public class Student extends Variables implements Grades {
                     enrolled.get(studentNum).replace("Password", passNew);
                     System.out.println("Password changed!");
                     lineGenerator();
-                    System.out.print("Press 0 to re-login: ");
+                    System.out.print("Press any key to re-login: ");
                     if(scn.next() != null){
                         new Student();
                         break;
@@ -187,5 +185,11 @@ public class Student extends Variables implements Grades {
                 }
             }
         }
+    }
+    public void lineGenerator(){
+        for(int i = 0; i < 23; i++){
+            System.out.print("------");
+        }
+        System.out.println();
     }
 }
