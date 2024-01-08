@@ -14,21 +14,21 @@ public class Teacher extends Variables implements Grades{
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int tchDo = scn.nextInt();
+            char tchDo = scn.next().charAt(0);
 
-            if(tchDo == 0){
+            if(tchDo == '0'){
                 new Employee();
                 break;
             }
-            if(tchDo == 1){
+            if(tchDo == '1'){
                 editGrades(employeeNum);
                 break;
             }
-            if(tchDo == 2){
+            if(tchDo == '2'){
                 viewStudents(employeeNum);
                 break;
             }
-            if(tchDo == 3){
+            if(tchDo == '3'){
                 changePassword(employeeNum);
                 break;
             }
@@ -97,42 +97,43 @@ public class Teacher extends Variables implements Grades{
             System.out.print("Enter the student number of the student you would like to edit/add grades to: ");
             studentNum = scn.next();
         }
-        while(true){
+        if(hasStudent){
+            while(true){
+                lineGenerator();
+                System.out.print("""
+                        Select a term.
+                        1 - Prelims
+                        2 - Midterms
+                        3 - Prefinals
+                        4 - Finals
+                        """);
+                lineGenerator();
+                System.out.print("Your answer (0 to go back): ");
+                char choice = scn.next().charAt(0);
+                if(choice == '0'){
+                    editGrades(employeeNum);
+                    break;
+                }
+                if(choice == '1'){ quarter = "Prelims"; break; }
+                if(choice == '2'){ quarter = "Midterms"; break; }
+                if(choice == '3'){ quarter = "Prefinals"; break; }
+                if(choice == '4'){ quarter = "Finals"; break; }
+                else{
+                    System.out.println("Invalid input. Please try again.");
+                }
+            }
             lineGenerator();
-            System.out.print("""
-                    Select a term.
-                    1 - Prelims
-                    2 - Midterms
-                    3 - Prefinals
-                    4 - Finals
-                    """);
+            System.out.println("Current grade: " + studentGrades.get(studentNum).get(quarter).get(subjectEdit));
+            System.out.print("Enter new grade: ");
+            studentGrades.get(studentNum).get(quarter).replace(subjectEdit, scn.nextFloat());
             lineGenerator();
-            System.out.print("Your answer (0 to go back): ");
-            int choice = scn.nextInt();
-            if(choice == 0){
+            System.out.println("Grade is updated successfully!");
+            System.out.println(subjectEdit + ": " + studentGrades.get(studentNum).get(quarter).get(subjectEdit));
+            lineGenerator();
+            System.out.print("Press any key to go back: ");
+            if(scn.next() != null){
                 editGrades(employeeNum);
-                break;
             }
-            if(choice == 1){ quarter = "Prelims"; break; }
-            if(choice == 2){ quarter = "Midterms"; break; }
-            if(choice == 3){ quarter = "Prefinals"; break; }
-            if(choice == 4){ quarter = "Finals"; break; }
-            else{
-                System.out.println("Invalid input. Please try again.");
-            }
-        }
-        lineGenerator();
-        System.out.println("Current grade: " + studentGrades.get(studentNum).get(quarter).get(subjectEdit));
-        System.out.print("Enter new grade: ");
-        studentGrades.get(studentNum).get(quarter).replace(subjectEdit, scn.nextFloat());
-        lineGenerator();
-        System.out.println("Grade is updated successfully!");
-        System.out.println(subjectEdit + ": " + studentGrades.get(studentNum).get(quarter).get(subjectEdit));
-        lineGenerator();
-        System.out.print("Press any key to go back: ");
-        String back = scn.next();
-        if(back != null){
-            editGrades(employeeNum);
         }
     }
     private void viewStudents(String employeeNum){
@@ -180,8 +181,7 @@ public class Teacher extends Variables implements Grades{
         }
         lineGenerator();
         System.out.print("Press any key to go back: ");
-        String back = scn.next();
-        if(back != null){
+        if(scn.next() != null){
             new Teacher(employeeNum);
         }
     }
@@ -205,7 +205,7 @@ public class Teacher extends Variables implements Grades{
             while(true){
                 System.out.print("Confirm password (0 to cancel): ");
                 String confirmPass = scn.nextLine();
-                if(confirmPass.equals(0)){
+                if(confirmPass.equals("0")){
                     changePassword(employeeNum);
                     break;
                 }
@@ -213,7 +213,7 @@ public class Teacher extends Variables implements Grades{
                     tInfo.get(employeeNum).replace("Password", passNew);
                     System.out.println("Password changed!");
                     lineGenerator();
-                    System.out.print("Press 0 to re-login: ");
+                    System.out.print("Press any key to re-login: ");
                     if(scn.next() != null){
                         new Employee();
                         break;
