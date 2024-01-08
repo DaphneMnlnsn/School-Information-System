@@ -716,6 +716,7 @@ public class Admin extends Variables implements Courses  {
                                                 1 - Add a section and subject handled
                                                 2 - Add a subject handled in an existing section handled
                                                 """);
+                                        lineGenerator();
                                         System.out.print("Your answer (0 to go back): ");
                                         char add = scn.next().charAt(0);
                                         if(add == '0'){
@@ -733,28 +734,27 @@ public class Admin extends Variables implements Courses  {
                                         }
                                         if(add == '2'){
                                         lineGenerator();
-                                            System.out.println("Sections and Subjects Currently Handled: ");
-                                            for(Map.Entry e: tSub.entrySet()){
-                                                if(e.getKey().equals(editInfo)){
-                                                    Map<String, String> value = (Map<String, String>) e.getValue();
-                                                    System.out.println(e.getKey());
-                                                    for(Map.Entry f: value.entrySet()){
-                                                        System.out.println(f.getKey() + ": " + f.getValue());
-                                                    }
-                                                }
-                                            }
+                                            displayHandled(editInfo);
                                             lineGenerator(); 
                                             while(true){
                                                 System.out.print("Enter the section to add a subject handled to: ");
                                                 scn.nextLine();
                                                 String section = scn.nextLine();
                                                 if(tSub.get(editInfo).containsKey(section)){
-                                                    System.out.print("Enter the subject handled: ");
-                                                    String subject = scn.nextLine();
-                                                    addHandledSub(editInfo, section, subject);
-                                                    System.out.println("The subject handled has been added.");
-                                                    lineGenerator();
-                                                    displayHandled(editInfo);
+                                                    while(true){
+                                                        System.out.print("Enter the subject handled: ");
+                                                        String subject = scn.nextLine();
+                                                        if(tSub.get(editInfo).get(section).contains(subject)){
+                                                            System.out.println("This subject is already handled by the teacher! Please enter a different subject.");
+                                                        }
+                                                        else{
+                                                            addHandledSub(editInfo, section, subject);
+                                                            System.out.println("The subject handled has been added.");
+                                                            lineGenerator();
+                                                            displayHandled(editInfo);
+                                                            break;
+                                                        }
+                                                    }
                                                     break;
                                                 }
                                                 else{
