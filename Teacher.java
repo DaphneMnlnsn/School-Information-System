@@ -158,6 +158,10 @@ public class Teacher extends Variables implements Grades{
             boolean hasStudent = false;
             System.out.print("Your answer (0 to go back): ");
             String section = scn.nextLine();
+            if(section.equals("0")){
+                new Teacher(employeeNum);
+                break;
+            }
             if(tSub.get(employeeNum).containsKey(section)){
                 lineGenerator();
                 System.out.println(section + ":");
