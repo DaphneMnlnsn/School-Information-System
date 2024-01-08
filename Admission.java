@@ -43,6 +43,7 @@ public class Admission extends Variables implements Courses, Grades{
         }    
     }
     public void applicationForm(){
+        
         Scanner scn = new Scanner(System.in);
         System.out.print("""
                 \n----------------------------------------------------------- ONLINE APPLICATION -----------------------------------------------------------
@@ -54,16 +55,16 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer (0 to go back): ");
-            int type = scn.nextInt();
-            if(type == 0){
+            char type = scn.next().charAt(0);
+            if(type == '0'){
                 new Admission();
                 break;
             }
-            if(type == 1){
+            if(type == '1'){
                 newStudent();
                 break;
             }
-            if(type == 2){
+            if(type == '2'){
                 oldStudent();
                 break;
             }
@@ -84,9 +85,9 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int type = scn.nextInt();
-            if(courses.containsKey(type)){
-                studentCourse = courses.get(type);
+            String type = scn.next();
+            if(courses.containsKey(Integer.parseInt(type))){
+                studentCourse = courses.get(Integer.parseInt(type));
                 break;
             }
             else{
@@ -104,12 +105,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int admit = scn.nextInt();
-            if(admit == 1){
+            char admit = scn.next().charAt(0);
+            if(admit == '1'){
                 admitType = "New Student";
                 break;
             }
-            if(admit == 2){
+            if(admit == '2'){
                 admitType = "Transferee";
                 break;
             }
@@ -129,20 +130,20 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            yearL = scn.nextInt();
-            if(yearL == 1){
+            yearL = scn.next().charAt(0);
+            if(yearL == '1'){
                 yearLevel = "1st Year";
                 break;
             }
-            if(yearL == 2){
+            if(yearL == '2'){
                 yearLevel = "2nd Year";
                 break;
             }
-            if(yearL == 3){
+            if(yearL == '3'){
                 yearLevel = "3rd Year";
                 break;
             }
-            if(yearL == 4){
+            if(yearL == '4'){
                 yearLevel = "4th Year";
                 break;
             }
@@ -160,12 +161,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int term = scn.nextInt();
-            if(term == 1){
+            char term = scn.next().charAt(0);
+            if(term == '1'){
                 yearTerm = "1st Term";
                 break;
             }
-            if(term == 2){
+            if(term == '2'){
                 yearTerm = "2nd Term";
                 break;
             }
@@ -318,12 +319,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int term = scn.nextInt();
-            if(term == 1){
+            char term = scn.next().charAt(0);
+            if(term == '1'){
                 yearTerm = "1st Term";
                 break;
             }
-            if(term == 2){
+            if(term == '2'){
                 yearTerm = "2nd Term";
                 break;
             }
@@ -343,20 +344,20 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int year = scn.nextInt();
-            if(year == 1){
+            char year = scn.next().charAt(0);
+            if(year == '1'){
                 yearLevel = "1st Year";
                 break;
             }
-            if(year == 2){
+            if(year == '2'){
                 yearLevel = "2nd Year";
                 break;
             }
-            if(year == 3){
+            if(year == '3'){
                 yearLevel = "3rd Year";
                 break;
             }
-            if(year == 4){
+            if(year == '4'){
                 yearLevel = "4th Year";
                 break;
             }
@@ -374,12 +375,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int type = scn.nextInt();
-            if(type == 1){
+            char type = scn.next().charAt(0);
+            if(type == '1'){
                 studentType = "Regular";
                 break;
             }
-            if(type == 2){
+            if(type == '2'){
                 studentType = "Irregular";
                 break;
             }
@@ -387,7 +388,7 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Student Type", admitType);
+        studentInfo.put("Student Type", studentType);
         lineGenerator();
         System.out.print("""
                 Please enter the student's program.
@@ -398,9 +399,9 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int type = scn.nextInt();
-            if(courses.containsKey(type)){
-                studentCourse = courses.get(type);
+            String type = scn.next();
+            if(courses.containsKey(Integer.parseInt(type))){
+                studentCourse = courses.get(Integer.parseInt(type));
                 break;
             }
             else{
@@ -421,12 +422,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int sched = scn.nextInt();
-            if(sched == 1){
+            char sched = scn.next().charAt(0);
+            if(sched == '1'){
                 schedule = "AM";
                 break;
             }
-            if(sched == 2){
+            if(sched == '2'){
                 schedule = "PM";
                 break;
             }
@@ -449,16 +450,16 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            int term = scn.nextInt();
-            if(term == 1){
+            char term = scn.next().charAt(0);
+            if(term == '1'){
                 paymentTerm = "Cash";
                 break;
             }
-            if(term == 2){
+            if(term == '2'){
                 paymentTerm = "Low Downpayment";
                 break;
             }
-            if(term == 3){
+            if(term == '3'){
                 paymentTerm = "Low Monthly Payment";
                 break;
             }
@@ -474,7 +475,7 @@ public class Admission extends Variables implements Courses, Grades{
             System.out.print("""
                     Do you hereby confirm your enrollment in TBD College under the specified term and school year?
                     
-                    Do you understand that you will settle the necessary assessment fees or pay the Minimum Reservation Fee of Php 1,000(One Thousand Pesos) to complete your enrollment (Y/N)?
+                    Do you understand that you will settle the necessary assessment fees or pay the Minimum Reservation Fee of Php 1,000(One Thousand Pesos)\n to complete your enrollment (Y/N)?
                     """);
             char confirm = scn.next().toUpperCase().charAt(0);
             if(confirm == 'Y'){
@@ -514,14 +515,14 @@ public class Admission extends Variables implements Courses, Grades{
         payment.setPaymentSize();
         while(true){
             System.out.print("Your answer (Press 0 to go back): ");
-            int PaymentChoice = scn.nextInt();            
+            String PaymentChoice = scn.next();            
             lineGenerator();
-            if(PaymentChoice == 0){
+            if(Integer.parseInt(PaymentChoice) == 0){
                 new Main();
                 break;
             }
-            if(PaymentChoice <= payment.getPaymentSize()){
-                payment.setToRetrieve(PaymentChoice);
+            if(Integer.parseInt(PaymentChoice) <= payment.getPaymentSize()){
+                payment.setToRetrieve(Integer.parseInt(PaymentChoice));
                 System.out.println(payment.getPaymentMethod());
                 System.out.println("Account Number: " + payment.getAccount());
                 System.out.println("Account Name: " + payment.getAccountName());
@@ -529,8 +530,7 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println(payment.getEmailLink());
                 lineGenerator();
                 System.out.print("Press any key to go back: ");
-                String paymentResetKey = scn.next();
-                if(paymentResetKey != null){
+                if(scn.next() != null){
                     payments();
                 }
                 break;
