@@ -2183,11 +2183,13 @@ public class Admin extends Variables implements Courses  {
     }
     public void viewDocuReq(){
         Scanner scn = new Scanner(System.in);
+        boolean hasRequest = false;
         System.out.print("""
                 --------------------------------------------------------- VIEW DOCUMENT REQUESTS ----------------------------------------------------------
                 """);
         for(Map.Entry e: docuRequest.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
+            if(value != null){hasRequest = true;}
             System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
             if(!value.get("Middle Name").equals("NA")){
                 System.out.print(" " + value.get("Middle Name"));
@@ -2197,107 +2199,116 @@ public class Admin extends Variables implements Courses  {
             }
             System.out.println();
         }
-        lineGenerator();
-        while(true){
-            System.out.print("Enter the number of the alumni you would like to view information of (0 to go back, F to see fulfilled requests): ");
-            String viewInfo = scn.next();
-            if(Integer.parseInt(viewInfo) == 0){
+        if(hasRequest == false){
+            System.out.println("No requests.");
+            lineGenerator();
+            System.out.print("Press any key to go back: ");
+            if(scn.next() != null){
                 new Admin();
-                break;
             }
-            if(docuRequest.containsKey(Integer.parseInt(viewInfo))){
+        }
+        if(hasRequest == true){
+            while(true){      
                 lineGenerator();
-                for(Map.Entry e: docuRequest.entrySet()){
-                    if(e.getKey().equals(viewInfo)){
-                        Map<String, String> value = (Map<String, String>) e.getValue();
-                        System.out.println(e.getKey());
-                        for(Map.Entry f: value.entrySet()){
-                            System.out.println(f.getKey() + ": " + f.getValue());
+                System.out.print("Enter the number of the alumni you would like to view information of (0 to go back, F to see fulfilled requests): ");
+                String viewInfo = scn.next();
+                if(Integer.parseInt(viewInfo) == 0){
+                    new Admin();
+                    break;
+                }
+                if(docuRequest.containsKey(Integer.parseInt(viewInfo))){
+                    lineGenerator();
+                    for(Map.Entry e: docuRequest.entrySet()){
+                        if(e.getKey().equals(Integer.parseInt(viewInfo))){
+                            Map<String, String> value = (Map<String, String>) e.getValue();
+                            System.out.println(e.getKey());
+                            for(Map.Entry f: value.entrySet()){
+                                System.out.println(f.getKey() + ": " + f.getValue());
+                            }
                         }
                     }
-                }
-                lineGenerator();
-                while(true){
-                    System.out.print("Move request to fulfilled (Press Y for yes and any key to go back)? ");
-                    char back = scn.next().toUpperCase().charAt(0);
-                    if(back == 'Y'){
-                        finishReq(Integer.parseInt(viewInfo));
-                        System.out.println("Request has been moved to Fulfilled Requests.");
-                        lineGenerator();
-                        System.out.print("Press 0 to go back to viewing requests: ");
-                        if(scn.next() != null){
+                    lineGenerator();
+                    while(true){
+                        System.out.print("Move request to fulfilled (Press Y for yes and any key to go back)? ");
+                        char back = scn.next().toUpperCase().charAt(0);
+                        if(back == 'Y'){
+                            finishReq(Integer.parseInt(viewInfo));
+                            System.out.println("Request has been moved to Fulfilled Requests.");
+                            lineGenerator();
+                            System.out.print("Press 0 to go back to viewing requests: ");
+                            if(scn.next() != null){
+                                viewDocuReq();
+                            }
+                            break;
+                        }
+                        else{
                             viewDocuReq();
                             break;
                         }
-                        break;
                     }
-                    else{
-                        viewDocuReq();
-                        break;
-                    }
+                    break;
                 }
-                break;
-            }
-            if(viewInfo.equalsIgnoreCase("F")){
-                lineGenerator();
-                for(Map.Entry e: finishedReq.entrySet()){
-                    Map<String, String> value = (Map<String, String>) e.getValue();
-                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                    if(!value.get("Middle Name").equals("NA")){
-                        System.out.print(" " + value.get("Middle Name"));
+                if(viewInfo.equalsIgnoreCase("F")){
+                    lineGenerator();
+                    for(Map.Entry e: finishedReq.entrySet()){
+                        Map<String, String> value = (Map<String, String>) e.getValue();
+                        System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
+                        if(!value.get("Middle Name").equals("NA")){
+                            System.out.print(" " + value.get("Middle Name"));
+                        }
+                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
+                            System.out.print(" " + value.get("Suffix"));
+                        }
+                        System.out.println();
                     }
-                    if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                        System.out.print(" " + value.get("Suffix"));
-                    }
-                    System.out.println();
-                }
-                lineGenerator();
-                while(true){
-                    System.out.print("Enter the number of the request you would like to view information of (0 to go back): ");
-                    String viewInfoF = scn.next();
-                    if(Integer.parseInt(viewInfoF) == 0){
-                        new Admin();
-                        break;
-                    }
-                    if(finishedReq.containsKey(Integer.parseInt(viewInfoF))){
-                        lineGenerator();
-                        for(Map.Entry e: finishedReq.entrySet()){
-                            if(e.getKey().equals(viewInfoF)){
-                                Map<String, String> value = (Map<String, String>) e.getValue();
-                                System.out.println(e.getKey());
-                                for(Map.Entry f: value.entrySet()){
-                                    System.out.println(f.getKey() + ": " + f.getValue());
+                    lineGenerator();
+                    while(true){
+                        System.out.print("Enter the number of the request you would like to view information of (0 to go back): ");
+                        String viewInfoF = scn.next();
+                        if(Integer.parseInt(viewInfoF) == 0){
+                            new Admin();
+                            break;
+                        }
+                        if(finishedReq.containsKey(Integer.parseInt(viewInfoF))){
+                            lineGenerator();
+                            for(Map.Entry e: finishedReq.entrySet()){
+                                if(e.getKey().equals(viewInfoF)){
+                                    Map<String, String> value = (Map<String, String>) e.getValue();
+                                    System.out.println(e.getKey());
+                                    for(Map.Entry f: value.entrySet()){
+                                        System.out.println(f.getKey() + ": " + f.getValue());
+                                    }
                                 }
                             }
-                        }
-                        lineGenerator();
-                        while(true){
-                            System.out.print("Move request back to unfulfilled (Press Y for yes and any key to go back)? ");
-                            char back = scn.next().toUpperCase().charAt(0);
-                            if(back == 'Y'){
-                                restoreReq(Integer.parseInt(viewInfoF));
-                                System.out.println("Request has been moved to Unfulfilled Requests.");
-                                System.out.print("Press 0 to go back to viewing requests: ");
-                                if(scn.next() != null){
+                            lineGenerator();
+                            while(true){
+                                System.out.print("Move request back to unfulfilled (Press Y for yes and any key to go back)? ");
+                                char back = scn.next().toUpperCase().charAt(0);
+                                if(back == 'Y'){
+                                    restoreReq(Integer.parseInt(viewInfoF));
+                                    System.out.println("Request has been moved to Unfulfilled Requests.");
+                                    System.out.print("Press 0 to go back to viewing requests: ");
+                                    if(scn.next() != null){
+                                        viewDocuReq();
+                                    }
+                                    break;
+                                }
+                                else{
                                     viewDocuReq();
+                                    break;
                                 }
-                                break;
                             }
-                            else{
-                                viewDocuReq();
-                                break;
-                            }
+                            break;
                         }
-                        break;
+                        else{
+                            System.out.println("Finished request does not exist. Please try again.");
+                        }
                     }
-                    else{
-                        System.out.println("Finished request does not exist. Please try again.");
-                    }
+                    break;
                 }
-                break;
-            }
-            else{
-                System.out.println("Alumni request does not exist. Please try again.");
+                else{
+                    System.out.println("Alumni request does not exist. Please try again.");
+                }
             }
         }
     }
