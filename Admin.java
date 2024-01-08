@@ -20,49 +20,49 @@ public class Admin extends Variables implements Courses  {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int adminDo = scn.nextInt();
+            String adminDo = scn.next();
 
-            if(adminDo == 0){
+            if(adminDo.equals("0")){
                 new Employee();
                 break;
             }
-            if(adminDo == 1){
+            if(adminDo.equals("1")){
                 studentList();
                 break;
             }
-            if(adminDo == 2){
+            if(adminDo.equals("2")){
                 teacherList();
                 break;
             }
-            if(adminDo == 3){
+            if(adminDo.equals("3")){
                 addBlog();
                 break;
             }
-            if(adminDo == 4){
+            if(adminDo.equals("4")){
                 addTeacherCredentials();
                 break;
             }
-            if(adminDo == 5){
+            if(adminDo.equals("5")){
                 editPInfo();
                 break;
             }
-            if(adminDo == 6){
+            if(adminDo.equals("6")){
                 editAdmission();
                 break;
             }
-            if(adminDo == 7){
+            if(adminDo.equals("7")){
                 editAbout();
                 break;
             }
-            if(adminDo == 8){
+            if(adminDo.equals("8")){
                 editCourse();
                 break;
             }
-            if(adminDo == 9){
+            if(adminDo.equals("9")){
                 viewDocuReq();
                 break;
             }
-            if(adminDo == 10){
+            if(adminDo.equals("10")){
                 changePassword();
                 break;
             }
@@ -84,14 +84,14 @@ public class Admin extends Variables implements Courses  {
         }
         lineGenerator();
         while(true){
-            System.out.print("Your Answer (0 to go back, 111 to View Reserved Students): ");
-            int choice = scn.nextInt();
+            System.out.print("Your Answer (0 to go back, R to View Reserved Students): ");
+            String choice = scn.next();
 
-            if(choice == 0){
+            if(choice.equals("0")){
                 new Admin();
                 break;
             }
-            if(choice == 111){
+            if(choice.equalsIgnoreCase("R")){
                 lineGenerator();
                 for(Map.Entry e: reserved.entrySet()){
                     Map<String, String> value = (Map<String, String>) e.getValue();
@@ -124,13 +124,9 @@ public class Admin extends Variables implements Courses  {
                             }
                         }
                         lineGenerator();
-                        while(true){
-                            System.out.print("Press 0 to go back: ");
-                            int back = scn.nextInt();
-                            if(back == 0){
-                                studentList();
-                                break;
-                            }
+                        System.out.print("Press any key to go back: ");
+                        if(scn.next() != null){
+                            studentList();
                         }
                         break;
                     }
@@ -140,7 +136,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(courses.containsKey(choice)){
+            if(courses.containsKey(Integer.parseInt(choice))){
                 lineGenerator();
                         System.out.print("""
                             What would you like to do?
@@ -152,16 +148,16 @@ public class Admin extends Variables implements Courses  {
                 lineGenerator();
                 while(true){
                     System.out.print("Your Answer (0 to go back): ");
-                    int doAdmin = scn.nextInt();
-                    if(doAdmin == 0){
+                    char doAdmin = scn.next().charAt(0);
+                    if(doAdmin == '0'){
                         studentList();
                         break;
                     }
-                    if(doAdmin == 1){
+                    if(doAdmin == '1'){
                         lineGenerator();
                         for(Map.Entry e: enrolled.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
-                            if(value.get("Course") == courses.get(choice)){
+                            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
                                 System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                 if(!value.get("Middle Name").equals("NA")){
                                     System.out.print(" " + value.get("Middle Name"));
@@ -192,13 +188,10 @@ public class Admin extends Variables implements Courses  {
                                     }
                                 }
                                 lineGenerator();
-                                while(true){
-                                    System.out.print("Press 0 to go back: ");
-                                    int back = scn.nextInt();
-                                    if(back == 0){
-                                        studentList();
-                                        break;
-                                    }
+                                System.out.print("Press any key to go back: ");
+                                if(scn.next() != null){
+                                    studentList();
+                                    break;
                                 }
                                 break;
                             }
@@ -208,11 +201,11 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(doAdmin == 2){
+                    if(doAdmin == '2'){
                         lineGenerator();
                         for(Map.Entry e: enrolled.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
-                            if(value.get("Course") == courses.get(choice)){
+                            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
                                 System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                 if(!value.get("Middle Name").equals("NA")){
                                     System.out.print(" " + value.get("Middle Name"));
@@ -227,7 +220,7 @@ public class Admin extends Variables implements Courses  {
                         while(true){
                             System.out.print("Enter the student number of the student you would like to remove (0 to go back): ");
                             String removeStd = scn.next();
-                            if(removeStd.equals(0)){
+                            if(removeStd.equals("0")){
                                 studentList();
                                 break;
                             }
@@ -237,13 +230,9 @@ public class Admin extends Variables implements Courses  {
                                 if(yn == 'Y'){
                                     archiveStudent(removeStd);
                                     System.out.println("The student has been removed successfully and moved to archives.");
-                                    while(true){
-                                        System.out.print("Press 0 to go back: ");
-                                        int back = scn.nextInt();
-                                        if(back == 0){
-                                            studentList();
-                                            break;
-                                        }
+                                    System.out.print("Press any key to go back: ");
+                                    if(scn.next() != null){
+                                        studentList();
                                     }
                                 }
                                 else{
@@ -257,12 +246,12 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(doAdmin == 3){
+                    if(doAdmin == '3'){
                         lineGenerator();
                         System.out.println("Here are the archived students: ");
                         for(Map.Entry e: archivedStud.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
-                            if(value.get("Course") == courses.get(choice)){
+                            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
                                 System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                 if(!value.get("Middle Name").equals("NA")){
                                     System.out.print(" " + value.get("Middle Name"));
@@ -282,17 +271,17 @@ public class Admin extends Variables implements Courses  {
                         lineGenerator();
                         while(true){
                             System.out.print("Your Answer (0 to go back): ");
-                            int archive = scn.nextInt();
+                            char archive = scn.next().charAt(0);
 
-                            if(archive == 0){
+                            if(archive == '0'){
                                 studentList();
                                 break;
                             }
-                            if(archive == 1){
+                            if(archive == '1'){
                                 System.out.println("Here are the archived students: ");
                                 for(Map.Entry e: archivedStud.entrySet()){
                                     Map<String, String> value = (Map<String, String>) e.getValue();
-                                    if(value.get("Course") == courses.get(choice)){
+                                    if(value.get("Course") == courses.get(Integer.parseInt(choice))){
                                         System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                         if(!value.get("Middle Name").equals("NA")){
                                             System.out.print(" " + value.get("Middle Name"));
@@ -313,13 +302,9 @@ public class Admin extends Variables implements Courses  {
                                     if(archivedStud.containsKey(restore)){
                                         restoreStudent(restore);
                                         System.out.println("The student has been restored.");
-                                        while(true){
-                                            System.out.print("Press 0 to go back to student list: ");
-                                            int back = scn.nextInt();
-                                            if(back == 0){
-                                                studentList();
-                                                break;
-                                            }
+                                        System.out.print("Press any key to go back to student list: ");
+                                        if(scn.next() != null){
+                                            studentList();
                                         }
                                         break;
                                     }
@@ -328,11 +313,11 @@ public class Admin extends Variables implements Courses  {
                                     }
                                 }
                             }
-                            if(archive == 2){
+                            if(archive == '2'){
                                 System.out.println("Here are the archived students: ");
                                 for(Map.Entry e: archivedStud.entrySet()){
                                     Map<String, String> value = (Map<String, String>) e.getValue();
-                                    if(value.get("Course") == courses.get(choice)){
+                                    if(value.get("Course") == courses.get(Integer.parseInt(choice))){
                                         System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                         if(!value.get("Middle Name").equals("NA")){
                                             System.out.print(" " + value.get("Middle Name"));
@@ -357,11 +342,9 @@ public class Admin extends Variables implements Courses  {
                                             removeStudentP(removeP);
                                             System.out.println("The student has been removed permanently.");
                                             while(true){
-                                                System.out.print("Press 0 to go back: ");
-                                                int back = scn.nextInt();
-                                                if(back == 0){
+                                                System.out.print("Press any key to go back: ");
+                                                if(scn.next() != null){
                                                     studentList();
-                                                    break;
                                                 }
                                             }
                                         }
@@ -380,11 +363,11 @@ public class Admin extends Variables implements Courses  {
                             }
                         }
                     }
-                    if(doAdmin == 4){
+                    if(doAdmin == '4'){
                         lineGenerator();
                         for(Map.Entry e: enrolled.entrySet()){
                             Map<String, String> value = (Map<String, String>) e.getValue();
-                            if(value.get("Course") == courses.get(choice)){
+                            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
                                 System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
                                 if(!value.get("Middle Name").equals("NA")){
                                     System.out.print(" " + value.get("Middle Name"));
@@ -440,13 +423,9 @@ public class Admin extends Variables implements Courses  {
                                             }
                                         }
                                         lineGenerator();
-                                        while(true){
-                                            System.out.print("Press 0 to go back: ");
-                                            int back = scn.nextInt();
-                                            if(back == 0){
-                                                studentList();
-                                                break;
-                                            }
+                                        System.out.print("Press any key to go back: ");
+                                        if(scn.next() != null){
+                                            studentList();
                                         }
                                         break;
                                     }
@@ -465,7 +444,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(!courses.containsKey(choice)){
+            if(!courses.containsKey(Integer.parseInt(choice))){
                 System.out.println("This course does not exist! Please try again.");
             }
             else{
@@ -489,12 +468,12 @@ public class Admin extends Variables implements Courses  {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int doAdmin = scn.nextInt();
-            if(doAdmin == 0){
+            char doAdmin = scn.next().charAt(0);
+            if(doAdmin == '0'){
                 new Admin();
                 break;
             }
-            if(doAdmin == 1){
+            if(doAdmin == '1'){
                 lineGenerator();
                 System.out.println("Here are the current teachers:");
                 for(Map.Entry e: tInfo.entrySet()){
@@ -539,13 +518,9 @@ public class Admin extends Variables implements Courses  {
                             }
                         }
                         lineGenerator();
-                        while(true){
-                            System.out.print("Press 0 to go back: ");
-                            int back = scn.nextInt();
-                            if(back == 0){
-                                teacherList();
-                                break;
-                            }
+                        System.out.print("Press any key to go back: ");
+                        if(scn.next() != null){
+                            teacherList();
                         }
                         break;
                     }
@@ -555,7 +530,7 @@ public class Admin extends Variables implements Courses  {
                     break;
                 }
             }
-            if(doAdmin == 2){
+            if(doAdmin == '2'){
                 lineGenerator();
                 System.out.println("Here are the current teachers:");
                 for(Map.Entry e: tInfo.entrySet()){
@@ -573,7 +548,7 @@ public class Admin extends Variables implements Courses  {
                 while(true){
                     System.out.print("Enter the employee number of the teacher you would like to remove (0 to go back): ");
                     String removeTch = scn.next();
-                    if(removeTch.equals(0)){
+                    if(removeTch.equals("0")){
                         teacherList();
                         break;
                     }
@@ -583,13 +558,9 @@ public class Admin extends Variables implements Courses  {
                         if(yn == 'Y'){
                             archiveTeacher(removeTch);
                             System.out.println("The teacher has been removed successfully and moved to archives.");
-                            while(true){
-                                System.out.print("Press 0 to go back: ");
-                                int back = scn.nextInt();
-                                if(back == 0){
-                                    teacherList();
-                                    break;
-                                }
+                            System.out.print("Press any key to go back: ");
+                            if(scn.next() != null){
+                                teacherList();
                             }
                         }
                         else{
@@ -598,12 +569,12 @@ public class Admin extends Variables implements Courses  {
                         break;
                     }
                     else{
-                        System.out.print("Teacher does not exist. Please try again.");
+                        System.out.println("Teacher does not exist. Please try again.");
                     }
                 }
                 break;
             }
-            if(doAdmin == 3){
+            if(doAdmin == '3'){
                 lineGenerator();
                 System.out.println("Here are the archived teachers:");
                 for(Map.Entry e: archivedTInfo.entrySet()){
@@ -626,13 +597,13 @@ public class Admin extends Variables implements Courses  {
                 lineGenerator();
                 while(true){
                     System.out.print("Your Answer (0 to go back): ");
-                    int archive = scn.nextInt();
+                    char archive = scn.next().charAt(0);
 
-                    if(archive == 0){
+                    if(archive == '0'){
                         teacherList();
                         break;
                     }
-                    if(archive == 1){
+                    if(archive == '1'){
                         lineGenerator();
                         System.out.println("Here are the archived teachers:");
                         for(Map.Entry e: archivedTInfo.entrySet()){
@@ -657,13 +628,10 @@ public class Admin extends Variables implements Courses  {
                             if(archivedTInfo.containsKey(restore)){
                                 restoreTeacher(restore);
                                 System.out.println("The teacher has been restored.");
-                                while(true){
-                                    System.out.print("Press 0 to go back to teacher list: ");
-                                    int back = scn.nextInt();
-                                    if(back == 0){
-                                        teacherList();
-                                        break;
-                                    }
+                                System.out.print("Press any key to go back to teacher list: ");
+                                if(scn.next() != null){
+                                    teacherList();
+                                    break;
                                 }
                                 break;
                             }
@@ -672,7 +640,7 @@ public class Admin extends Variables implements Courses  {
                             }
                         }
                     }
-                    if(archive == 2){
+                    if(archive == '2'){
                         lineGenerator();
                         System.out.println("Here are the archived teachers:");
                         for(Map.Entry e: archivedTInfo.entrySet()){
@@ -700,13 +668,10 @@ public class Admin extends Variables implements Courses  {
                                 if(yn == 'Y'){
                                     removeTeacherP(removeP);
                                     System.out.println("The teacher has been removed permanently.");
-                                    while(true){
-                                        System.out.print("Press 0 to go back: ");
-                                        int back = scn.nextInt();
-                                        if(back == 0){
-                                            teacherList();
-                                            break;
-                                        }
+                                    System.out.print("Press any key to go back: ");
+                                    if(scn.next() != null){
+                                        teacherList();
+                                        break;
                                     }
                                 }
                                 else{
@@ -724,7 +689,7 @@ public class Admin extends Variables implements Courses  {
                     }
                 }
             }
-            if(doAdmin == 4){
+            if(doAdmin == '4'){
                 lineGenerator();
                 System.out.println("Here are the current teachers:");
                 for(Map.Entry e: tInfo.entrySet()){
@@ -788,12 +753,12 @@ public class Admin extends Variables implements Courses  {
                                             2 - Remove a subject within a handled section
                                             """);
                                     System.out.print("Your answer (0 to go back): ");
-                                    int removeChoice = scn.nextInt();
-                                    if(removeChoice == 0){
+                                    char removeChoice = scn.next().charAt(0);
+                                    if(removeChoice == '0'){
                                         teacherList();
                                         break;
                                     }
-                                    if(removeChoice == 1){
+                                    if(removeChoice == '1'){
                                         System.out.print("Enter the section handled you would like to remove permanently (0 to go back): ");
                                         scn.nextLine();
                                         String removeP = scn.nextLine().toUpperCase();
@@ -807,13 +772,10 @@ public class Admin extends Variables implements Courses  {
                                             if(yn == 'Y'){
                                                 removeHandled(editInfo, removeP);
                                                 System.out.println("The section handled has been removed permanently.");
-                                                while(true){
-                                                    System.out.print("Press 0 to go back: ");
-                                                    int back = scn.nextInt();
-                                                    if(back == 0){
-                                                        teacherList();
-                                                        break;
-                                                    }
+                                                System.out.print("Press any key to go back: ");
+                                                if(scn.next() != null){
+                                                    teacherList();
+                                                    break;
                                                 }
                                             }
                                             else{
@@ -826,7 +788,7 @@ public class Admin extends Variables implements Courses  {
                                         }
                                         break;
                                     }
-                                    if(removeChoice == 2){
+                                    if(removeChoice == '2'){
                                         System.out.print("Enter the section with the subject to be removed (0 to go back): ");
                                         scn.nextLine();
                                         String section = scn.nextLine().toUpperCase();
@@ -836,6 +798,10 @@ public class Admin extends Variables implements Courses  {
                                         while(true){
                                             System.out.print("Enter the subject to be removed permanently (0 to go back): ");
                                             String removeSubject = scn.nextLine();
+                                            if(removeSubject.equals("0")){
+                                                teacherList();
+                                                break;
+                                            }
                                             if(tSub.get(editInfo).get(section).contains(removeSubject)){
                                                 System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
                                                 char yn = scn.next().toUpperCase().charAt(0);
@@ -846,13 +812,10 @@ public class Admin extends Variables implements Courses  {
                                                     lineGenerator();
                                                     System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
                                                     lineGenerator();
-                                                    while(true){
-                                                        System.out.print("Press 0 to go back: ");
-                                                        int back = scn.nextInt();
-                                                        if(back == 0){
-                                                            teacherList();
-                                                            break;
-                                                        }
+                                                    System.out.print("Press any key to go back: ");
+                                                    if(scn.next() != null){
+                                                        teacherList();
+                                                        break;
                                                     }
                                                 }
                                                 else{
@@ -881,12 +844,12 @@ public class Admin extends Variables implements Courses  {
                                             2 - Add a subject handled in an existing section handled
                                             """);
                                     System.out.print("Your answer (0 to go back): ");
-                                    int add = scn.nextInt();
-                                    if(add == 0){
+                                    char add = scn.next().charAt(0);
+                                    if(add == '0'){
                                         teacherList();
                                         break;
                                     }
-                                    if(add == 1){
+                                    if(add == '1'){
                                         System.out.print("Enter the section handled (e.g. BSIT 2A): ");
                                         scn.nextLine();
                                         String section = scn.nextLine();
@@ -894,16 +857,12 @@ public class Admin extends Variables implements Courses  {
                                         String subject = scn.nextLine();
                                         addHandled(editInfo, section, subject);
                                         System.out.println("The section handled has been added.");
-                                        while(true){
-                                            System.out.print("Press 0 to go back: ");
-                                            int back = scn.nextInt();
-                                            if(back == 0){
-                                                teacherList();
-                                                break;
-                                            }
+                                        System.out.print("Press any key to go back: ");
+                                        if(scn.next() != null){
+                                            teacherList();
                                         }
                                     }
-                                    if(add == 2){
+                                    if(add == '2'){
                                        lineGenerator();
                                         System.out.println("Sections and Subjects Currently Handled: ");
                                         for(Map.Entry e: tSub.entrySet()){
@@ -937,13 +896,9 @@ public class Admin extends Variables implements Courses  {
                                                     }
                                                 }
                                                 lineGenerator(); 
-                                                while(true){
-                                                    System.out.print("Press 0 to go back: ");
-                                                    int back = scn.nextInt();
-                                                    if(back == 0){
-                                                        teacherList();
-                                                        break;
-                                                    }
+                                                System.out.print("Press any key to go back: ");
+                                                if(scn.next() != null){
+                                                    teacherList();
                                                 }
                                                 break;
                                             }
@@ -970,14 +925,10 @@ public class Admin extends Variables implements Courses  {
                                     }
                                 }
                                 lineGenerator();
-                                while(true){
-                                    System.out.print("Press 0 to go back: ");
-                                    int back = scn.nextInt();
-                                    if(back == 0){
+                                    System.out.print("Press any key to go back: ");
+                                    if(scn.next() != null){
                                         teacherList();
-                                        break;
                                     }
-                                }
                                 break;
                             }
                             else{
@@ -1015,14 +966,14 @@ public class Admin extends Variables implements Courses  {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int choice = scn.nextInt();
+            String choice = scn.next();
 
-            if(choice == 0){
+            if(choice.equals("0")){
                 new Admin();
                 break;
             }
-            if(choice <= blogSize){
-                blog.setToRetrieve(choice);
+            if(Integer.parseInt(choice) <= blogSize){
+                blog.setToRetrieve(Integer.parseInt(choice));
                 System.out.println("Current Details: ");
                 String blogCurrent = blog.getHeadline();
                 System.out.println(blogCurrent);
@@ -1048,7 +999,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(choice == blogSize+1){
+            if(Integer.parseInt(choice) == blogSize+1){
                 System.out.print("Enter headline: ");
                 scn.nextLine();
                 String newHeadline = scn.nextLine();
@@ -1068,7 +1019,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(choice == blogSize+2){
+            if(Integer.parseInt(choice) == blogSize+2){
                 lineGenerator();
                 System.out.print("""
                     Which blog article would you like to remove?
@@ -1077,16 +1028,16 @@ public class Admin extends Variables implements Courses  {
                 lineGenerator();
                 while(true){
                     System.out.print("Your Answer (0 to go back): ");
-                    int remove = scn.nextInt();
-                    blog.setToRetrieve(remove);
-                    if(remove == 0){
+                    String remove = scn.next();
+                    blog.setToRetrieve(Integer.parseInt(remove));
+                    if(Integer.parseInt(remove) == 0){
                         addBlog();
                         break;
                     }
-                    if(remove <= blogSize){
+                    if(Integer.parseInt(remove) <= blogSize){
                         System.out.print("Are you sure (0 to go back or any key to continue)? ");
                         char sure = scn.next().charAt(0);
-                        if(sure == 0){
+                        if(sure == '0'){
                             addBlog();
                         }
                         else{
@@ -1190,14 +1141,10 @@ public class Admin extends Variables implements Courses  {
                     System.out.println("Your username is " + teacherInfo.get("Username"));
                     System.out.println("Your password is " + teacherInfo.get("Password"));
                     lineGenerator();
-                    
-                    while(true){
-                        System.out.print("Press 0 to go back: ");
-                        int back = scn.nextInt();
-                        if(back == 0){
-                            new Admin();
-                            break;
-                        }
+                    System.out.print("Press any key to go back: ");
+                    if(scn.next() != null){
+                        new Admin();
+                        break;
                     }
                     break;
                 }
@@ -1232,14 +1179,14 @@ public class Admin extends Variables implements Courses  {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int choice = scn.nextInt();
+            String choice = scn.next();
 
-            if(choice == 0){
+            if(Integer.parseInt(choice) == 0){
                 new Admin();
                 break;
             }
-            if(choice <= paymentSize){
-                payment.setToRetrieve(choice);
+            if(Integer.parseInt(choice) <= paymentSize){
+                payment.setToRetrieve(Integer.parseInt(choice));
                 System.out.println("Current Details: ");
                 String paymentMethodCurrent = payment.getPaymentMethod();
                 System.out.println(paymentMethodCurrent);
@@ -1262,7 +1209,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(choice == paymentSize+1){
+            if(Integer.parseInt(choice) == paymentSize+1){
                 lineGenerator();
                 System.out.println("Current Email Address: " + payment.getEmailLink());
                 lineGenerator();
@@ -1278,7 +1225,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(choice == paymentSize+2){
+            if(Integer.parseInt(choice) == paymentSize+2){
                 System.out.print("Enter new payment method name (e.g. Metrobank): ");
                 scn.nextLine();
                 String newMethod = scn.nextLine();
@@ -1301,7 +1248,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(choice == paymentSize+3){
+            if(Integer.parseInt(choice) == paymentSize+3){
                 lineGenerator();
                 System.out.print("""
                     Which payment method would you like to remove?
@@ -1310,17 +1257,18 @@ public class Admin extends Variables implements Courses  {
                 lineGenerator();
                 while(true){
                     System.out.print("Your Answer (0 to go back): ");
-                    int remove = scn.nextInt();
-                    payment.setToRetrieve(remove);
-                    if(remove == 0){
+                    String remove = scn.next();
+                    payment.setToRetrieve(Integer.parseInt(remove));
+                    if(Integer.parseInt(remove) == 0){
                         editPInfo();
                         break;
                     }
-                    if(remove <= paymentSize){
+                    if(Integer.parseInt(remove) <= paymentSize){
                         System.out.print("Are you sure (0 to go back or any key to continue)? ");
                         char sure = scn.next().charAt(0);
-                        if(sure == 0){
+                        if(sure == '0'){
                             editPInfo();
+                            break;
                         }
                         else{
                             payment.removeAccount();
@@ -1357,13 +1305,13 @@ public class Admin extends Variables implements Courses  {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int choice = scn.nextInt();
+            String choice = scn.next();
 
-            if(choice == 0){
+            if(Integer.parseInt(choice) == 0){
                 new Admin();
                 break;
             }
-            if(choice == 1){
+            if(Integer.parseInt(choice) == 1){
                 while(true){
                     lineGenerator();
                     System.out.print("""
@@ -1374,12 +1322,12 @@ public class Admin extends Variables implements Courses  {
                         """);
                     lineGenerator();
                     System.out.print("Your answer (0 to go back): ");
-                    int doEdit = scn.nextInt();
-                    if(doEdit == 0){
+                    String doEdit = scn.next();
+                    if(Integer.parseInt(doEdit) == 0){
                         editAdmission();
                         break;
                     }
-                    if(doEdit == 1){
+                    if(Integer.parseInt(doEdit) == 1){
                         while(true){
                             System.out.print("Press N to edit steps for New Students and L for Old Students: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1451,7 +1399,7 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(doEdit == 2){
+                    if(Integer.parseInt(doEdit) == 2){
                         while(true){
                             System.out.print("Press N to add steps for New Students and L for Old Students: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1507,7 +1455,7 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(doEdit == 3){
+                    if(Integer.parseInt(doEdit) == 3){
                         while(true){
                             System.out.print("Press N to remove steps for New Students and L for Old Students: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1580,7 +1528,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(choice == 2){
+            if(Integer.parseInt(choice) == 2){
                 while(true){
                     lineGenerator();
                     System.out.print("""
@@ -1591,12 +1539,12 @@ public class Admin extends Variables implements Courses  {
                         """);
                     lineGenerator();
                     System.out.print("Your answer (0 to go back): ");
-                    int doEdit = scn.nextInt();
-                    if(doEdit == 0){
+                    char doEdit = scn.next().charAt(0);
+                    if(doEdit == '0'){
                         editAdmission();
                         break;
                     }
-                    if(doEdit == 1){
+                    if(doEdit == '1'){
                         while(true){
                             System.out.print("Press F to edit requirements for Freshmen and T for Transferees: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1668,7 +1616,7 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(doEdit == 2){
+                    if(doEdit == '2'){
                         while(true){
                             System.out.print("Press F to add steps for Freshmen and T for Transferees: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1724,7 +1672,7 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(doEdit == 3){
+                    if(doEdit == '3'){
                         while(true){
                             System.out.print("Press F to remove requirements for Freshmen and T for Transferees: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1820,14 +1768,14 @@ public class Admin extends Variables implements Courses  {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int choice = scn.nextInt();
+            String choice = scn.next();
 
-            if(choice == 0){
+            if(Integer.parseInt(choice) == 0){
                 new Admin();
                 break;
             }
-            if(choice <= aboutSize && choice != about.getIndex()){
-                about.setToRetrieve(choice);
+            if(Integer.parseInt(choice) <= aboutSize && Integer.parseInt(choice) != about.getIndex()){
+                about.setToRetrieve(Integer.parseInt(choice));
                 System.out.println("Current Details: ");
                 String aboutCurrent = about.getAbout();
                 System.out.println(aboutCurrent);
@@ -1853,9 +1801,9 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(choice <= aboutSize && choice == about.getIndex()){
+            if(Integer.parseInt(choice) <= aboutSize && Integer.parseInt(choice) == about.getIndex()){
                 about.setPoliciesPrint();
-                about.setToRetrieve(choice);
+                about.setToRetrieve(Integer.parseInt(choice));
                 lineGenerator();
                 System.out.print("Current Policies: ");
                 System.out.println(about.getPoliciesPrint());
@@ -1866,14 +1814,14 @@ public class Admin extends Variables implements Courses  {
                 lineGenerator();
                 while(true){
                     System.out.print("Enter the number of the policy you would like to edit (0 to go back): ");
-                    int policy = scn.nextInt();
+                    String policy = scn.next();
 
-                    if(policy == 0){
+                    if(Integer.parseInt(policy) == 0){
                         editAbout();
                         break;
                     }
-                    if(policy <= policySize){
-                        about.setToRetrieve(policy);
+                    if(Integer.parseInt(policy) <= policySize){
+                        about.setToRetrieve(Integer.parseInt(policy));
                         lineGenerator();
                         System.out.println("Current Details: ");
                         String policyCurrent = about.getPolicy();
@@ -1901,7 +1849,7 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(policy == policySize+1){
+                    if(Integer.parseInt(policy) == policySize+1){
                         System.out.print("Enter policy title: ");
                         scn.nextLine();
                         String newTitle = scn.nextLine();
@@ -1922,7 +1870,7 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(policy == policySize+2){
+                    if(Integer.parseInt(policy) == policySize+2){
                         lineGenerator();
                         System.out.print("""
                             Which policy would you like to remove?
@@ -1931,16 +1879,16 @@ public class Admin extends Variables implements Courses  {
                         lineGenerator();
                         while(true){
                             System.out.print("Your Answer (0 to go back): ");
-                            int remove = scn.nextInt();
-                            about.setToRetrieve(remove);
-                            if(remove == 0){
+                            String remove = scn.next();
+                            about.setToRetrieve(Integer.parseInt(remove));
+                            if(Integer.parseInt(remove) == 0){
                                 editAbout();
                                 break;
                             }
-                            if(remove <= policySize){
+                            if(Integer.parseInt(remove) <= policySize){
                                 System.out.print("Are you sure (0 to go back or any key to continue)? ");
                                 char sure = scn.next().charAt(0);
-                                if(sure == 0){
+                                if(sure == '0'){
                                     editAbout();
                                 }
                                 else{
@@ -1964,7 +1912,7 @@ public class Admin extends Variables implements Courses  {
                     }
                 } 
             }
-            if(choice == aboutSize+1){
+            if(Integer.parseInt(choice) == aboutSize+1){
                 System.out.print("Enter about title: ");
                 scn.nextLine();
                 String newTitle = scn.nextLine();
@@ -1984,7 +1932,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(choice == aboutSize+2){
+            if(Integer.parseInt(choice) == aboutSize+2){
                 lineGenerator();
                 System.out.print("""
                     Which about section would you like to remove?
@@ -1993,16 +1941,16 @@ public class Admin extends Variables implements Courses  {
                 lineGenerator();
                 while(true){
                     System.out.print("Your Answer (0 to go back): ");
-                    int remove = scn.nextInt();
-                    about.setToRetrieve(remove);
-                    if(remove == 0){
+                    String remove = scn.next();
+                    about.setToRetrieve(Integer.parseInt(remove));
+                    if(Integer.parseInt(remove) == 0){
                         editAbout();
                         break;
                     }
-                    if(remove <= aboutSize){
+                    if(Integer.parseInt(remove) <= aboutSize){
                         System.out.print("Are you sure (0 to go back or any key to continue)? ");
                         char sure = scn.next().charAt(0);
-                        if(sure == 0){
+                        if(sure == '0'){
                             editAbout();
                         }
                         else{
@@ -2043,13 +1991,13 @@ public class Admin extends Variables implements Courses  {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            int choice = scn.nextInt();
+            char choice = scn.next().charAt(0);
 
-            if(choice == 0){
+            if(choice == '0'){
                 new Admin();
                 break;
             }
-            if(choice == 1){
+            if(choice == '1'){
                 lineGenerator();
                 System.out.println("Here are the currently available courses:");
                 for(Map.Entry e: courses.entrySet()){
@@ -2057,165 +2005,188 @@ public class Admin extends Variables implements Courses  {
                 }
                 lineGenerator();
                 scn.nextLine();
-                System.out.print("Enter the name of the course (full name and abbreviation enclosed in parentheses): ");
-                String courseName = scn.nextLine();                
-                System.out.print("Enter a top skill to learn on the course: ");
-                String courseSkill = scn.nextLine();
-                System.out.print("Enter an opportunity when finishing the course: ");
-                String courseOpp = scn.nextLine();
-                int newKey = addCourse(courseName, courseSkill, courseOpp);
-                while(true){
-                    System.out.print("Add another skill (Press Y for yes and any key for No)? ");
-                    char yn = scn.next().toUpperCase().charAt(0);
-                    if(yn == 'Y'){
-                        scn.nextLine();
-                        System.out.print("Enter a top skill to learn on the course: ");
-                        addSkill(newKey, scn.nextLine());
-                    }
-                    else{
-                        break;
-                    }
+                System.out.print("Enter the name of the course (full name and abbreviation enclosed in parentheses)(0 to go back): ");
+                String courseName = scn.nextLine(); 
+                if(courseName.equals("0")){
+                    editCourse();
+                    break;
                 }
-                while(true){
-                    System.out.print("Add another opportunity (Press Y for yes and any key for No)? ");
-                    char yn = scn.next().toUpperCase().charAt(0);
-                    if(yn == 'Y'){
-                        scn.nextLine();
-                        System.out.print("Enter an opportunity when finishing the course: ");
-                        addOpp(newKey, scn.nextLine());
+                else{
+                    System.out.print("Enter a top skill to learn on the course: ");
+                    String courseSkill = scn.nextLine();
+                    System.out.print("Enter an opportunity when finishing the course: ");
+                    String courseOpp = scn.nextLine();
+                    int newKey = addCourse(courseName, courseSkill, courseOpp);
+                    while(true){
+                        System.out.print("Add another skill (Press Y for yes and any key for No)? ");
+                        char yn = scn.next().toUpperCase().charAt(0);
+                        if(yn == 'Y'){
+                            scn.nextLine();
+                            System.out.print("Enter a top skill to learn on the course: ");
+                            addSkill(newKey, scn.nextLine());
+                        }
+                        else{
+                            break;
+                        }
                     }
-                    else{
-                        break;
+                    while(true){
+                        System.out.print("Add another opportunity (Press Y for yes and any key for No)? ");
+                        char yn = scn.next().toUpperCase().charAt(0);
+                        if(yn == 'Y'){
+                            scn.nextLine();
+                            System.out.print("Enter an opportunity when finishing the course: ");
+                            addOpp(newKey, scn.nextLine());
+                        }
+                        else{
+                            break;
+                        }
                     }
-                }
-                System.out.println("The program has been added successfully.");
-                lineGenerator();
-                System.out.println("Here are the currently available courses:");
-                for(Map.Entry e: courses.entrySet()){
-                    System.out.println(e.getKey() + " - " + e.getValue());
-                }
-                lineGenerator();
-                while(true){
-                    System.out.print("Press 0 to go back to editing courses/programs: ");
-                    int back = scn.nextInt();
-                    if(back == 0){
-                        new Employee();
-                        break;
-                    }
-                    else{}
-                }
-                break;
-            }
-            if(choice == 2){
-                lineGenerator();
-                System.out.println("Here are the currently available courses:");
-                for(Map.Entry e: courses.entrySet()){
-                    System.out.println(e.getKey() + " - " + e.getValue());
-                }
-                lineGenerator();
-                System.out.print("Enter the number of the course you would like to add skills to: ");
-                int edit = scn.nextInt();
-                scn.nextLine();
-                System.out.print("Enter a top skill to learn on the course: ");
-                addSkill(edit, scn.nextLine());
-                while(true){
-                    System.out.print("Add another skill (Press Y for yes and any key for No)? ");
-                    char yn = scn.next().toUpperCase().charAt(0);
-                    if(yn == 'Y'){
-                        scn.nextLine();
-                        System.out.print("Enter a top skill to learn on the course: ");
-                        addSkill(edit, scn.nextLine());
-                    }
-                    else{
-                        break;
-                    }
-                }
-                lineGenerator();
-                System.out.println("The skill/s has been added successfully.");
-                while(true){
-                    System.out.print("\nPress 0 to go back to editing courses/programs: ");
-                    int back = scn.nextInt();
-                    if(back == 0){
-                        new Employee();
-                        break;
-                    }
-                    else{}
-                }
-                break;
-            }
-            if(choice == 3){
-                lineGenerator();
-                System.out.println("Here are the currently available courses:");
-                for(Map.Entry e: courses.entrySet()){
-                    System.out.println(e.getKey() + " - " + e.getValue());
-                }
-                lineGenerator();
-                System.out.print("Enter the number of the course you would like to add opportunities to: ");
-                int edit = scn.nextInt();
-                scn.nextLine();
-                System.out.print("Enter an opportunity when finishing the course: ");
-                addOpp(edit, scn.nextLine());
-                while(true){
-                    System.out.print("Add another opportunity (Press Y for yes and any key for No)? ");
-                    char yn = scn.next().toUpperCase().charAt(0);
-                    if(yn == 'Y'){
-                        scn.nextLine();
-                        System.out.print("Enter an opportunity when finishing the course: ");
-                        addOpp(edit, scn.nextLine());
-                    }
-                    else{
-                        break;
-                    }
-                }
-                lineGenerator();
-                System.out.println("The opportunities has been added successfully.");
-                while(true){
-                    System.out.print("\nPress 0 to go back to editing courses/programs: ");
-                    int back = scn.nextInt();
-                    if(back == 0){
-                        editCourse();
-                        break;
-                    }
-                    else{}
-                }
-                break;
-            }
-            if(choice == 4){
-                lineGenerator();
-                System.out.println("Here are the currently available courses:");
-                for(Map.Entry e: courses.entrySet()){
-                    System.out.println(e.getKey() + " - " + e.getValue());
-                }
-                lineGenerator();
-                System.out.print("Enter the number of the course you would like to remove: ");
-                int remove = scn.nextInt();
-                System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                char yn = scn.next().toUpperCase().charAt(0);
-                if(yn == 'Y' && courses.containsKey(remove)){
-                    removeCourse(remove);
-                    System.out.println("The program has been removed successfully and moved to archives.");
+                    System.out.println("The program has been added successfully.");
                     lineGenerator();
                     System.out.println("Here are the currently available courses:");
                     for(Map.Entry e: courses.entrySet()){
                         System.out.println(e.getKey() + " - " + e.getValue());
                     }
                     lineGenerator();
-                    while(true){
-                        System.out.print("Press 0 to go back to editing courses/programs: ");
-                        int back = scn.nextInt();
-                        if(back == 0){
-                            editCourse();
-                            break;
-                        }
-                        else{}
+                    System.out.print("Press any key to go back: ");
+                    if(scn.next() != null){
+                        editCourse();
                     }
+                }      
+                break;
+            }
+            if(choice == '2'){
+                lineGenerator();
+                System.out.println("Here are the currently available courses:");
+                for(Map.Entry e: courses.entrySet()){
+                    System.out.println(e.getKey() + " - " + e.getValue());
                 }
-                else{
-                    new Admin();
+                while(true){
+                    lineGenerator();
+                    System.out.print("Enter the number of the course you would like to add skills to (0 to go back): ");
+                    String edit = scn.next();
+                    if(Integer.parseInt(edit) == 0){
+                        editCourse();
+                        break;
+                    }
+                    if(courses.containsKey(Integer.parseInt(edit))){
+                        scn.nextLine();
+                        System.out.print("Enter a top skill to learn on the course: ");
+                        addSkill(Integer.parseInt(edit), scn.nextLine());
+                        while(true){
+                            System.out.print("Add another skill (Press Y for yes and any key for No)? ");
+                            char yn = scn.next().toUpperCase().charAt(0);
+                            if(yn == 'Y'){
+                                scn.nextLine();
+                                System.out.print("Enter a top skill to learn on the course: ");
+                                addSkill(Integer.parseInt(edit), scn.nextLine());
+                            }
+                            else{
+                                break;
+                            }
+                        }
+                        lineGenerator();
+                        System.out.println("The skill/s has been added successfully.");
+                        System.out.print("\nPress any key to go back: ");
+                        if(scn.next() != null){
+                            editCourse();
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("This course does not exist. Please try again.");
+                    }
                 }
                 break;
             }
-            if(choice == 5){
+            if(choice == '3'){
+                lineGenerator();
+                System.out.println("Here are the currently available courses:");
+                for(Map.Entry e: courses.entrySet()){
+                    System.out.println(e.getKey() + " - " + e.getValue());
+                }
+                while(true){
+                    lineGenerator();
+                    System.out.print("Enter the number of the course you would like to add opportunities to (0 to go back): ");
+                    String edit = scn.next();
+                    if(Integer.parseInt(edit) == 0){
+                        editCourse();
+                        break;
+                    }
+                    if(courses.containsKey(Integer.parseInt(edit))){
+                        scn.nextLine();
+                        System.out.print("Enter an opportunity when finishing the course: ");
+                        addOpp(Integer.parseInt(edit), scn.nextLine());
+                        while(true){
+                            System.out.print("Add another opportunity (Press Y for yes and any key for No)? ");
+                            char yn = scn.next().toUpperCase().charAt(0);
+                            if(yn == 'Y'){
+                                scn.nextLine();
+                                System.out.print("Enter an opportunity when finishing the course: ");
+                                addOpp(Integer.parseInt(edit), scn.nextLine());
+                            }
+                            else{
+                                break;
+                            }
+                        }
+                        lineGenerator();
+                        System.out.println("The opportunities has been added successfully.");
+                        System.out.print("\nPress any key to go back to editing courses/programs: ");
+                        if(scn.next() != null){
+                            editCourse();
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("This course does not exist. Please try again.");
+                    }
+                }
+                break;
+            }
+            if(choice == '4'){
+                lineGenerator();
+                System.out.println("Here are the currently available courses:");
+                for(Map.Entry e: courses.entrySet()){
+                    System.out.println(e.getKey() + " - " + e.getValue());
+                }
+                while(true){
+                    lineGenerator();
+                    System.out.print("Enter the number of the course you would like to remove (0 to go back): ");
+                    String remove = scn.next();
+                    if(Integer.parseInt(remove) == 0){
+                        editCourse();
+                        break;
+                    }
+                    if(courses.containsKey(Integer.parseInt(remove))){
+                        System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                        char yn = scn.next().toUpperCase().charAt(0);
+                        if(yn == 'Y' && courses.containsKey(Integer.parseInt(remove))){
+                            removeCourse(Integer.parseInt(remove));
+                            System.out.println("The program has been removed successfully and moved to archives.");
+                            lineGenerator();
+                            System.out.println("Here are the currently available courses:");
+                            for(Map.Entry e: courses.entrySet()){
+                                System.out.println(e.getKey() + " - " + e.getValue());
+                            }
+                            lineGenerator();
+                            System.out.print("Press any key to go back to editing courses/programs: ");
+                            if(scn.next() != null){
+                                editCourse();
+                                break;
+                            }
+                        }
+                        else{
+                            editCourse();
+                        }
+                        break;
+                    }
+                    else{
+                        System.out.println("This course does not exist. Please try again");
+                    }
+                }
+                break;
+            }
+            if(choice == '5'){
                 lineGenerator();
                 System.out.println("Here are the currently archived courses:");
                 for(Map.Entry e: archivedCourses.entrySet()){
@@ -2231,39 +2202,38 @@ public class Admin extends Variables implements Courses  {
                 lineGenerator();
                 while(true){
                     System.out.print("Your Answer (0 to go back): ");
-                    int archive = scn.nextInt();
+                    char archive = scn.next().charAt(0);
 
-                    if(archive == 0){
+                    if(archive == '0'){
                         editCourse();
                         break;
                     }
-                    if(archive == 1){
+                    if(archive == '1'){
                         lineGenerator();
                         System.out.println("Here are the currently archived courses:");
                         for(Map.Entry e: archivedCourses.entrySet()){
                             System.out.println(e.getKey() + " - " + e.getValue());
                         }
-                        lineGenerator();
-                        System.out.print("Please enter the number of the course you would like to view: ");
-                        int view = scn.nextInt();
-                        lineGenerator();
                         while(true){
-                            if(archivedCourses.containsKey(view)){
-                                System.out.println(archivedCourses.get(view).toUpperCase());
+                            lineGenerator();
+                            System.out.print("Please enter the number of the course you would like to view (0 to go back): ");
+                            String view = scn.next();
+                            lineGenerator();
+                            if(Integer.parseInt(view) == 0){
+                                editCourse();
+                                break;
+                            }
+                            if(archivedCourses.containsKey(Integer.parseInt(view))){
+                                System.out.println(archivedCourses.get(Integer.parseInt(view)).toUpperCase());
                                 System.out.println("\nTop Skills to Learn: ");
-                                System.out.println(archivedSkills.get(archivedCourses.get(view)));
+                                System.out.println(archivedSkills.get(archivedCourses.get(Integer.parseInt(view))));
                             
                                 System.out.println("\nCareer Opportunities: ");
-                                System.out.println(archivedOpp.get(archivedCourses.get(view)));
+                                System.out.println(archivedOpp.get(archivedCourses.get(Integer.parseInt(view))));
                                 lineGenerator();
-                                while(true){
-                                    System.out.print("Press 0 to go back: ");
-                                    int back = scn.nextInt();
-                                    if(back == 0){
-                                        editCourse();
-                                        break;
-                                    }
-                                    else{}
+                                System.out.print("Press any key to go back: ");
+                                if(scn.next() != null){
+                                    editCourse();
                                 }
                                 break;
                             }
@@ -2273,62 +2243,78 @@ public class Admin extends Variables implements Courses  {
                         }
                         break;
                     }
-                    if(archive == 2){
+                    if(archive == '2'){
                         lineGenerator();
                         System.out.println("Here are the currently archived courses:");
                         for(Map.Entry e: archivedCourses.entrySet()){
                             System.out.println(e.getKey() + " - " + e.getValue());
                         }
-                        lineGenerator();
-                        System.out.print("Enter the number of the course you would like to remove: ");
-                        int remove = scn.nextInt();
-                        System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                        char yn = scn.next().toUpperCase().charAt(0);
-                        if(yn == 'Y' && archivedCourses.containsKey(remove)){
-                            removeCourseP(remove);
-                            System.out.println("The program has been removed permanently.");
+                        while(true){
                             lineGenerator();
-                            System.out.println("Here are the currently archived courses:");
-                            for(Map.Entry e: archivedCourses.entrySet()){
-                                System.out.println(e.getKey() + " - " + e.getValue());
+                            System.out.print("Enter the number of the course you would like to remove (0 to go back): ");
+                            String remove = scn.next();
+                            if(Integer.parseInt(remove) == 0){
+                                editCourse();
+                                break;
                             }
-                            lineGenerator();
-                            while(true){
-                                System.out.print("Press 0 to go back to editing courses/programs: ");
-                                int back = scn.nextInt();
-                                if(back == 0){
-                                    editCourse();
-                                    break;
+                            if(courses.containsKey(Integer.parseInt(remove))){
+                                System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                                char yn = scn.next().toUpperCase().charAt(0);
+                                if(yn == 'Y' && archivedCourses.containsKey(remove)){
+                                    removeCourseP(Integer.parseInt(remove));
+                                    System.out.println("The program has been removed permanently.");
+                                    lineGenerator();
+                                    System.out.println("Here are the currently archived courses:");
+                                    for(Map.Entry e: archivedCourses.entrySet()){
+                                        System.out.println(e.getKey() + " - " + e.getValue());
+                                    }
+                                    lineGenerator();
+                                    while(true){
+                                        System.out.print("Press 0 to go back to editing courses/programs: ");
+                                        int back = scn.nextInt();
+                                        if(back == 0){
+                                            editCourse();
+                                            break;
+                                        }
+                                        else{}
+                                    }
+                                    
                                 }
-                                else{}
+                                else{
+                                    new Admin();
+                                }
+                                break;
                             }
-                            
+                            else{
+                                System.out.println("This course does not exist. Please try again.");
+                            }
                         }
-                        else{
-                            new Admin();
-                        }
+
                         break;
                     }
-                    if(archive == 3){
+                    if(archive == '3'){
                         lineGenerator();
                         System.out.println("Here are the currently archived courses:");
                         for(Map.Entry e: archivedCourses.entrySet()){
                             System.out.println(e.getKey() + " - " + e.getValue());
                         }
                         lineGenerator();
-                        System.out.print("Enter the number of the course you would like to restore: ");
-                        int restore = scn.nextInt();
-                        if(archivedCourses.containsKey(restore)){
-                            restoreCourse(restore);
+                        System.out.print("Enter the number of the course you would like to restore (0 to go back): ");
+                        String restore = scn.next();
+                        if(Integer.parseInt(restore) == 0){
+                            editCourse();
+                            break;
+                        }
+                        if(archivedCourses.containsKey(Integer.parseInt(restore))){
+                            restoreCourse(Integer.parseInt(restore));
                             System.out.println("The program has been restored.");
-                            while(true){
-                                System.out.print("Press 0 to go back to editing courses/programs: ");
-                                int back = scn.nextInt();
-                                if(back == 0){
-                                    editCourse();
-                                    break;
-                                }
+                            System.out.print("Press any key to go back: ");
+                            if(scn.next() != null){
+                                editCourse();
                             }
+                        }
+                        else{
+                            System.out.println("This course does not exist. Please try again.");
                         }
                         break;
                     }
@@ -2357,13 +2343,13 @@ public class Admin extends Variables implements Courses  {
         }
         lineGenerator();
         while(true){
-            System.out.print("Enter the number of the alumni you would like to view information of (0 to go back, 9999 to see fulfilled requests): ");
-            int viewInfo = scn.nextInt();
-            if(viewInfo == 0){
+            System.out.print("Enter the number of the alumni you would like to view information of (0 to go back, F to see fulfilled requests): ");
+            String viewInfo = scn.next();
+            if(Integer.parseInt(viewInfo) == 0){
                 new Admin();
                 break;
             }
-            if(docuRequest.containsKey(viewInfo)){
+            if(docuRequest.containsKey(Integer.parseInt(viewInfo))){
                 lineGenerator();
                 for(Map.Entry e: docuRequest.entrySet()){
                     if(e.getKey().equals(viewInfo)){
@@ -2379,7 +2365,7 @@ public class Admin extends Variables implements Courses  {
                     System.out.print("Move request to fulfilled (Press Y for yes and any key to go back)? ");
                     char back = scn.next().toUpperCase().charAt(0);
                     if(back == 'Y'){
-                        finishReq(viewInfo);
+                        finishReq(Integer.parseInt(viewInfo));
                         System.out.println("Request has been moved to Fulfilled Requests.");
                         lineGenerator();
                         System.out.print("Press 0 to go back to viewing requests: ");
@@ -2396,7 +2382,7 @@ public class Admin extends Variables implements Courses  {
                 }
                 break;
             }
-            if(viewInfo == 9999){
+            if(viewInfo.equalsIgnoreCase("F")){
                 lineGenerator();
                 for(Map.Entry e: finishedReq.entrySet()){
                     Map<String, String> value = (Map<String, String>) e.getValue();
@@ -2412,12 +2398,12 @@ public class Admin extends Variables implements Courses  {
                 lineGenerator();
                 while(true){
                     System.out.print("Enter the number of the request you would like to view information of (0 to go back): ");
-                    int viewInfoF = scn.nextInt();
-                    if(viewInfoF == 0){
+                    String viewInfoF = scn.next();
+                    if(Integer.parseInt(viewInfoF) == 0){
                         new Admin();
                         break;
                     }
-                    if(finishedReq.containsKey(viewInfoF)){
+                    if(finishedReq.containsKey(Integer.parseInt(viewInfoF))){
                         lineGenerator();
                         for(Map.Entry e: finishedReq.entrySet()){
                             if(e.getKey().equals(viewInfoF)){
@@ -2433,12 +2419,11 @@ public class Admin extends Variables implements Courses  {
                             System.out.print("Move request back to unfulfilled (Press Y for yes and any key to go back)? ");
                             char back = scn.next().toUpperCase().charAt(0);
                             if(back == 'Y'){
-                                restoreReq(viewInfoF);
+                                restoreReq(Integer.parseInt(viewInfoF));
                                 System.out.println("Request has been moved to Unfulfilled Requests.");
                                 System.out.print("Press 0 to go back to viewing requests: ");
                                 if(scn.next() != null){
                                     viewDocuReq();
-                                    break;
                                 }
                                 break;
                             }
@@ -2475,7 +2460,7 @@ public class Admin extends Variables implements Courses  {
             while(true){
                 System.out.print("Confirm password (0 to cancel): ");
                 String confirmPass = scn.nextLine();
-                if(confirmPass.equals(0)){
+                if(confirmPass.equals("0")){
                     changePassword();
                     break;
                 }
