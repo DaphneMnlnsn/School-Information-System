@@ -44,7 +44,6 @@ public class Teacher extends Variables implements Grades{
         for(Map.Entry e: tSub.entrySet()){
             if(e.getKey().equals(employeeNum)){
                 Map<String, String> value = (Map<String, String>) e.getValue();
-                System.out.println(e.getKey());
                 for(Map.Entry f: value.entrySet()){
                     System.out.println("- " + f.getKey() + ": " + f.getValue());
                 }
@@ -77,6 +76,11 @@ public class Teacher extends Variables implements Grades{
                 }
                 if(hasStudent == false){
                     System.out.println("This section has no students listed.");
+                    lineGenerator();
+                    System.out.print("Press any key to go back: ");
+                    if(scn.next() != null){
+                        editGrades(employeeNum);
+                    }
                 }
                 break;
             }
@@ -88,7 +92,6 @@ public class Teacher extends Variables implements Grades{
         if(tSub.get(employeeNum).get(section).size() > 1 && hasStudent){
             System.out.println("Enter the subject you would like to edit/add grades to: ");
             subjectEdit = scn.nextLine();
-            scn.nextLine();
             System.out.print("Enter the student number of the student you would like to edit/add grades to: ");
             studentNum = scn.next();
         }
