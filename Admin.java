@@ -204,7 +204,7 @@ public class Admin extends Variables implements Courses  {
                     if(doAdmin == '2'){
                         lineGenerator();
                         boolean hasStudent = false;
-                        displayStd(choice, hasStudent);
+                        hasStudent = displayStd(choice, hasStudent);
                         if(hasStudent == false){
                             System.out.println("No students listed.");
                         }
