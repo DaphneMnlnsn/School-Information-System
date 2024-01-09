@@ -217,8 +217,8 @@ public class Student implements Grades, Enrolled {
         }
     }
     public void lineGenerator(){
-        for(int i = 0; i < 23; i++){
-            System.out.print("------");
+        for(int i = 0; i < 27; i++){
+            System.out.print("-----");
         }
         System.out.println();
     }
