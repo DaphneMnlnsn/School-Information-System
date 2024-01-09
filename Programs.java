@@ -24,6 +24,9 @@ public class Programs extends Variables implements Courses{
             
                 System.out.println("\nCareer Opportunities: ");
                 System.out.println(opportunities.get(courses.get(Integer.parseInt(choice))));
+
+                System.out.println("\nCourse Rates for Cash: " + courseRatesCash.get(courses.get(Integer.parseInt(choice))));
+                System.out.println("Course Rates for Installment: " + courseRatesIns.get(courses.get(Integer.parseInt(choice))));
                 lineGenerator();
                 System.out.print("Go Back (Press Y for Yes and any key to exit system)? ");
                 char back = scn.next().toUpperCase().charAt(0);
