@@ -1,7 +1,7 @@
 import java.util.*;
 
 public abstract class Variables implements Enrolled, SOA{
-    char yearL;
+    String yearL;
     String studentCourse, admitType, studentType, schedule, paymentTerm;
     String yearLevel, yearTerm;
     float defaultGrade = 0;
