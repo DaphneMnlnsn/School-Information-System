@@ -15,8 +15,8 @@ public class Employee extends Variables{
             boolean match = false;
             boolean containsUsername = false;
             for(Map.Entry e: tInfo.entrySet()){
-                if(tInfo.get(e.getKey()).get("Username").equals(username)){
-                    if(tInfo.get(e.getKey()).get("Password").equals(password)){
+                if(tInfo.get(e.getKey()).get("USERNAME").equals(username)){
+                    if(tInfo.get(e.getKey()).get("PASSWORD").equals(password)){
                         match = true;
                         employeeNum = e.getKey().toString();
                     }
