@@ -6,6 +6,7 @@ public interface Subjects {
     Map<String, Float> midGrades = new LinkedHashMap<>();
     Map<String, Float> prefGrades = new LinkedHashMap<>();
     Map<String, Float> finGrades = new LinkedHashMap<>();
+    
     String[] bstm = {"BSTM Subject 1", "BSTM Subject 2", "BSTM Subject 3", "BSTM Subject 4", "BSTM Subject 5", "BSTM Subject 6", "BSTM Subject 7", "BSTM Subject 8"};
     String[] bstm2 = {"BSTM Subject 9", "BSTM Subject 10", "BSTM Subject 11", "BSTM Subject 12", "BSTM Subject 13", "BSTM Subject 14", "BSTM Subject 15", "BSTM Subject 16"};
     String[] bscpe = {"BSCPE Subject 1", "BSCPE Subject 2", "BSCPE Subject 3", "BSCPE Subject 4", "BSCPE Subject 5", "BSCPE Subject 6", "BSCPE Subject 7", "BSCPE Subject 8"};
@@ -79,50 +80,85 @@ public interface Subjects {
             put("4th Year", term6);
         }};
     Map<String, Map<String, Map<String, String[]>>> subjectCourse = new LinkedHashMap<>(){{
-            put("Bachelor of Science in Tourism Management (BSTM)", yearLevel1);
-            put("Bachelor of Science In Computer Engineering (BSCpE)", yearLevel2);
-            put("Bachelor of Science in Information Technology (BSIT)", yearLevel3);
-            put("Bachelor of Science in Computer Science (BSCS)", yearLevel4);
-            put("Bachelor of Science in Business Administration (BSBA)", yearLevel5);
-            put("Bachelor of Science in Multimedia Arts (BMMA)", yearLevel6);
+            put("BACHELOR OF SCIENCE IN TOURISM MANAGEMENT (BSTM)", yearLevel1);
+            put("BACHELOR OF SCIENCE IN COMPUTER ENGINEERING (BSCPE)", yearLevel2);
+            put("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)", yearLevel3);
+            put("BACHELOR OF SCIENCE IN COMPUTER SCIENCE (BSCS)", yearLevel4);
+            put("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BSBA)", yearLevel5);
+            put("BACHELOR OF SCIENCE IN MULTIMEDIA ARTS (BMMA)", yearLevel6);
         }};
 }
 
-interface Grades extends Subjects{
+interface Grades extends Subjects, SOA{
     Map<String, Float> subject = new LinkedHashMap<>(){{
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[0], (float) 97.00);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[1], (float) 98.10);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[2], (float) 95.70);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[3], (float) 96.90);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[4], (float) 98.10);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[5], (float) 98.70);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[6], (float) 94.08);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[7], (float) 95.03);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[0], (float) 97.00);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[1], (float) 98.10);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[2], (float) 95.70);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[3], (float) 96.90);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[4], (float) 98.10);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[5], (float) 98.70);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[6], (float) 94.08);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[7], (float) 95.03);
     }};
     Map<String, Float> subject2 = new LinkedHashMap<>(){{
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[0], (float) 95.00);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[1], (float) 97.10);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[2], (float) 98.70);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[3], (float) 94.90);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[4], (float) 93.10);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[5], (float) 95.70);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[6], (float) 98.08);
-        put(subjectCourse.get("Bachelor of Science in Information Technology (BSIT)").get("1st Year").get("1st Term")[7], (float) 99.03);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[0], (float) 95.00);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[1], (float) 97.10);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[2], (float) 98.70);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[3], (float) 94.90);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[4], (float) 93.10);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[5], (float) 95.70);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[6], (float) 98.08);
+        put(subjectCourse.get("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)").get("1st Year").get("1st Term")[7], (float) 99.03);
     }};
     Map<String, Map<String, Float>> quarter = new LinkedHashMap<>(){{
-        put("Prelims", subject);
-        put("Midterms", subject);
-        put("Prefinals", subject);
-        put("Finals", subject);
+        put("PRELIMS", subject);
+        put("MIDTERMS", subject);
+        put("PREFINALS", subject);
+        put("FINALS", subject);
     }};
     Map<String, Map<String, Float>> quarter2 = new LinkedHashMap<>(){{
-        put("Prelims", subject2);
-        put("Midterms", subject2);
-        put("Prefinals", subject2);
-        put("Finals", subject2);
+        put("PRELIMS", subject2);
+        put("MIDTERMS", subject2);
+        put("PREFINALS", subject2);
+        put("FINALS", subject2);
     }};
-    Map<String, Map<String, Map<String, Float>>> studentGrades = new LinkedHashMap<>(){{
+    static Map<String, Map<String, Map<String, Float>>> studentGrades = new LinkedHashMap<>(){{
             put("2024-1001", quarter);
             put("2024-1002", quarter2);
     }};
+}
+
+interface SOA{
+    Map<String, Float> defaultSOA = new LinkedHashMap<>(); 
+    Float defaultPayments = (float) 0.00, defaultAdjustments = (float) 0.00;
+    Map<String, Float> courseRatesIns = new LinkedHashMap<>(){{
+            put("BACHELOR OF SCIENCE IN TOURISM MANAGEMENT (BSTM)", (float) 22500.00);
+            put("BACHELOR OF SCIENCE IN COMPUTER ENGINEERING (BSCPE)", (float) 35460.00);
+            put("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)", (float) 33760.00);
+            put("BACHELOR OF SCIENCE IN COMPUTER SCIENCE (BSCS)", (float) 33760.00);
+            put("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BSBA)", (float) 20340.00);
+            put("BACHELOR OF SCIENCE IN MULTIMEDIA ARTS (BMMA)", (float) 24000.00);
+    }};
+    Map<String, Float> courseRatesCash = new LinkedHashMap<>(){{
+            put("BACHELOR OF SCIENCE IN TOURISM MANAGEMENT (BSTM)", (float) 20500.00);
+            put("BACHELOR OF SCIENCE IN COMPUTER ENGINEERING (BSCPE)", (float) 33460.00);
+            put("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)", (float) 30760.00);
+            put("BACHELOR OF SCIENCE IN COMPUTER SCIENCE (BSCS)", (float) 30760.00);
+            put("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BSBA)", (float) 18340.00);
+            put("BACHELOR OF SCIENCE IN MULTIMEDIA ARTS (BMMA)", (float) 22000.00);
+    }};
+    Map<String, Float> soa1 = new LinkedHashMap<>(){{
+        put("PAYMENTS", (float) 11725.32);
+        put("ADJUSTMENTS", (float) 21460.00);
+    }};
+
+    Map<String, Float> soa2 = new LinkedHashMap<>(){{
+        put("PAYMENTS", (float) 11834.39);
+        put("ADJUSTMENTS", (float) 2965.00);
+    }};
+    static Map<String, Map<String, Float>> studentSOA = new LinkedHashMap<>(){{
+            put("2024-1001", soa1);
+            put("2024-1002", soa2);
+    }};
+
 }

@@ -15,8 +15,8 @@ public class Student implements Grades, Enrolled {
             boolean match = false;
             boolean containsEmail = false;
             for(Map.Entry e: enrolled.entrySet()){
-                if(enrolled.get(e.getKey()).get("School Email").equals(email)){
-                    if(enrolled.get(e.getKey()).get("Password").equals(password)){
+                if(enrolled.get(e.getKey()).get("SCHOOL EMAIL").equals(email)){
+                    if(enrolled.get(e.getKey()).get("PASSWORD").equals(password)){
                         match = true;
                         studentNum = e.getKey().toString();
                     }
@@ -47,31 +47,36 @@ public class Student implements Grades, Enrolled {
     private void student(String studentNum) {
         Scanner scn = new Scanner(System.in);
         lineGenerator();
-        System.out.println("Welcome, " + enrolled.get(studentNum).get("First Name") + "!");
+        System.out.println("Welcome, " + enrolled.get(studentNum).get("FIRST NAME") + "!");
         System.out.print("""
             What would you like to do?
             1 - View Grades
             2 - View Subjects
-            3 - Change Password
+            3 - Statement of Account
+            4 - Change Password
             """);
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            char stdDo = scn.next().charAt(0);
+            String stdDo = scn.next();
 
-            if(stdDo == '0'){
+            if(stdDo.equals("0")){
                 new Student();
                 break;
             }
-            if(stdDo == '1'){
+            if(stdDo.equals("1")){
                 viewGrades(studentNum);
                 break;
             }
-            if(stdDo == '2'){
+            if(stdDo.equals("2")){
                 viewSubs(studentNum);
                 break;
             }
-            if(stdDo == '3'){
+            if(stdDo.equals("3")){
+                viewSOA(studentNum);
+                break;
+            }
+            if(stdDo.equals("4")){
                 changePassword(studentNum);
                 break;
             }
@@ -100,10 +105,10 @@ public class Student implements Grades, Enrolled {
             }
             if(Integer.parseInt(quarter) > 0 && Integer.parseInt(quarter) < 5){
                 String quarterChoice = "";
-                if(Integer.parseInt(quarter) == 1){ quarterChoice = "Prelims"; }
-                if(Integer.parseInt(quarter) == 2){ quarterChoice = "Midterms"; }
-                if(Integer.parseInt(quarter) == 3){ quarterChoice = "Prefinals"; }
-                if(Integer.parseInt(quarter) == 4){ quarterChoice = "Finals"; }
+                if(Integer.parseInt(quarter) == 1){ quarterChoice = "PRELIMS"; }
+                if(Integer.parseInt(quarter) == 2){ quarterChoice = "MIDTERMS"; }
+                if(Integer.parseInt(quarter) == 3){ quarterChoice = "PREFINALS"; }
+                if(Integer.parseInt(quarter) == 4){ quarterChoice = "FINALS"; }
                 for(Map.Entry e: studentGrades.entrySet()){
                     if(e.getKey() == studentNum){
                         for(Map.Entry f: studentGrades.get(e.getKey()).entrySet()){
@@ -129,9 +134,9 @@ public class Student implements Grades, Enrolled {
     }
     private void viewSubs(String studentNum) {
         Scanner scn = new Scanner(System.in);
-        String studentCourse = enrolled.get(studentNum).get("Course");
-        String yearLevel = enrolled.get(studentNum).get("Year Level");
-        String term = enrolled.get(studentNum).get("Term");
+        String studentCourse = enrolled.get(studentNum).get("COURSE");
+        String yearLevel = enrolled.get(studentNum).get("YEAR LEVEL");
+        String term = enrolled.get(studentNum).get("TERM");
         lineGenerator();
         System.out.println("Here are your subjects: ");
         for(Map.Entry e: subjectCourse.entrySet()){
@@ -139,6 +144,31 @@ public class Student implements Grades, Enrolled {
                 System.out.println(Arrays.toString(subjectCourse.get(studentCourse).get(yearLevel).get(term)).replaceAll(", ", "\n- ").replace("[", "- ").replace("]", ""));
             }
         }
+        lineGenerator();
+        System.out.println("Press any key to go back your dashboard.");
+        if(scn.next() != null){
+            student(studentNum);
+        }
+    }
+    public void viewSOA(String studentNum){
+        Scanner scn = new Scanner(System.in);
+        System.out.print("""
+                --------------------------------------------------------- STATEMENT OF ACCOUNT -----------------------------------------------------------
+                """);
+        float assessment = (float) 0.00;
+        if(enrolled.get(studentNum).get("PAYMENT TERM").equals("Cash")){
+            assessment = courseRatesCash.get(enrolled.get(studentNum).get("COURSE"));
+        }
+        else{
+            assessment = courseRatesIns.get(enrolled.get(studentNum).get("COURSE"));
+        }
+        float totalBalance = (assessment - studentSOA.get(studentNum).get("PAYMENTS")) - studentSOA.get(studentNum).get("ADJUSTMENTS");
+        System.out.println("Assessment: " + assessment);
+        System.out.println("Payments: " + studentSOA.get(studentNum).get("PAYMENTS"));
+        System.out.println("Adjustments (Discount, etc.): " + studentSOA.get(studentNum).get("ADJUSTMENTS"));
+        System.out.print("TOTAL BALANCE: ");
+        System.out.printf("%.2f", totalBalance);
+        System.out.println();
         lineGenerator();
         System.out.println("Press any key to go back your dashboard.");
         if(scn.next() != null){
@@ -153,7 +183,7 @@ public class Student implements Grades, Enrolled {
         System.out.print("Here is your current account password: ");
         for(Map.Entry e: enrolled.entrySet()){
             if(e.getKey() == studentNum){
-                System.out.println(enrolled.get(studentNum).get("Password"));
+                System.out.println(enrolled.get(studentNum).get("PASSWORD"));
             }
         }
         System.out.print("Enter the new password (Press 0 to go back): ");
@@ -170,7 +200,7 @@ public class Student implements Grades, Enrolled {
                     break;
                 }
                 if(confirmPass.equals(passNew)){
-                    enrolled.get(studentNum).replace("Password", passNew);
+                    enrolled.get(studentNum).replace("PASSWORD", passNew);
                     System.out.println("Password changed!");
                     lineGenerator();
                     System.out.print("Press any key to re-login: ");

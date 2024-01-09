@@ -4,7 +4,7 @@ public class Teacher extends Variables implements Grades{
     Teacher(String employeeNum){
         System.out.println("---------------------------------------------------------- TEACHER PORTAL ----------------------------------------------------------------");
         Scanner scn = new Scanner(System.in);
-        System.out.println("Welcome, " + tInfo.get(employeeNum).get("First Name") + "!");
+        System.out.println("Welcome, " + tInfo.get(employeeNum).get("FIRST NAME") + "!");
         System.out.print("""
             What would you like to do?
             1 - Edit Student Grades
@@ -14,21 +14,21 @@ public class Teacher extends Variables implements Grades{
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            char tchDo = scn.next().charAt(0);
+            String tchDo = scn.next();
 
-            if(tchDo == '0'){
+            if(tchDo.equals("0")){
                 new Employee();
                 break;
             }
-            if(tchDo == '1'){
+            if(tchDo.equals("1")){
                 editGrades(employeeNum);
                 break;
             }
-            if(tchDo == '2'){
+            if(tchDo.equals("2")){
                 viewStudents(employeeNum);
                 break;
             }
-            if(tchDo == '3'){
+            if(tchDo.equals("3")){
                 changePassword(employeeNum);
                 break;
             }
@@ -57,20 +57,21 @@ public class Teacher extends Variables implements Grades{
             section = scn.nextLine();
             if(section.equals("0")){
                 new Teacher(employeeNum);
+                break;
             }
             if(tSub.get(employeeNum).containsKey(section)){
                 lineGenerator();
                 System.out.println(section + ":");
                 for(Map.Entry e: enrolled.entrySet()){
-                    if(enrolled.get(e.getKey()).get("Section").equals(section)){
+                    if(enrolled.get(e.getKey()).get("SECTION").equals(section)){
                         hasStudent = true;
                         Map<String, String> value = (Map<String, String>) e.getValue();
-                        System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                        if(!value.get("Middle Name").equals("NA")){
-                            System.out.print(value.get(" Middle Name"));
+                        System.out.println(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+                        if(!value.get("MIDDLE NAME").equals("NA")){
+                            System.out.print(value.get(" MIDDLE NAME"));
                         }
-                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                            System.out.print(value.get(" Suffix"));
+                        if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
+                            System.out.print(value.get(" SUFFIX"));
                         }
                     }
                 }
@@ -112,15 +113,15 @@ public class Teacher extends Variables implements Grades{
                         """);
                 lineGenerator();
                 System.out.print("Your answer (0 to go back): ");
-                char choice = scn.next().charAt(0);
-                if(choice == '0'){
+                String choice = scn.next();
+                if(choice.equals("0")){
                     editGrades(employeeNum);
                     break;
                 }
-                if(choice == '1'){ quarter = "Prelims"; break; }
-                if(choice == '2'){ quarter = "Midterms"; break; }
-                if(choice == '3'){ quarter = "Prefinals"; break; }
-                if(choice == '4'){ quarter = "Finals"; break; }
+                if(choice.equals("1")){ quarter = "PRELIMS"; break; }
+                if(choice.equals("2")){ quarter = "MIDTERMS"; break; }
+                if(choice.equals("3")){ quarter = "PREFINALS"; break; }
+                if(choice.equals("4")){ quarter = "FINALS"; break; }
                 else{
                     System.out.println("Invalid input. Please try again.");
                 }
@@ -157,19 +158,23 @@ public class Teacher extends Variables implements Grades{
             boolean hasStudent = false;
             System.out.print("Your answer (0 to go back): ");
             String section = scn.nextLine();
+            if(section.equals("0")){
+                new Teacher(employeeNum);
+                break;
+            }
             if(tSub.get(employeeNum).containsKey(section)){
                 lineGenerator();
                 System.out.println(section + ":");
                 for(Map.Entry e: enrolled.entrySet()){
-                    if(enrolled.get(e.getKey()).get("Section").equals(section)){
+                    if(enrolled.get(e.getKey()).get("SECTION").equals(section)){
                         hasStudent = true;
                         Map<String, String> value = (Map<String, String>) e.getValue();
-                        System.out.println(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                        if(!value.get("Middle Name").equals("NA")){
-                            System.out.print(value.get(" Middle Name"));
+                        System.out.println(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+                        if(!value.get("MIDDLE NAME").equals("NA")){
+                            System.out.print(value.get(" MIDDLE NAME"));
                         }
-                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                            System.out.print(value.get(" Suffix"));
+                        if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
+                            System.out.print(value.get(" SUFFIX"));
                         }
                     }
                 }
@@ -196,7 +201,7 @@ public class Teacher extends Variables implements Grades{
         System.out.print("Here is your current account password: ");
         for(Map.Entry e: tInfo.entrySet()){
             if(e.getKey() == employeeNum){
-                System.out.println(tInfo.get(employeeNum).get("Password"));
+                System.out.println(tInfo.get(employeeNum).get("PASSWORD"));
             }
         }
         System.out.print("Enter the new password (Press 0 to go back): ");
@@ -213,7 +218,7 @@ public class Teacher extends Variables implements Grades{
                     break;
                 }
                 if(confirmPass.equals(passNew)){
-                    tInfo.get(employeeNum).replace("Password", passNew);
+                    tInfo.get(employeeNum).replace("PASSWORD", passNew);
                     System.out.println("Password changed!");
                     lineGenerator();
                     System.out.print("Press any key to re-login: ");

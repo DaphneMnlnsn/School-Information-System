@@ -1,7 +1,7 @@
 import java.util.*;
 
-public abstract class Variables implements Enrolled{
-    char yearL;
+public abstract class Variables implements Enrolled, SOA{
+    String yearL;
     String studentCourse, admitType, studentType, schedule, paymentTerm;
     String yearLevel, yearTerm;
     float defaultGrade = 0;
@@ -12,68 +12,68 @@ public abstract class Variables implements Enrolled{
     Map<String, String> teacherInfo = new LinkedHashMap<>();
     Map<String, String> reqInfo = new TreeMap<>();
     static Map<String, String> newSteps = new TreeMap<>(){{
-	    put("Step 1" ,"Fill out the application form provided.");
-	    put("Step 2" ,"Pay the required amount indicated on the assessment form or the reservation fee at the Cashier's window or through other payment methods.");
-	    put("Step 3" ,"Get the official receipt. If paid online, send the receipt to the provided details in Payment Terms");
-	    put("Step 4" ,"Prepare the necessary admission requirements for submission on or before the start of classes.");
+	    put("STEP 1" ,"Fill out the application form provided.");
+	    put("STEP 2" ,"Pay the required amount indicated on the assessment form or the reservation fee at the Cashier's window or through other payment methods.");
+	    put("STEP 3" ,"Get the official receipt. If paid online, send the receipt to the provided details in PAYMENT TERMS");
+	    put("STEP 4" ,"Prepare the necessary admission requirements for submission on or before the start of classes.");
     }};
     static Map<String, String> oldSteps = new TreeMap<>(){{
-	    put("Step 1" ,"Fill out the reservation form in the application form if you would like to reserve a slot.");
-	    put("Step 2" ,"Request an assessment form face-to-face.");
-	    put("Step 3" ,"Pay the required amount indicated on the assessment form or the reservation fee at the Cashier's window or through other payment methods.");
-	    put("Step 4" ,"Get the official receipt.");
+	    put("STEP 1" ,"Fill out the reservation form in the application form if you would like to reserve a slot.");
+	    put("STEP 2" ,"Request an assessment form face-to-face.");
+	    put("STEP 3" ,"Pay the required amount indicated on the assessment form or the reservation fee at the Cashier's window or through other payment methods.");
+	    put("STEP 4" ,"Get the official receipt.");
     }};
     static Map<String, String> freshmenReq = new TreeMap<>(){{
-	    put("Requirement 1","Original Form 138 / SF9-SHS (Learner's Progress Report Card)");
-	    put("Requirement 2","Original Form 137 / SF10-SHS (Learner's Permanent Academic Record)");
-	    put("Requirement 3","NSO/PSA-issued Birth Certificate");
+	    put("REQUIREMENT 1","Original Form 138 / SF9-SHS (Learner's Progress Report Card)");
+	    put("REQUIREMENT 2","Original Form 137 / SF10-SHS (Learner's Permanent Academic Record)");
+	    put("REQUIREMENT 3","NSO/PSA-issued Birth Certificate");
     }};
     static Map<String, String> transfereesReq = new TreeMap<>(){{
-	    put("Requirement 1","Certificate of Transfer (Honorable Dismissal)");
-	    put("Requirement 2","Official Transcript of Records");
-	    put("Requirement 3","NSO/PSA-issued Birth Certificate");
+	    put("REQUIREMENT 1","Certificate of Transfer (Honorable Dismissal)");
+	    put("REQUIREMENT 2","Official Transcript of Records");
+	    put("REQUIREMENT 3","NSO/PSA-issued Birth Certificate");
     }};
     static Map<String, String> req1 = new LinkedHashMap<>(){{
-            put("First Name", "Juan"); put("Middle Name", "NA"); put("Last Name", "Penduco");
-            put("Suffix", "NA"); put("Year Graduated", "2022");  
-            put("Course","Bachelor of Science in Information Technology (BSIT)"); put("Record Requested", "Diploma");
-            put("Purpose", "For Job Application"); 
-            put("Email Address", "juanpenduco@gmail.com"); put("Contact Number", "09566245046");            
+            put("FIRST NAME", "Juan"); put("MIDDLE NAME", "NA"); put("LAST NAME", "Penduco");
+            put("SUFFIX", "NA"); put("YEAR GRADUATED", "2022");  
+            put("COURSE","BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)"); put("RECORD REQUESTED", "Diploma");
+            put("PURPOSE", "For Job Application"); 
+            put("EMAIL ADDRESS", "juanpenduco@gmail.com"); put("CONTACT NUMBER", "09566245046");            
         }};
     static Map<Integer, Map<String, String>> docuRequest = new TreeMap<>(){{put(1, req1);}};
     static Map<Integer, Map<String, String>> finishedReq = new TreeMap<>();
     static Map<String, Map<String, String>> archivedStud = new TreeMap<>();
     static Map<String, String> resInitialize = new LinkedHashMap<>(){{
-            put("First Name", "Juan"); put("Middle Name", "Penduco"); put("Last Name", "Dela Cruz"); put("Suffix", "NA");
-            put("Contact Number", "09566245046"); put("Email Address", "juandelacruz@gmail.com"); put("Facebook Account", "Juan Dela Cruz");
-            put("Guardian Name", "Juliana Dela Cruz"); put("Guardian's Number", "09664484142"); put("Guardian's Email", "julianadelacruz@gmail.com");
-            put("Term", "1st Term"); put("Year Level", "3rd Year"); put("Student Type", "Regular"); 
-            put("Course","Bachelor of Science in Information Technology (BSIT)"); put("Previous Section", "BSIT 2A");
-            put("Preferred Schedule", "AM"); put("Existing Scholarship", "President's List"); put("Payment Terms", "Cash");
+            put("FIRST NAME", "Juan"); put("MIDDLE NAME", "Penduco"); put("LAST NAME", "Dela Cruz"); put("SUFFIX", "NA");
+            put("CONTACT NUMBER", "09566245046"); put("EMAIL ADDRESS", "juandelacruz@gmail.com"); put("FACEBOOK ACCOUNT", "Juan Dela Cruz");
+            put("GUARDIAN NAME", "Juliana Dela Cruz"); put("GUARDIAN'S NUMBER", "09664484142"); put("GUARDIAN'S EMAIL", "julianadelacruz@gmail.com");
+            put("TERM", "1st Term"); put("YEAR LEVEL", "3rd Year"); put("STUDENT TYPE", "Regular"); 
+            put("COURSE","BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)"); put("PREVIOUS SECTION", "BSIT 2A");
+            put("PREFERRED SCHEDULE", "AM"); put("EXISTING SCHOLARSHIP", "President's List"); put("PAYMENT TERMS", "Cash");
         }};
     static Map<String, Map<String, String>> reserved = new LinkedHashMap<>(){{put("2023-1001", resInitialize);}};
     
     static Map<String, String> tInitialize = new LinkedHashMap<>(){{
-            put("First Name", "Johnwin");
-            put("Middle Name", "NA");
-            put("Last Name", "Vendi");
-            put("Suffix", "NA");
-            put("Birthdate", "02/28/1998");
-            put("Date Employed", "05/14/2019");
-            put("Email", "jwvendi@gmail.com");
-            put("Username", "vendi.9001");
-            put("Password", "vendi.05142019");
+            put("FIRST NAME", "Juan");
+            put("MIDDLE NAME", "NA");
+            put("LAST NAME", "Dela Cruz");
+            put("SUFFIX", "NA");
+            put("BIRTHDATE", "02/28/1998");
+            put("DATE EMPLOYED", "05/14/2019");
+            put("EMAIL", "jdcruz@gmail.com");
+            put("USERNAME", "cruz.9001");
+            put("PASSWORD", "cruz.05142019");
         }};
     static Map<String, String> tInitialize2 = new LinkedHashMap<>(){{
-            put("First Name", "Johnwin");
-            put("Middle Name", "NA");
-            put("Last Name", "Vendi");
-            put("Suffix", "NA");
-            put("Birthdate", "02/28/1998");
-            put("Date Employed", "05/14/2019");
-            put("Email", "jwvendi@gmail.com");
-            put("Username", "vendi.9002");
-            put("Password", "vendi.05142019");
+            put("FIRST NAME", "Juan");
+            put("MIDDLE NAME", "Pedro");
+            put("LAST NAME", "Penduco");
+            put("SUFFIX", "NA");
+            put("BIRTHDATE", "02/28/1998");
+            put("DATE EMPLOYED", "05/14/2019");
+            put("EMAIL", "jppenduco@gmail.com");
+            put("USERNAME", "penduco.9002");
+            put("PASSWORD", "penduco.05142019");
         }};
     static LinkedList<String> subInitialize = new LinkedList<String>(){{
         add("BSIT Subject 1");

@@ -21,50 +21,50 @@ public class Main {
                     """);
             lineGenerator();
             System.out.print("Please enter the number of your concern (0 to exit): ");
-            char choice = scn.next().charAt(0);
+            String choice = scn.next();
 
             switch(choice){
-                case '0':
+                case "0":
                     lineGenerator();
                     System.out.println("Thank you for visiting TBD College!");
                     lineGenerator();
                     loop = false;
                     System.exit(0);
                     break;
-                case '1':
+                case "1":
                     new Admission();
                     loop = false;
                     break;
-                case '2':
+                case "2":
                     new Programs();
                     loop = false;
                     break;
-                case '3':
+                case "3":
                     payments();
                     loop = false;
                     break;
-                case '4':
+                case "4":
                     new Request();
                     loop = false;
                     break;
-                case '5':
+                case "5":
                     new Student();
                     loop = false;
                     break;
-                case '6':
+                case "6":
                     new Employee();
                     loop = false;
                     break;
-                case '7':
+                case "7":
                     blog();
                     loop = false;
                     break;
-                case '8':
+                case "8":
                     about();
                     loop = false;
                     break;
                 default:
-                    System.out.println("Invalid input. Please try again.\n");
+                    System.out.println("Invalid input. Please try again.");
             }
         }
     }
@@ -86,7 +86,7 @@ public class Main {
                 new Main();
         }
         catch(Exception e){
-            System.out.println("Something went wrong. Please try again.");
+            System.out.println("Something went wrong. You may have entered a wrong option. Please try again.");
             new Main();
         }
     }
