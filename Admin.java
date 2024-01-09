@@ -2191,6 +2191,9 @@ public class Admin extends Variables implements Courses, Subjects  {
                                     
                                     System.out.println("\nCareer Opportunities: ");
                                     System.out.println(archivedOpp.get(archivedCourses.get(Integer.parseInt(view)))); 
+
+                                    System.out.println("\nCourse Rates for Cash: " + courseRatesCash.get(archivedCourses.get(Integer.parseInt(view))));
+                                    System.out.println("Course Rates for Installment: " + courseRatesIns.get(archivedCourses.get(Integer.parseInt(view))));
                                     break;
                                 }
                                 else{
@@ -2456,6 +2459,8 @@ public class Admin extends Variables implements Courses, Subjects  {
         courses.remove(courseNum);   
     }
     void removeCourseP(int courseNum){
+        courseRatesCash.remove(archivedCourses.get(courseNum));
+        courseRatesIns.remove(archivedCourses.get(courseNum));
         archivedOpp.remove(archivedCourses.get(courseNum));
         archivedSkills.remove(archivedCourses.get(courseNum));
         archivedCourses.remove(courseNum);
