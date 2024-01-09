@@ -4,8 +4,8 @@ import java.util.*;
 public class Admission extends Variables implements Courses, Grades{
     Admission(){
         Scanner scn = new Scanner(System.in);
-        System.out.println("--------------------------------------------------------------- ADMISSIONS ---------------------------------------------------------------");
-        System.out.println("------------------------------------------------------------- Admission Steps ------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------- ADMISSIONS --------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------- Admission Steps -----------------------------------------------------------");
         //Steps
         System.out.println("For New Students:");
         for (Map.Entry entryy : newSteps.entrySet()) {
@@ -15,7 +15,7 @@ public class Admission extends Variables implements Courses, Grades{
         for (Map.Entry entryy : oldSteps.entrySet()) {
             System.out.println(entryy.getKey() + ": " + entryy.getValue());
         }
-        System.out.println("---------------------------------------------------------- Admission Requirements --------------------------------------------------------");
+        System.out.println("-------------------------------------------------------- Admission Requirements -------------------------------------------------------");
         //Requirements
         System.out.println("For Freshmen:");
         for (Map.Entry entry : freshmenReq.entrySet()) {
@@ -46,7 +46,7 @@ public class Admission extends Variables implements Courses, Grades{
         
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                \n----------------------------------------------------------- ONLINE APPLICATION -----------------------------------------------------------
+                \n--------------------------------------------------------- ONLINE APPLICATION ----------------------------------------------------------
                 Kindly fill-out the online application form for a fast and efficient admissions procedure.
                 What type of student are you?
                 1 - New
@@ -76,7 +76,7 @@ public class Admission extends Variables implements Courses, Grades{
     public void newStudent(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                -------------------------------------------------------- NEW STUDENT APPLICATION ---------------------------------------------------------
+                -------------------------------------------------------- NEW STUDENT APPLICATION ------------------------------------------------------
                 Please select the course you would like to take.
                 """);
         for(Map.Entry e: courses.entrySet()){
@@ -97,7 +97,7 @@ public class Admission extends Variables implements Courses, Grades{
         System.out.println("\nYou have chosen the course " + studentCourse);
         studentInfo.put("COURSE", studentCourse);
         System.out.print("""
-                \n-------------------------------------------------------- APPLICATION INFORMATION ---------------------------------------------------------
+                \n------------------------------------------------------ APPLICATION INFORMATION --------------------------------------------------------
                 Please select your Admit Type
                 1 - New Student
                 2 - Transferee
@@ -199,7 +199,7 @@ public class Admission extends Variables implements Courses, Grades{
         }
         studentInfo.put("PAYMENT TERM", paymentTerm);
         System.out.print("""
-                ---------------------------------------------------------------- PERSONAL INFORMATION ----------------------------------------------------
+                -------------------------------------------------------------- PERSONAL INFORMATION ---------------------------------------------------
                 """);
         System.out.print("Enter student's first name: ");
         scn.nextLine();
@@ -242,7 +242,7 @@ public class Admission extends Variables implements Courses, Grades{
         studentInfo.put("GUARDIAN'S EMAIL", scn.nextLine());
 
         System.out.print("""
-                \n----------------------------------------------------------- VALIDATION OF DETAILS --------------------------------------------------------
+                \n--------------------------------------------------------- VALIDATION OF DETAILS -------------------------------------------------------
                 """);
         System.out.println("Student Name: " + studentInfo.get("FIRST NAME") + " " + studentInfo.get("MIDDLE NAME")
         + " " + studentInfo.get("LAST NAME") + " " + studentInfo.get("SUFFIX"));
@@ -309,7 +309,7 @@ public class Admission extends Variables implements Courses, Grades{
     public void oldStudent(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                ------------------------------------------------------ APPLICATION FOR EXISTING STUDENTS -------------------------------------------------
+                ---------------------------------------------------- APPLICATION FOR EXISTING STUDENTS ------------------------------------------------
                 Fill out the form to reserve a slot in your preferred college program in TBD College.
                 """);
         System.out.print("Enter student ID number: ");
@@ -490,7 +490,7 @@ public class Admission extends Variables implements Courses, Grades{
         }
         studentInfo.put("PAYMENT TERM", paymentTerm);
         System.out.print("""
-                ------------------------------------------------------------- CONFIRM RESERVATION --------------------------------------------------------
+                ----------------------------------------------------------- CONFIRM RESERVATION -------------------------------------------------------
                 """);
         while(true){
             System.out.print("""
@@ -526,7 +526,7 @@ public class Admission extends Variables implements Courses, Grades{
     public void payments(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-        ------------------------------------------------------------------ PAYMENT METHODS -------------------------------------------------------
+        ---------------------------------------------------------------- PAYMENT METHODS ------------------------------------------------------
         """);
         Payments payment = new Payments();
         System.out.println("All Payment Methods are following below ");

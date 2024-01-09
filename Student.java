@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Student implements Grades, Enrolled {
     Student(){
-        System.out.println("---------------------------------------------------------- STUDENT PORTAL ----------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------- STUDENT PORTAL ---------------------------------------------------------------");
         while(true){
             Scanner scn = new Scanner(System.in);
             System.out.print("Enter Email : ");
@@ -153,7 +153,7 @@ public class Student implements Grades, Enrolled {
     public void viewSOA(String studentNum){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                --------------------------------------------------------- STATEMENT OF ACCOUNT -----------------------------------------------------------
+                ------------------------------------------------------- STATEMENT OF ACCOUNT ----------------------------------------------------------
                 """);
         float assessment = (float) 0.00;
         if(enrolled.get(studentNum).get("PAYMENT TERM").equals("Cash")){
@@ -178,7 +178,7 @@ public class Student implements Grades, Enrolled {
     public void changePassword(String studentNum){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                ----------------------------------------------------------- CHANGE PASSWORD --------------------------------------------------------------
+                --------------------------------------------------------- CHANGE PASSWORD -------------------------------------------------------------
                 """);
         System.out.print("Here is your current account password: ");
         for(Map.Entry e: enrolled.entrySet()){

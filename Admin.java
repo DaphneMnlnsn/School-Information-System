@@ -3,7 +3,7 @@ import java.util.*;
 public class Admin extends Variables implements Courses, Subjects  {
     Admin(){
         Scanner scn = new Scanner(System.in);
-        System.out.println("-------------------------------------------------------------- ADMIN PORTAL --------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------ ADMIN PORTAL -------------------------------------------------------------");
         System.out.print("""
             What would you like to do?
             1 - Student List
@@ -75,7 +75,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         //Student List
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                -------------------------------------------------------------- STUDENT LIST --------------------------------------------------------------
+                ------------------------------------------------------------ STUDENT LIST -------------------------------------------------------------
                 Please pick the course you would like to view students of.
                 """);
         lineGenerator();
@@ -188,7 +188,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                                         }
                                     }
                                      System.out.print("""
-                                            --------------------------------------------------------- STATEMENT OF ACCOUNT -----------------------------------------------------------
+                                            ------------------------------------------------------- STATEMENT OF ACCOUNT ----------------------------------------------------------
                                             """);
                                     float assessment = (float) 0.00;
                                     if(enrolled.get(viewInfo).get("PAYMENT TERM").equals("Cash")){
@@ -371,7 +371,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                                         }
                                     }
                                     System.out.print("""
-                                            --------------------------------------------------------- STATEMENT OF ACCOUNT -----------------------------------------------------------
+                                            ------------------------------------------------------- STATEMENT OF ACCOUNT ----------------------------------------------------------
                                             """);
                                     float assessment = (float) 0.00;
                                     if(enrolled.get(editInfo).get("PAYMENT TERM").equals("Cash")){
@@ -447,7 +447,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         //Teacher List
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                -------------------------------------------------------------- TEACHER LIST --------------------------------------------------------------
+                ------------------------------------------------------------ TEACHER LIST -------------------------------------------------------------
                 """);
         System.out.print("""
             What would you like to do?
@@ -855,7 +855,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         Scanner scn = new Scanner(System.in);
         Blog blog = new Blog();
         System.out.print("""
-                ------------------------------------------------------------- EDIT/ADD BLOG --------------------------------------------------------------
+                ----------------------------------------------------------- EDIT/ADD BLOG -------------------------------------------------------------
                 """);
         System.out.print("""
             Which blog article would you like to edit?
@@ -965,7 +965,7 @@ public class Admin extends Variables implements Courses, Subjects  {
     }
     public void addTeacherCredentials(){
         System.out.print("""
-                --------------------------------------------------------------- ADD TEACHER --------------------------------------------------------------
+                ------------------------------------------------------------- ADD TEACHER -------------------------------------------------------------
                 """);
         Scanner scn = new Scanner(System.in);
         System.out.println("Here are the current teachers:");
@@ -1007,7 +1007,7 @@ public class Admin extends Variables implements Courses, Subjects  {
             
 
             System.out.print("""
-            \n---------------------------------------------------------- VALIDATION OF DETAILS ---------------------------------------------------------
+            \n-------------------------------------------------------- VALIDATION OF DETAILS --------------------------------------------------------
             """);
             System.out.print("Teacher Name: " + teacherInfo.get("LAST NAME") + ", " + teacherInfo.get("FIRST NAME"));
             if(!teacherInfo.get("MIDDLE NAME").equals("NA")){
@@ -1067,7 +1067,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         Scanner scn = new Scanner(System.in);
         Payments payment = new Payments();
         System.out.print("""
-                ----------------------------------------------------- EDIT PAYMENT INFO ------------------------------------------------------------------
+                --------------------------------------------------- EDIT PAYMENT INFO -----------------------------------------------------------------
                 """);
         System.out.print("""
             Which payment method would you like to edit?
@@ -1197,7 +1197,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         //Edit Admission Steps/Requirements
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                ---------------------------------------------------------- EDIT ADMISSION ----------------------------------------------------------------
+                -------------------------------------------------------- EDIT ADMISSION ---------------------------------------------------------------
                 """);
         System.out.print("""
             What would you like to edit?
@@ -1657,7 +1657,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         Scanner scn = new Scanner(System.in);
         About about = new About();
         System.out.print("""
-                --------------------------------------------------------------- EDIT ABOUT ---------------------------------------------------------------
+                ------------------------------------------------------------- EDIT ABOUT --------------------------------------------------------------
                 """);
         System.out.print("""
             Which about section would you like to edit?
@@ -1886,7 +1886,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         //Edit Course/Programs
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                -------------------------------------------------------------- EDIT COURSES --------------------------------------------------------------
+                ------------------------------------------------------------ EDIT COURSES -------------------------------------------------------------
                 """);
         System.out.print("""
             What would you like to do?
@@ -2277,7 +2277,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         Scanner scn = new Scanner(System.in);
         boolean hasRequest = false;
         System.out.print("""
-                --------------------------------------------------------- VIEW DOCUMENT REQUESTS ----------------------------------------------------------
+                ------------------------------------------------------- VIEW DOCUMENT REQUESTS ---------------------------------------------------------
                 """);
         for(Map.Entry e: docuRequest.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
@@ -2407,7 +2407,7 @@ public class Admin extends Variables implements Courses, Subjects  {
     public void changePassword(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                ----------------------------------------------------------- CHANGE PASSWORD --------------------------------------------------------------
+                --------------------------------------------------------- CHANGE PASSWORD -------------------------------------------------------------
                 """);
         System.out.println("Here is the current administrator account password: " + adminPass);
         System.out.print("Enter the new password (Press 0 to go back): ");

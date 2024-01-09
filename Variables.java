@@ -101,8 +101,8 @@ public abstract class Variables implements Enrolled, SOA{
     String adminUser = "admin";
     static String adminPass = "0000";
     public void lineGenerator(){
-        for(int i = 0; i < 23; i++){
-            System.out.print("------");
+        for(int i = 0; i < 27; i++){
+            System.out.print("-----");
         }
         System.out.println();
     }

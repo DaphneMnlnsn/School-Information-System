@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Request extends Variables {
     Request() {
-        System.out.println("--------------------------------------------------------- DOCUMENT REQUEST ---------------------------------------------------------------");
+        System.out.println("------------------------------------------------------- DOCUMENT REQUEST --------------------------------------------------------------");
         Scanner scn = new Scanner(System.in);
         lineGenerator();
         System.out.println("Enter your full name (Last Name, First Name, Middle Name, Suffix Name)(NA if no middle or suffix name, 0 to go back): ");

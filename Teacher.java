@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Teacher extends Variables implements Grades{
     Teacher(String employeeNum){
-        System.out.println("---------------------------------------------------------- TEACHER PORTAL ----------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------- TEACHER PORTAL ---------------------------------------------------------------");
         Scanner scn = new Scanner(System.in);
         System.out.println("Welcome, " + tInfo.get(employeeNum).get("FIRST NAME") + "!");
         System.out.print("""
@@ -196,7 +196,7 @@ public class Teacher extends Variables implements Grades{
     public void changePassword(String employeeNum){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-                ----------------------------------------------------------- CHANGE PASSWORD --------------------------------------------------------------
+                --------------------------------------------------------- CHANGE PASSWORD -------------------------------------------------------------
                 """);
         System.out.print("Here is your current account password: ");
         for(Map.Entry e: tInfo.entrySet()){
