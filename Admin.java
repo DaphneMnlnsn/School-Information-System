@@ -155,12 +155,12 @@ public class Admin extends Variables implements Courses, Subjects  {
                 lineGenerator();
                 while(true){
                     System.out.print("Your Answer (0 to go back): ");
-                    char doAdmin = scn.next().charAt(0);
-                    if(doAdmin == '0'){
+                    String doAdmin = scn.next();
+                    if(doAdmin.equals("0")){
                         studentList();
                         break;
                     }
-                    if(doAdmin == '1'){
+                    if(doAdmin.equals("1")){
                         boolean hasStudent = false;
                         hasStudent = displayStd(choice, hasStudent);
                         
@@ -218,7 +218,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                         }
                         break;
                     }
-                    if(doAdmin == '2'){
+                    if(doAdmin.equals("2")){
                         lineGenerator();
                         boolean hasStudent = false;
                         hasStudent = displayStd(choice, hasStudent);
@@ -258,7 +258,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                         }
                         break;
                     }
-                    if(doAdmin == '3'){
+                    if(doAdmin.equals("3")){
                         lineGenerator();
                         boolean hasStudent = false;
                         hasStudent = displayArchivedStd(choice, hasStudent);
@@ -342,7 +342,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                         }
                         break;
                     }
-                    if(doAdmin == '4'){
+                    if(doAdmin.equals("4")){
                         lineGenerator();
                         boolean hasStudent = false;
                         hasStudent = displayStd(choice, hasStudent);
@@ -459,12 +459,12 @@ public class Admin extends Variables implements Courses, Subjects  {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            char doAdmin = scn.next().charAt(0);
-            if(doAdmin == '0'){
+            String doAdmin = scn.next();
+            if(doAdmin.equals("0")){
                 new Admin();
                 break;
             }
-            if(doAdmin == '1'){
+            if(doAdmin.equals("1")){
                 lineGenerator();
                 boolean hasTeacher = false;
                 hasTeacher = displayTch(hasTeacher);
@@ -508,7 +508,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 }
                 break;
             }
-            if(doAdmin == '2'){
+            if(doAdmin.equals("2")){
                 lineGenerator();
                 boolean hasTeacher = false;
                 hasTeacher = displayTch(hasTeacher);
@@ -548,7 +548,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 }
                 break;
             }
-            if(doAdmin == '3'){
+            if(doAdmin.equals("3")){
                 lineGenerator();
                 boolean hasTeacher = false;
                 hasTeacher = displayArchivedTch(hasTeacher);
@@ -565,13 +565,13 @@ public class Admin extends Variables implements Courses, Subjects  {
                     lineGenerator();
                     while(true){
                         System.out.print("Your Answer (0 to go back): ");
-                        char archive = scn.next().charAt(0);
+                        String archive = scn.next();
 
-                        if(archive == '0'){
+                        if(archive.equals("0")){
                             teacherList();
                             break;
                         }
-                        if(archive == '1'){
+                        if(archive.equals("1")){
                             lineGenerator();
                             displayArchivedTch(hasTeacher);
                             lineGenerator();
@@ -593,7 +593,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                             }
                             break;
                         }
-                        if(archive == '2'){
+                        if(archive.equals("2")){
                             lineGenerator();
                             displayArchivedTch(hasTeacher);
                             lineGenerator();
@@ -634,7 +634,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 }
                 break;
             }
-            if(doAdmin == '4'){
+            if(doAdmin.equals("4")){
                 lineGenerator();
                 boolean hasTeacher = false;
                 hasTeacher = displayTch(hasTeacher);
@@ -764,12 +764,12 @@ public class Admin extends Variables implements Courses, Subjects  {
                                                 """);
                                         lineGenerator();
                                         System.out.print("Your answer (0 to go back): ");
-                                        char add = scn.next().charAt(0);
-                                        if(add == '0'){
+                                        String add = scn.next();
+                                        if(add.equals("0")){
                                             teacherList();
                                             break;
                                         }
-                                        if(add == '1'){
+                                        if(add.equals("1")){
                                             System.out.print("Enter the section handled (e.g. BSIT 2A): ");
                                             scn.nextLine();
                                             String section = scn.nextLine();
@@ -778,7 +778,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                                             addHandled(editInfo, section, subject);
                                             System.out.println("The section handled has been added.");
                                         }
-                                        if(add == '2'){
+                                        if(add.equals("2")){
                                         lineGenerator();
                                             displayHandled(editInfo);
                                             lineGenerator(); 
@@ -1441,12 +1441,12 @@ public class Admin extends Variables implements Courses, Subjects  {
                         """);
                     lineGenerator();
                     System.out.print("Your answer (0 to go back): ");
-                    char doEdit = scn.next().charAt(0);
-                    if(doEdit == '0'){
+                    String doEdit = scn.next();
+                    if(doEdit.equals("0")){
                         editAdmission();
                         break;
                     }
-                    if(doEdit == '1'){
+                    if(doEdit.equals("1")){
                         while(true){
                             System.out.print("Press F to edit requirements for Freshmen and T for Transferees: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1518,7 +1518,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                         }
                         break;
                     }
-                    if(doEdit == '2'){
+                    if(doEdit.equals("2")){
                         while(true){
                             System.out.print("Press F to add steps for Freshmen and T for Transferees: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1574,7 +1574,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                         }
                         break;
                     }
-                    if(doEdit == '3'){
+                    if(doEdit.equals("3")){
                         while(true){
                             System.out.print("Press F to remove requirements for Freshmen and T for Transferees: ");
                             char newOld = scn.next().toUpperCase().charAt(0);
@@ -1890,23 +1890,28 @@ public class Admin extends Variables implements Courses, Subjects  {
                 """);
         System.out.print("""
             What would you like to do?
-            1 - Add a Course
-            2 - Add a Skill to an Existing Course
-            3 - Add an Opportunity to an Existing Course
-            4 - Remove a Course
-            5 - Edit Course Rate
-            6 - View Archived Courses
+            1 - View Current Courses
+            2 - Add a Course
+            3 - Add a Skill to an Existing Course
+            4 - Add an Opportunity to an Existing Course
+            5 - Remove a Course
+            6 - Edit Course Rate
+            7 - View Archived Courses
             """);
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            char choice = scn.next().charAt(0);
+            String choice = scn.next();
 
-            if(choice == '0'){
+            if(choice.equals("0")){
                 new Admin();
                 break;
             }
-            if(choice == '1'){
+            if(choice.equals("1")){
+                new Programs();
+                break;
+            }
+            if(choice.equals("2")){
                 lineGenerator();
                 System.out.println("Here are the currently available courses:");
                 for(Map.Entry e: courses.entrySet()){
@@ -1976,7 +1981,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 }  
                 break;
             }
-            if(choice == '2'){
+            if(choice.equals("3")){
                 lineGenerator();
                 System.out.println("Here are the currently available courses:");
                 for(Map.Entry e: courses.entrySet()){
@@ -2020,7 +2025,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 }
                 break;
             }
-            if(choice == '3'){
+            if(choice.equals("4")){
                 lineGenerator();
                 System.out.println("Here are the currently available courses:");
                 for(Map.Entry e: courses.entrySet()){
@@ -2064,7 +2069,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 }
                 break;
             }
-            if(choice == '4'){
+            if(choice.equals("5")){
                 lineGenerator();
                 System.out.println("Here are the currently available courses:");
                 for(Map.Entry e: courses.entrySet()){
@@ -2107,7 +2112,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 }
                 break;
             }
-            if(choice == '5'){
+            if(choice.equals("6")){
                 lineGenerator();
                 System.out.println("Here are the currently available courses:");
                 for(Map.Entry e: courses.entrySet()){
@@ -2141,7 +2146,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 }
                 break;
             }
-            if(choice == '6'){
+            if(choice.equals("7")){
                 lineGenerator();
                 boolean hasArchived = false;
                 System.out.println("Here are the currently archived courses:");
@@ -2163,13 +2168,13 @@ public class Admin extends Variables implements Courses, Subjects  {
                     lineGenerator();
                     while(true){
                         System.out.print("Your Answer (0 to go back): ");
-                        char archive = scn.next().charAt(0);
+                        String archive = scn.next();
 
-                        if(archive == '0'){
+                        if(archive.equals("0")){
                             editCourse();
                             break;
                         }
-                        if(archive == '1'){
+                        if(archive.equals("1")){
                             lineGenerator();
                             System.out.println("Here are the currently archived courses:");
                             for(Map.Entry e: archivedCourses.entrySet()){
@@ -2201,7 +2206,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                                 }
                             }
                         }
-                        if(archive == '2'){
+                        if(archive.equals("2")){
                             lineGenerator();
                             System.out.println("Here are the currently archived courses:");
                             for(Map.Entry e: archivedCourses.entrySet()){
@@ -2232,7 +2237,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                                 }
                             }
                         }
-                        if(archive == '3'){
+                        if(archive.equals("3")){
                             lineGenerator();
                             System.out.println("Here are the currently archived courses:");
                             for(Map.Entry e: archivedCourses.entrySet()){
