@@ -58,25 +58,25 @@ public class Student implements Grades, Enrolled {
         lineGenerator();
         while(true){
             System.out.print("Your Answer (0 to go back): ");
-            char stdDo = scn.next().charAt(0);
+            String stdDo = scn.next();
 
-            if(stdDo == '0'){
+            if(stdDo.equals("0")){
                 new Student();
                 break;
             }
-            if(stdDo == '1'){
+            if(stdDo.equals("1")){
                 viewGrades(studentNum);
                 break;
             }
-            if(stdDo == '2'){
+            if(stdDo.equals("2")){
                 viewSubs(studentNum);
                 break;
             }
-            if(stdDo == '3'){
+            if(stdDo.equals("3")){
                 viewSOA(studentNum);
                 break;
             }
-            if(stdDo == '4'){
+            if(stdDo.equals("4")){
                 changePassword(studentNum);
                 break;
             }
