@@ -95,7 +95,7 @@ public class Admission extends Variables implements Courses, Grades{
             }
         }
         System.out.println("\nYou have chosen the course " + studentCourse);
-        studentInfo.put("Course", studentCourse);
+        studentInfo.put("COURSE", studentCourse);
         System.out.print("""
                 \n-------------------------------------------------------- APPLICATION INFORMATION ---------------------------------------------------------
                 Please select your Admit Type
@@ -118,7 +118,7 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Admit Type", admitType);
+        studentInfo.put("ADMIT TYPE", admitType);
         lineGenerator();
         System.out.print("""
                 Please select your Year Level
@@ -151,7 +151,7 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Year Level", yearLevel);
+        studentInfo.put("YEAR LEVEL", yearLevel);
         lineGenerator();
         System.out.print("""
                 Please select the Term
@@ -174,57 +174,81 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Term", yearTerm);
+        studentInfo.put("TERM", yearTerm);
+        lineGenerator();
+        System.out.print("""
+                Payment Terms
+                1 - Cash
+                2 - Low Downpayment
+                3 - Low Monthly Payment
+                """);
+        lineGenerator();
+        while(true){
+            System.out.print("Your answer: ");
+            char term = scn.next().charAt(0);
+            if(term == '1'){
+                paymentTerm = "Cash";
+                break;
+            }
+            if(term == '2'){
+                paymentTerm = "Installment";
+                break;
+            }
+            else{
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
+        studentInfo.put("PAYMENT TERM", paymentTerm);
         System.out.print("""
                 ---------------------------------------------------------------- PERSONAL INFORMATION ----------------------------------------------------
                 """);
         System.out.print("Enter student's first name: ");
         scn.nextLine();
-        studentInfo.put("First Name", scn.nextLine());
+        studentInfo.put("FIRST NAME", scn.nextLine());
         System.out.print("Enter student's middle name (NA if no middle name): ");
         String middleName = scn.nextLine();
-        studentInfo.put("Middle Name", middleName);
+        studentInfo.put("MIDDLE NAME", middleName);
         System.out.print("Enter student's last name: ");
-        studentInfo.put("Last Name", scn.nextLine());
+        studentInfo.put("LAST NAME", scn.nextLine());
         System.out.print("Enter student's suffix name (NA if no suffix): ");
         String suffix = scn.nextLine();
-        studentInfo.put("Suffix", suffix);
+        studentInfo.put("SUFFIX", suffix);
         System.out.print("Enter student's gender: ");
-        studentInfo.put("Gender",scn.nextLine());
+        studentInfo.put("GENDER",scn.nextLine());
         System.out.print("Enter student's civil status (single or married): ");
-        studentInfo.put("Civil Status", scn.nextLine());
+        studentInfo.put("CIVIL STATUS", scn.nextLine());
         System.out.print("Enter student's citizenship: ");
-        studentInfo.put("Citizenship", scn.nextLine());
+        studentInfo.put("CITIZENSHIP", scn.nextLine());
         System.out.print("Enter student's date of birth (MM/DD/YYYY): ");
-        studentInfo.put("Birthdate", scn.nextLine());
+        studentInfo.put("BIRTHDATE", scn.nextLine());
         System.out.print("Enter student's birthplace: ");
-        studentInfo.put("Birthplace", scn.nextLine());
+        studentInfo.put("BIRTHPLACE", scn.nextLine());
         System.out.print("Enter student's religion: ");
-        studentInfo.put("Religion", scn.nextLine());
+        studentInfo.put("RELIGION", scn.nextLine());
         System.out.print("Enter student's complete address: ");
-        studentInfo.put("Address", scn.nextLine());
+        studentInfo.put("ADDRESS", scn.nextLine());
         System.out.print("Enter student's contact number: ");
-        studentInfo.put("Contact Number", scn.nextLine());
+        studentInfo.put("CONTACT NUMBER", scn.nextLine());
         System.out.print("Enter student's email address: ");
-        studentInfo.put("Email Address", scn.nextLine());
+        studentInfo.put("EMAIL ADDRESS", scn.nextLine());
         System.out.print("Enter student's school last attended: ");
-        studentInfo.put("Last School", scn.nextLine());
+        studentInfo.put("LAST SCHOOL", scn.nextLine());
         System.out.print("Enter student's last program: ");
-        studentInfo.put("Last Program", scn.nextLine());
+        studentInfo.put("LAST PROGRAM", scn.nextLine());
         System.out.print("Guardian's Full Name: ");
-        studentInfo.put("Guardian Name", scn.nextLine());
+        studentInfo.put("GUARDIAN NAME", scn.nextLine());
         System.out.print("Guardian's Mobile Number: ");
-        studentInfo.put("Guardian's Number", scn.nextLine());
+        studentInfo.put("GUARDIAN'S NUMBER", scn.nextLine());
         System.out.print("Guardian's Email Address: ");
-        studentInfo.put("Guardian's Email", scn.nextLine());
+        studentInfo.put("GUARDIAN'S EMAIL", scn.nextLine());
 
         System.out.print("""
                 \n----------------------------------------------------------- VALIDATION OF DETAILS --------------------------------------------------------
                 """);
-        System.out.println("Student Name: " + studentInfo.get("First Name") + " " + studentInfo.get("Middle Name")
-        + " " + studentInfo.get("Last Name") + " " + studentInfo.get("Suffix"));
+        System.out.println("Student Name: " + studentInfo.get("FIRST NAME") + " " + studentInfo.get("MIDDLE NAME")
+        + " " + studentInfo.get("LAST NAME") + " " + studentInfo.get("SUFFIX"));
         for(Map.Entry e : studentInfo.entrySet()){
-            if(e.getKey() == "First Name" || e.getKey() == "Middle Name" || e.getKey() == "Last Name" || e.getKey() == "Suffix"){
+            if(e.getKey() == "FIRST NAME" || e.getKey() == "MIDDLE NAME" || e.getKey() == "LAST NAME" || e.getKey() == "SUFFIX"){
                 continue;
             }
             else{
@@ -241,24 +265,27 @@ public class Admission extends Variables implements Courses, Grades{
                 int year = Year.now().getValue();
                 sNum = sNum+1;
                 String studentNumber = year + "-" + sNum;
-                studentInfo.put("School Email", studentInfo.get("Last Name").toLowerCase().concat(".").concat(Integer.toString(sNum)).concat("@tbd.edu"));
-                studentInfo.put("Password", studentInfo.get("Last Name").toLowerCase().concat("." + studentInfo.get("Birthdate").replace("/", "")));
-                studentInfo.put("Section", studentCourse.substring(studentCourse.indexOf("(")+1, studentCourse.indexOf(")")).concat(" " + yearL) + "A");
+                studentInfo.put("SCHOOL EMAIL", studentInfo.get("LAST NAME").toLowerCase().concat(".").concat(Integer.toString(sNum)).concat("@tbd.edu"));
+                studentInfo.put("PASSWORD", studentInfo.get("LAST NAME").toLowerCase().concat("." + studentInfo.get("BIRTHDATE").replace("/", "")));
+                studentInfo.put("SECTION", studentCourse.substring(studentCourse.indexOf("(")+1, studentCourse.indexOf(")")).concat(" " + yearL) + "A");
                 enrolled.put(studentNumber, studentInfo);
-                System.out.println("Your email address is " + studentInfo.get("School Email"));
-                System.out.println("Your password is " + studentInfo.get("Password"));
-                System.out.println("Your section is " + studentInfo.get("Section"));
+                System.out.println("Your email address is " + studentInfo.get("SCHOOL EMAIL"));
+                System.out.println("Your password is " + studentInfo.get("PASSWORD"));
+                System.out.println("Your section is " + studentInfo.get("SECTION"));
                 for(int i = 0; i < 8; i++){
-                    prelimGrades.put(subjectCourse.get(studentInfo.get("Course")).get(studentInfo.get("Year Level")).get(studentInfo.get("Term"))[i], (float) defaultGrade);
-                    midGrades.put(subjectCourse.get(studentInfo.get("Course")).get(studentInfo.get("Year Level")).get(studentInfo.get("Term"))[i], (float) defaultGrade);
-                    prefGrades.put(subjectCourse.get(studentInfo.get("Course")).get(studentInfo.get("Year Level")).get(studentInfo.get("Term"))[i], (float) defaultGrade);
-                    finGrades.put(subjectCourse.get(studentInfo.get("Course")).get(studentInfo.get("Year Level")).get(studentInfo.get("Term"))[i], (float) defaultGrade);
+                    prelimGrades.put(subjectCourse.get(studentInfo.get("COURSE")).get(studentInfo.get("YEAR LEVEL")).get(studentInfo.get("TERM"))[i], (float) defaultGrade);
+                    midGrades.put(subjectCourse.get(studentInfo.get("COURSE")).get(studentInfo.get("YEAR LEVEL")).get(studentInfo.get("TERM"))[i], (float) defaultGrade);
+                    prefGrades.put(subjectCourse.get(studentInfo.get("COURSE")).get(studentInfo.get("YEAR LEVEL")).get(studentInfo.get("TERM"))[i], (float) defaultGrade);
+                    finGrades.put(subjectCourse.get(studentInfo.get("COURSE")).get(studentInfo.get("YEAR LEVEL")).get(studentInfo.get("TERM"))[i], (float) defaultGrade);
                 }
-                defaultQuarter.put("Prelims", prelimGrades);
-                defaultQuarter.put("Midterms", midGrades);
-                defaultQuarter.put("Prefinals", prefGrades);
-                defaultQuarter.put("Finals", finGrades);
+                defaultQuarter.put("PRELIMS", prelimGrades);
+                defaultQuarter.put("MIDTERMS", midGrades);
+                defaultQuarter.put("PREFINALS", prefGrades);
+                defaultQuarter.put("FINALS", finGrades);
                 studentGrades.put(studentNumber, defaultQuarter);
+                defaultSOA.put("PAYMENTS", defaultPayments);
+                defaultSOA.put("ADJUSTMENTS", defaultAdjustments);
+                studentSOA.put(studentNumber, defaultSOA);
                 System.out.println("\nProceed to Payments (Press Y for yes or any key for no)?");
                 char next = scn.next().toUpperCase().charAt(0);
                 if(next == 'Y'){
@@ -289,27 +316,27 @@ public class Admission extends Variables implements Courses, Grades{
         System.out.print("Enter student ID number: ");
         String studentID = scn.nextLine();
         System.out.print("Enter student's first name: ");
-        studentInfo.put("First Name", scn.nextLine());
+        studentInfo.put("FIRST NAME", scn.nextLine());
         System.out.print("Enter student's middle name (NA if no middle name): ");
         String middleName = scn.nextLine();
-        studentInfo.put("Middle Name", middleName);
+        studentInfo.put("MIDDLE NAME", middleName);
         System.out.print("Enter student's last name: ");
-        studentInfo.put("Last Name", scn.nextLine());
+        studentInfo.put("LAST NAME", scn.nextLine());
         System.out.print("Enter student's suffix name (NA if no suffix): ");
         String suffix = scn.nextLine();
-        studentInfo.put("Suffix", suffix);
+        studentInfo.put("SUFFIX", suffix);
         System.out.print("Enter student's contact number: ");
-        studentInfo.put("Contact Number", scn.nextLine());
+        studentInfo.put("CONTACT NUMBER", scn.nextLine());
         System.out.print("Enter student's email address: ");
-        studentInfo.put("Email Address", scn.nextLine());
+        studentInfo.put("EMAIL ADDRESS", scn.nextLine());
         System.out.print("Enter student's Facebook account: ");
-        studentInfo.put("Facebook Account", scn.nextLine());
+        studentInfo.put("FACEBOOK ACCOUNT", scn.nextLine());
         System.out.print("Guardian's Full Name: ");
-        studentInfo.put("Guardian Name", scn.nextLine());
+        studentInfo.put("GUARDIAN NAME", scn.nextLine());
         System.out.print("Guardian's Mobile Number: ");
-        studentInfo.put("Guardian's Number", scn.nextLine());
+        studentInfo.put("GUARDIAN'S NUMBER", scn.nextLine());
         System.out.print("Guardian's Email Address: ");
-        studentInfo.put("Guardian's Email", scn.nextLine());
+        studentInfo.put("GUARDIAN'S EMAIL", scn.nextLine());
         lineGenerator();
         System.out.print("""
                 Please select the Term
@@ -332,7 +359,7 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Term", yearTerm);
+        studentInfo.put("TERM", yearTerm);
         lineGenerator();
         System.out.print("""
                 Please select your Year Level
@@ -365,7 +392,7 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Year Level", yearLevel);
+        studentInfo.put("YEAR LEVEL", yearLevel);
         lineGenerator();
         System.out.print("""
                 Please select your Student Type
@@ -388,7 +415,7 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Student Type", studentType);
+        studentInfo.put("STUDENT TYPE", studentType);
         lineGenerator();
         System.out.print("""
                 Please enter the student's program.
@@ -408,11 +435,11 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Course", studentCourse);
+        studentInfo.put("COURSE", studentCourse);
         lineGenerator();
         scn.nextLine();
         System.out.print("Previous Section: ");
-        studentInfo.put("Previous Section", scn.nextLine());
+        studentInfo.put("PREVIOUS SECTION", scn.nextLine());
         lineGenerator();
         System.out.print("""
                 Preferred Schedule
@@ -435,17 +462,16 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Preferred Schedule", schedule);
+        studentInfo.put("PREFERRED SCHEDULE", schedule);
         lineGenerator();
         scn.nextLine();
         System.out.print("Existing Scholarship: ");
-        studentInfo.put("Existing Scholarship", scn.nextLine());
+        studentInfo.put("EXISTING SCHOLARSHIP", scn.nextLine());
         lineGenerator();
         System.out.print("""
                 Payment Terms
                 1 - Cash
-                2 - Low Downpayment
-                3 - Low Monthly Payment
+                2 - Installment
                 """);
         lineGenerator();
         while(true){
@@ -467,7 +493,7 @@ public class Admission extends Variables implements Courses, Grades{
                 System.out.println("Invalid input. Please try again.");
             }
         }
-        studentInfo.put("Payment Term", paymentTerm);
+        studentInfo.put("PAYMENT TERM", paymentTerm);
         System.out.print("""
                 ------------------------------------------------------------- CONFIRM RESERVATION --------------------------------------------------------
                 """);
