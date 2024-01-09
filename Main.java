@@ -64,7 +64,7 @@ public class Main {
                     loop = false;
                     break;
                 default:
-                    System.out.println("Invalid input. Please try again.\n");
+                    System.out.println("Invalid input. Please try again.");
             }
         }
     }
@@ -86,7 +86,7 @@ public class Main {
                 new Main();
         }
         catch(Exception e){
-            System.out.println("Something went wrong. Please try again.");
+            System.out.println("Something went wrong. You may have entered a wrong option. Please try again.");
             new Main();
         }
     }
