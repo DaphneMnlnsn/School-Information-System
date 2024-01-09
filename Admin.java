@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Admin extends Variables implements Courses  {
+public class Admin extends Variables implements Courses, Subjects  {
     Admin(){
         Scanner scn = new Scanner(System.in);
         System.out.println("-------------------------------------------------------------- ADMIN PORTAL --------------------------------------------------------------");
@@ -97,12 +97,12 @@ public class Admin extends Variables implements Courses  {
                 for(Map.Entry e: reserved.entrySet()){
                     Map<String, String> value = (Map<String, String>) e.getValue();
                     if(value != null){hasStudent = true;}
-                    System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                    if(!value.get("Middle Name").equals("NA")){
-                        System.out.print(" " + value.get("Middle Name"));
+                    System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+                    if(!value.get("MIDDLE NAME").equals("NA")){
+                        System.out.print(" " + value.get("MIDDLE NAME"));
                     }
-                    if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                        System.out.print(" " + value.get("Suffix"));
+                    if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
+                        System.out.print(" " + value.get("SUFFIX"));
                     }
                     System.out.println();
                 }
@@ -187,6 +187,23 @@ public class Admin extends Variables implements Courses  {
                                             }
                                         }
                                     }
+                                     System.out.print("""
+                                            --------------------------------------------------------- STATEMENT OF ACCOUNT -----------------------------------------------------------
+                                            """);
+                                    float assessment = (float) 0.00;
+                                    if(enrolled.get(viewInfo).get("PAYMENT TERM").equals("Cash")){
+                                        assessment = courseRatesCash.get(enrolled.get(viewInfo).get("COURSE"));
+                                    }
+                                    else{
+                                        assessment = courseRatesIns.get(enrolled.get(viewInfo).get("COURSE"));
+                                    }
+                                    float totalBalance = (assessment - studentSOA.get(viewInfo).get("PAYMENTS")) - studentSOA.get(viewInfo).get("ADJUSTMENTS");
+                                    System.out.println("Assessment: " + assessment);
+                                    System.out.println("Payments: " + studentSOA.get(viewInfo).get("PAYMENTS"));
+                                    System.out.println("Adjustments (Discount, etc.): " + studentSOA.get(viewInfo).get("ADJUSTMENTS"));
+                                    System.out.print("TOTAL BALANCE: ");
+                                    System.out.printf("%.2f", totalBalance);
+                                    System.out.println();
                                     break;
                                 }
                                 else{
@@ -353,21 +370,50 @@ public class Admin extends Variables implements Courses  {
                                             }
                                         }
                                     }
+                                    System.out.print("""
+                                            --------------------------------------------------------- STATEMENT OF ACCOUNT -----------------------------------------------------------
+                                            """);
+                                    float assessment = (float) 0.00;
+                                    if(enrolled.get(editInfo).get("PAYMENT TERM").equals("Cash")){
+                                        assessment = courseRatesCash.get(enrolled.get(editInfo).get("COURSE"));
+                                    }
+                                    else{
+                                        assessment = courseRatesIns.get(enrolled.get(editInfo).get("COURSE"));
+                                    }
+                                    float totalBalance = (assessment - studentSOA.get(editInfo).get("PAYMENTS")) - studentSOA.get(editInfo).get("ADJUSTMENTS");
+                                    System.out.println("Assessment: " + assessment);
+                                    System.out.println("Payments: " + studentSOA.get(editInfo).get("PAYMENTS"));
+                                    System.out.println("Adjustments (Discount, etc.): " + studentSOA.get(editInfo).get("ADJUSTMENTS"));
+                                    System.out.print("TOTAL BALANCE: ");
+                                    System.out.printf("%.2f", totalBalance);
+                                    System.out.println();
                                     lineGenerator();
                                     while(true){
                                         System.out.print("Enter the information you would like to edit (e.g. Contact Number) (Press 0 to go back): ");
                                         scn.nextLine();
-                                        String edit = scn.nextLine();
+                                        String edit = scn.nextLine().toUpperCase();
                                         
                                         if(edit.equals("0")){
                                             studentList();
                                             break;
                                         }
+                                        if(editInfo.equalsIgnoreCase("TOTAL BALANCE") || editInfo.equals("ASSESSMENT")){
+                                            System.out.println("NOTE: If you want to edit a student assessment, edit courses' rates in Edit Courses Section.\n");
+                                            System.out.println("Information uneditable. Please choose another editable information.");
+                                        }
+                                        if(studentSOA.get(editInfo).containsKey(edit)){
+                                            System.out.print("Enter the updated information: ");
+                                            studentSOA.get(editInfo).replace(edit, scn.nextFloat());
+                                            System.out.println("Information successfully updated.");
+                                            break;
+                                        }
                                         if(enrolled.get(editInfo).containsKey(edit)){
                                             System.out.print("Enter the updated information: ");
                                             enrolled.get(editInfo).replace(edit, scn.nextLine());
+                                            System.out.println("Information successfully updated.");
                                             break;
                                         }
+                                        
                                         else{
                                             System.out.println("That information does not exist. Please try again.");
                                         }
@@ -622,7 +668,7 @@ public class Admin extends Variables implements Courses  {
                             while(true){
                                 System.out.print("Enter the information you would like to edit (e.g. Email) (Press 0 to go back, 1 to remove a section handled, 2 to add a section/subject handled): ");
                                 scn.nextLine();
-                                String edit = scn.nextLine();
+                                String edit = scn.nextLine().toUpperCase();
                                         
                                 if(edit.equals("0")){
                                     teacherList();
@@ -925,12 +971,12 @@ public class Admin extends Variables implements Courses  {
         System.out.println("Here are the current teachers:");
         for(Map.Entry e: tInfo.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
-            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-            if(!value.get("Middle Name").equals("NA")){
-                System.out.print(" " + value.get("Middle Name"));
+            System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+            if(!value.get("MIDDLE NAME").equals("NA")){
+                System.out.print(" " + value.get("MIDDLE NAME"));
             }
-            if(!value.get("Suffix").equals("NA")){
-                System.out.print(" " + value.get("Suffix"));
+            if(!value.get("SUFFIX").equals("NA")){
+                System.out.print(" " + value.get("SUFFIX"));
             }
             System.out.println();
         }
@@ -941,19 +987,19 @@ public class Admin extends Variables implements Courses  {
             new Admin();
         }
         else{
-            teacherInfo.put("First Name", firstName);
+            teacherInfo.put("FIRST NAME", firstName);
             System.out.print("Enter middle name (NA if no middle): ");
-            teacherInfo.put("Middle Name", scn.nextLine());
+            teacherInfo.put("MIDDLE NAME", scn.nextLine());
             System.out.print("Enter last name: ");
-            teacherInfo.put("Last Name", scn.nextLine());
+            teacherInfo.put("LAST NAME", scn.nextLine());
             System.out.print("Enter suffix name (NA if no suffix): ");
-            teacherInfo.put("Suffix", scn.nextLine());
+            teacherInfo.put("SUFFIX", scn.nextLine());
             System.out.print("Enter birthday (MM/DD/YYYY): ");
-            teacherInfo.put("Birthdate", scn.nextLine());
+            teacherInfo.put("BIRTHDATE", scn.nextLine());
             System.out.print("Enter date employed (MM/DD/YYYY): ");
-            teacherInfo.put("Date Employed", scn.nextLine());
+            teacherInfo.put("DATE EMPLOYED", scn.nextLine());
             System.out.print("Enter email address: ");
-            teacherInfo.put("Email", scn.nextLine());
+            teacherInfo.put("EMAIL", scn.nextLine());
             System.out.print("Enter the section handled (e.g. BSIT 2A): ");
             String section = scn.nextLine();
             System.out.print("Enter the subject handled: ");
@@ -963,16 +1009,16 @@ public class Admin extends Variables implements Courses  {
             System.out.print("""
             \n---------------------------------------------------------- VALIDATION OF DETAILS ---------------------------------------------------------
             """);
-            System.out.print("Teacher Name: " + teacherInfo.get("Last Name") + ", " + teacherInfo.get("First Name"));
-            if(!teacherInfo.get("Middle Name").equals("NA")){
-                System.out.print(" " + teacherInfo.get("Middle Name"));
+            System.out.print("Teacher Name: " + teacherInfo.get("LAST NAME") + ", " + teacherInfo.get("FIRST NAME"));
+            if(!teacherInfo.get("MIDDLE NAME").equals("NA")){
+                System.out.print(" " + teacherInfo.get("MIDDLE NAME"));
             }
-            if(!teacherInfo.get("Suffix").equals("NA")){
-                System.out.print(" " + teacherInfo.get("Suffix"));
+            if(!teacherInfo.get("SUFFIX").equals("NA")){
+                System.out.print(" " + teacherInfo.get("SUFFIX"));
             }
             System.out.println();
             for(Map.Entry e : teacherInfo.entrySet()){
-                if(e.getKey() == "First Name" || e.getKey() == "Middle Name" || e.getKey() == "Last Name" || e.getKey() == "Suffix"){
+                if(e.getKey() == "FIRST NAME" || e.getKey() == "MIDDLE NAME" || e.getKey() == "LAST NAME" || e.getKey() == "SUFFIX"){
                     continue;
                 }
                 else{
@@ -990,12 +1036,12 @@ public class Admin extends Variables implements Courses  {
                     String year = teacherInfo.get("Date Employed").substring(6);
                     eNum = eNum+1;
                     String employeeNumber = year + "-" + eNum;
-                    teacherInfo.put("Username", teacherInfo.get("Last Name").toLowerCase().concat(".").concat(Integer.toString(eNum)));
-                    teacherInfo.put("Password", teacherInfo.get("Last Name").toLowerCase().concat("." + teacherInfo.get("Date Employed").replace("/", "")));
+                    teacherInfo.put("USERNAME", teacherInfo.get("LAST NAME").toLowerCase().concat(".").concat(Integer.toString(eNum)));
+                    teacherInfo.put("PASSWORD", teacherInfo.get("LAST NAME").toLowerCase().concat("." + teacherInfo.get("DATE EMPLOYED").replace("/", "")));
                     tInfo.put(employeeNumber, teacherInfo);
                     addHandledNew(employeeNumber, section, subject);
-                    System.out.println("Your username is " + teacherInfo.get("Username"));
-                    System.out.println("Your password is " + teacherInfo.get("Password"));
+                    System.out.println("Your username is " + teacherInfo.get("USERNAME"));
+                    System.out.println("Your password is " + teacherInfo.get("PASSWORD"));
                     lineGenerator();
                     System.out.print("Press any key to go back: ");
                     if(scn.next() != null){
@@ -1197,7 +1243,7 @@ public class Admin extends Variables implements Courses  {
                                 while(true){
                                     System.out.print("Enter Step and then its number you would like to edit (e.g. Step 1)(0 to go back): ");
                                     scn.nextLine();
-                                    String stepEdit = scn.nextLine();
+                                    String stepEdit = scn.nextLine().toUpperCase();
                                     if(stepEdit.equals("0")){
                                         editAdmission();
                                         break;
@@ -1228,7 +1274,7 @@ public class Admin extends Variables implements Courses  {
                                 while(true){
                                     System.out.print("Enter Step and then its number you would like to edit (e.g. Step 1)(0 to go back): ");
                                     scn.nextLine();
-                                    String stepEdit = scn.nextLine();
+                                    String stepEdit = scn.nextLine().toUpperCase();
                                     if(stepEdit.equals("0")){
                                         editAdmission();
                                         break;
@@ -1266,9 +1312,9 @@ public class Admin extends Variables implements Courses  {
                                     System.out.println(entryy.getKey() + ": " + entryy.getValue());
                                 }
                                 lineGenerator();
-                                System.out.print("Enter step number (0 to go back): ");
+                                System.out.print("Enter step number (e.g. Step 5)(0 to go back): ");
                                 scn.nextLine();
-                                String stepAdd = scn.nextLine();
+                                String stepAdd = scn.nextLine().toUpperCase();
                                 if(stepAdd.equals("0")){
                                     editAdmission();
                                     break;
@@ -1289,9 +1335,9 @@ public class Admin extends Variables implements Courses  {
                                     System.out.println(entryy.getKey() + ": " + entryy.getValue());
                                 }
                                 lineGenerator();
-                                System.out.print("Enter step number (0 to go back): ");
+                                System.out.print("Enter step number (e.g. Step 5)(0 to go back): ");
                                 scn.nextLine();
-                                String stepAdd = scn.nextLine();
+                                String stepAdd = scn.nextLine().toUpperCase();
                                 if(stepAdd.equals("0")){
                                     editAdmission();
                                     break;
@@ -1325,7 +1371,7 @@ public class Admin extends Variables implements Courses  {
                                 while(true){
                                     System.out.print("Enter the step you would like to remove (e.g. Step 1)(0 to go back): ");
                                     scn.nextLine();
-                                    String stepEdit = scn.nextLine();
+                                    String stepEdit = scn.nextLine().toUpperCase();
                                     if(stepEdit.equals("0")){
                                         editAdmission();
                                         break;
@@ -1355,7 +1401,7 @@ public class Admin extends Variables implements Courses  {
                                 while(true){
                                     System.out.print("Enter the step you would like to remove (e.g. Step 1)(0 to go back): ");
                                     scn.nextLine();
-                                    String stepEdit = scn.nextLine();
+                                    String stepEdit = scn.nextLine().toUpperCase();
                                     if(stepEdit.equals("0")){
                                         editAdmission();
                                         break;
@@ -1414,7 +1460,7 @@ public class Admin extends Variables implements Courses  {
                                 while(true){
                                     System.out.print("Enter requirement and then its number you would like to edit (e.g. Requirement 1)(0 to go back): ");
                                     scn.nextLine();
-                                    String reqEdit = scn.nextLine();
+                                    String reqEdit = scn.nextLine().toUpperCase();
                                     if(reqEdit.equals("0")){
                                         editAdmission();
                                         break;
@@ -1445,7 +1491,7 @@ public class Admin extends Variables implements Courses  {
                                 while(true){
                                     System.out.print("Enter requirement and then its number you would like to edit (e.g. Requirement 1)(0 to go back): ");
                                     scn.nextLine();
-                                    String reqEdit = scn.nextLine();
+                                    String reqEdit = scn.nextLine().toUpperCase();
                                     if(reqEdit.equals("0")){
                                         editAdmission();
                                         break;
@@ -1485,7 +1531,7 @@ public class Admin extends Variables implements Courses  {
                                 lineGenerator();
                                 System.out.print("Enter requirement number (e.g. Requirement 1)(0 to go back): ");
                                 scn.nextLine();
-                                String reqAdd = scn.nextLine();
+                                String reqAdd = scn.nextLine().toUpperCase();
                                 if(reqAdd.equals("0")){
                                     editAdmission();
                                     break;
@@ -1508,7 +1554,7 @@ public class Admin extends Variables implements Courses  {
                                 lineGenerator();
                                 System.out.print("Enter requirement number (e.g. Requirement 1)(0 to go back): ");
                                 scn.nextLine();
-                                String reqAdd = scn.nextLine();
+                                String reqAdd = scn.nextLine().toUpperCase();
                                 if(reqAdd.equals("0")){
                                     editAdmission();
                                     break;
@@ -1542,7 +1588,7 @@ public class Admin extends Variables implements Courses  {
                                 while(true){
                                     System.out.print("Enter the requirement you would like to remove (e.g. Requirement 1)(0 to go back): ");
                                     scn.nextLine();
-                                    String reqRemove = scn.nextLine();
+                                    String reqRemove = scn.nextLine().toUpperCase();
                                     if(reqRemove.equals("0")){
                                         editAdmission();
                                         break;
@@ -1572,7 +1618,7 @@ public class Admin extends Variables implements Courses  {
                                 while(true){
                                     System.out.print("Enter the requirement you would like to remove (e.g. Requirement 1)(0 to go back): ");
                                     scn.nextLine();
-                                    String reqRemove = scn.nextLine();
+                                    String reqRemove = scn.nextLine().toUpperCase();
                                     if(reqRemove.equals("0")){
                                         editAdmission();
                                         break;
@@ -1848,7 +1894,8 @@ public class Admin extends Variables implements Courses  {
             2 - Add a Skill to an Existing Course
             3 - Add an Opportunity to an Existing Course
             4 - Remove a Course
-            5 - View Archived Courses
+            5 - Edit Course Rate
+            6 - View Archived Courses
             """);
         lineGenerator();
         while(true){
@@ -1869,7 +1916,7 @@ public class Admin extends Variables implements Courses  {
                 scn.nextLine();
                 while(true){
                     System.out.print("Enter the name of the course (full name and abbreviation enclosed in parentheses)(0 to go back): ");
-                    String courseName = scn.nextLine(); 
+                    String courseName = scn.nextLine().toUpperCase(); 
                     if(courseName.equals("0")){
                         editCourse();
                         break;
@@ -1904,6 +1951,12 @@ public class Admin extends Variables implements Courses  {
                                 break;
                             }
                         }
+                        System.out.print("Enter the course rate for cash: ");
+                        Float courseRate = scn.nextFloat();
+                        courseRatesCash.put(courseName, courseRate);
+                        System.out.print("Enter the course rate for installment: ");
+                        Float courseRateI = scn.nextFloat();
+                        courseRatesIns.put(courseName, courseRateI);
                         System.out.println("The program has been added successfully.");
                         lineGenerator();
                         System.out.println("Here are the currently available courses:");
@@ -2056,6 +2109,40 @@ public class Admin extends Variables implements Courses  {
             }
             if(choice == '5'){
                 lineGenerator();
+                System.out.println("Here are the currently available courses:");
+                for(Map.Entry e: courses.entrySet()){
+                    System.out.println(e.getKey() + " - " + e.getValue());
+                }
+                while(true){
+                    lineGenerator();
+                    System.out.print("Enter the number of the course you would like to edit course rates (0 to go back): ");
+                    String rate = scn.next();
+                    if(Integer.parseInt(rate) == 0){
+                        editCourse();
+                        break;
+                    }
+                    if(courses.containsKey(Integer.parseInt(rate))){
+                        System.out.println("Current course rate for cash: " + courseRatesCash.get(courses.get(Integer.parseInt(rate))));
+                        System.out.print("Enter course rate for cash: ");
+                        courseRatesCash.replace(courses.get(Integer.parseInt(rate)), scn.nextFloat());
+                        System.out.println("Current course rate for installment: " + courseRatesIns.get(courses.get(Integer.parseInt(rate))));
+                        System.out.print("Enter course rate for installment: ");
+                        courseRatesIns.replace(courses.get(Integer.parseInt(rate)), scn.nextFloat());
+                        break;
+                    }
+                    else{
+                        System.out.println("This course does not exist. Please try again");
+                    }
+                }
+                System.out.print("Press any key to go back to editing courses/programs: ");
+                if(scn.next() != null){
+                    editCourse();
+                    break;
+                }
+                break;
+            }
+            if(choice == '6'){
+                lineGenerator();
                 boolean hasArchived = false;
                 System.out.println("Here are the currently archived courses:");
                 for(Map.Entry e: archivedCourses.entrySet()){
@@ -2187,12 +2274,12 @@ public class Admin extends Variables implements Courses  {
         for(Map.Entry e: docuRequest.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
             if(value != null){hasRequest = true;}
-            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-            if(!value.get("Middle Name").equals("NA")){
-                System.out.print(" " + value.get("Middle Name"));
+            System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+            if(!value.get("MIDDLE NAME").equals("NA")){
+                System.out.print(" " + value.get("MIDDLE NAME"));
             }
-            if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                System.out.print(" " + value.get("Suffix"));
+            if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
+                System.out.print(" " + value.get("SUFFIX"));
             }
             System.out.println();
         }
@@ -2249,12 +2336,12 @@ public class Admin extends Variables implements Courses  {
                     lineGenerator();
                     for(Map.Entry e: finishedReq.entrySet()){
                         Map<String, String> value = (Map<String, String>) e.getValue();
-                        System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                        if(!value.get("Middle Name").equals("NA")){
-                            System.out.print(" " + value.get("Middle Name"));
+                        System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+                        if(!value.get("MIDDLE NAME").equals("NA")){
+                            System.out.print(" " + value.get("MIDDLE NAME"));
                         }
-                        if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                            System.out.print(" " + value.get("Suffix"));
+                        if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
+                            System.out.print(" " + value.get("SUFFIX"));
                         }
                         System.out.println();
                     }
@@ -2438,14 +2525,14 @@ public class Admin extends Variables implements Courses  {
         System.out.println("Here are the archived students: ");
         for(Map.Entry e: archivedStud.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
-            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
+            if(value.get("COURSE") == courses.get(Integer.parseInt(choice))){
                 if(value != null){ hasStudent = true;} else{ hasStudent = false;}
-                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                if(!value.get("Middle Name").equals("NA")){
-                    System.out.print(" " + value.get("Middle Name"));
+                System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+                if(!value.get("MIDDLE NAME").equals("NA")){
+                    System.out.print(" " + value.get("MIDDLE NAME"));
                 }
-                if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                    System.out.print(" " + value.get("Suffix"));
+                if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
+                    System.out.print(" " + value.get("SUFFIX"));
                 }
                 System.out.println();
             }
@@ -2455,14 +2542,14 @@ public class Admin extends Variables implements Courses  {
     boolean displayStd(String choice, boolean hasStudent){
         for(Map.Entry e: enrolled.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
-            if(value.get("Course") == courses.get(Integer.parseInt(choice))){
+            if(value.get("COURSE") == courses.get(Integer.parseInt(choice))){
                 if(value != null){hasStudent = true;} else{hasStudent = false;}
-                System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-                if(!value.get("Middle Name").equals("NA")){
-                    System.out.print(" " + value.get("Middle Name"));
+                System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+                if(!value.get("MIDDLE NAME").equals("NA")){
+                    System.out.print(" " + value.get("MIDDLE NAME"));
                 }
-                if(!value.get("Suffix").equalsIgnoreCase("NA")){
-                    System.out.print(" " + value.get("Suffix"));
+                if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
+                    System.out.print(" " + value.get("SUFFIX"));
                 }
                 System.out.println();
             }
@@ -2474,12 +2561,12 @@ public class Admin extends Variables implements Courses  {
         for(Map.Entry e: tInfo.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
             if(value != null){hasTeacher = true;} else{hasTeacher = false;}
-            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-            if(!value.get("Middle Name").equals("NA")){
-                System.out.print(" " + value.get("Middle Name"));
+            System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+            if(!value.get("MIDDLE NAME").equals("NA")){
+                System.out.print(" " + value.get("MIDDLE NAME"));
             }
-            if(!value.get("Suffix").equals("NA")){
-                System.out.print(" " + value.get("Suffix"));
+            if(!value.get("SUFFIX").equals("NA")){
+                System.out.print(" " + value.get("SUFFIX"));
             }
             System.out.println();
         }
@@ -2490,12 +2577,12 @@ public class Admin extends Variables implements Courses  {
         for(Map.Entry e: archivedTInfo.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
             if(value != null){hasTeacher = true;} else{hasTeacher = false;}
-            System.out.print(e.getKey() + " - " + value.get("Last Name") + ", " + value.get("First Name"));
-            if(!value.get("Middle Name").equals("NA")){
-                System.out.print(" " + value.get("Middle Name"));
+            System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+            if(!value.get("MIDDLE NAME").equals("NA")){
+                System.out.print(" " + value.get("MIDDLE NAME"));
             }
-            if(!value.get("Suffix").equals("NA")){
-                System.out.print(" " + value.get("Suffix"));
+            if(!value.get("SUFFIX").equals("NA")){
+                System.out.print(" " + value.get("SUFFIX"));
             }
             System.out.println();
         }
