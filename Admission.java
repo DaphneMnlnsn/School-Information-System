@@ -55,16 +55,16 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer (0 to go back): ");
-            char type = scn.next().charAt(0);
-            if(type == '0'){
+            String type = scn.next();
+            if(type.equals("0")){
                 new Admission();
                 break;
             }
-            if(type == '1'){
+            if(type.equals("1")){
                 newStudent();
                 break;
             }
-            if(type == '2'){
+            if(type.equals("2")){
                 oldStudent();
                 break;
             }
@@ -105,12 +105,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            char admit = scn.next().charAt(0);
-            if(admit == '1'){
+            String admit = scn.next();
+            if(admit.equals("1")){
                 admitType = "New Student";
                 break;
             }
-            if(admit == '2'){
+            if(admit.equals("2")){
                 admitType = "Transferee";
                 break;
             }
@@ -130,20 +130,20 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            yearL = scn.next().charAt(0);
-            if(yearL == '1'){
+            String yearL = scn.next();
+            if(yearL.equals("1")){
                 yearLevel = "1st Year";
                 break;
             }
-            if(yearL == '2'){
+            if(yearL.equals("2")){
                 yearLevel = "2nd Year";
                 break;
             }
-            if(yearL == '3'){
+            if(yearL.equals("3")){
                 yearLevel = "3rd Year";
                 break;
             }
-            if(yearL == '4'){
+            if(yearL.equals("4")){
                 yearLevel = "4th Year";
                 break;
             }
@@ -161,12 +161,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            char term = scn.next().charAt(0);
-            if(term == '1'){
+            String term = scn.next();
+            if(term.equals("1")){
                 yearTerm = "1st Term";
                 break;
             }
-            if(term == '2'){
+            if(term.equals("2")){
                 yearTerm = "2nd Term";
                 break;
             }
@@ -179,18 +179,17 @@ public class Admission extends Variables implements Courses, Grades{
         System.out.print("""
                 Payment Terms
                 1 - Cash
-                2 - Low Downpayment
-                3 - Low Monthly Payment
+                2 - Installment
                 """);
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            char term = scn.next().charAt(0);
-            if(term == '1'){
+            String term = scn.next();
+            if(term.equals("1")){
                 paymentTerm = "Cash";
                 break;
             }
-            if(term == '2'){
+            if(term.equals("2")){
                 paymentTerm = "Installment";
                 break;
             }
@@ -346,12 +345,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            char term = scn.next().charAt(0);
-            if(term == '1'){
+            String term = scn.next();
+            if(term.equals("1")){
                 yearTerm = "1st Term";
                 break;
             }
-            if(term == '2'){
+            if(term.equals("2")){
                 yearTerm = "2nd Term";
                 break;
             }
@@ -371,20 +370,20 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            char year = scn.next().charAt(0);
-            if(year == '1'){
+            String year = scn.next();
+            if(year.equals("1")){
                 yearLevel = "1st Year";
                 break;
             }
-            if(year == '2'){
+            if(year.equals("2")){
                 yearLevel = "2nd Year";
                 break;
             }
-            if(year == '3'){
+            if(year.equals("3")){
                 yearLevel = "3rd Year";
                 break;
             }
-            if(year == '4'){
+            if(year.equals("4")){
                 yearLevel = "4th Year";
                 break;
             }
@@ -402,12 +401,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            char type = scn.next().charAt(0);
-            if(type == '1'){
+            String type = scn.next();
+            if(type.equals("1")){
                 studentType = "Regular";
                 break;
             }
-            if(type == '2'){
+            if(type.equals("2")){
                 studentType = "Irregular";
                 break;
             }
@@ -449,12 +448,12 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            char sched = scn.next().charAt(0);
-            if(sched == '1'){
+            String sched = scn.next();
+            if(sched.equals("1")){
                 schedule = "AM";
                 break;
             }
-            if(sched == '2'){
+            if(sched.equals("2")){
                 schedule = "PM";
                 break;
             }
@@ -476,17 +475,13 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            char term = scn.next().charAt(0);
-            if(term == '1'){
+            String term = scn.next();
+            if(term.equals("1")){
                 paymentTerm = "Cash";
                 break;
             }
-            if(term == '2'){
-                paymentTerm = "Low Downpayment";
-                break;
-            }
-            if(term == '3'){
-                paymentTerm = "Low Monthly Payment";
+            if(term.equals("2")){
+                paymentTerm = "Installment";
                 break;
             }
             else{
