@@ -34,30 +34,30 @@ public class Request extends Variables {
                 suffixName = names[3].trim();
             }
 
-            reqInfo.put("First Name", firstName);
-            reqInfo.put("Middle Name", middleName);
-            reqInfo.put("Last Name", lastName);
-            reqInfo.put("Suffix", suffixName);
+            reqInfo.put("FIRST NAME", firstName);
+            reqInfo.put("MIDDLE NAME", middleName);
+            reqInfo.put("LAST NAME", lastName);
+            reqInfo.put("SUFFIX", suffixName);
 
         
             System.out.print("When did you graduate? ");
             String yrGraduate = scn.nextLine();
-            reqInfo.put("Year Graduated", yrGraduate);
+            reqInfo.put("YEAR GRADUATED", yrGraduate);
             System.out.print("Program/Course enrolled in: ");
             String alCourse = scn.nextLine();
-            reqInfo.put("Program", alCourse);
+            reqInfo.put("PROGRAM", alCourse);
             System.out.print("Specific Record Requested (Transcript, Diploma, Form 136, Certification): ");
             String dataRequest = scn.nextLine();
-            reqInfo.put("Record Requested", dataRequest);
+            reqInfo.put("RECORD REQUESTED", dataRequest);
             System.out.print("Briefly, what is the purpose of this Request? ");
             String dataPurpose = scn.nextLine();
-            reqInfo.put("Purpose", dataPurpose);
+            reqInfo.put("PURPOSE", dataPurpose);
             System.out.println("To ensure we can contact you for additional necessary details, could you please provide an email address where we can direct our response?");
             String emailRequest = scn.nextLine();
-            reqInfo.put("Email Address", emailRequest);
+            reqInfo.put("EMAIL ADDRESS", emailRequest);
             System.out.print("What is your contact number in case we cannot reach your email? ");
             String contactRequest = scn.nextLine();
-            reqInfo.put("Contact Number", contactRequest);
+            reqInfo.put("CONTACT NUMBER", contactRequest);
             lineGenerator();
             System.out.println("Thank you for providing the requested information. ");
             lineGenerator();
