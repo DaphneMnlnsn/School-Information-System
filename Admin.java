@@ -714,36 +714,44 @@ public class Admin extends Variables implements Courses, Subjects  {
                                             break;
                                         }
                                         if(removeChoice == '2'){
-                                            System.out.print("Enter the section with the subject to be removed (0 to go back): ");
-                                            scn.nextLine();
-                                            String section = scn.nextLine().toUpperCase();
-                                            lineGenerator();
-                                            System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
-                                            lineGenerator();
                                             while(true){
-                                                System.out.print("Enter the subject to be removed permanently (0 to go back): ");
-                                                String removeSubject = scn.nextLine();
-                                                if(removeSubject.equals("0")){
-                                                    teacherList();
-                                                    break;
-                                                }
-                                                if(tSub.get(editInfo).get(section).contains(removeSubject)){
-                                                    System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
-                                                    char yn = scn.next().toUpperCase().charAt(0);
-                                                    if(yn == 'Y'){
-                                                        int subjectRemove = tSub.get(editInfo).get(section).indexOf(removeSubject);
-                                                        tSub.get(editInfo).get(section).remove(subjectRemove);
-                                                        System.out.println("The section handled has been removed permanently.");
-                                                        lineGenerator();
-                                                        System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
-                                                    }
-                                                    else{
-                                                        teacherList();
+                                                System.out.print("Enter the section with the subject to be removed (0 to go back): ");
+                                                scn.nextLine();
+                                                String section = scn.nextLine().toUpperCase();
+                                                lineGenerator();
+                                                if(tSub.get(editInfo).containsKey(section)){
+                                                    System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
+                                                    lineGenerator();
+                                                    while(true){
+                                                        System.out.print("Enter the subject to be removed permanently (0 to go back): ");
+                                                        String removeSubject = scn.nextLine();
+                                                        if(removeSubject.equals("0")){
+                                                            teacherList();
+                                                            break;
+                                                        }
+                                                        if(tSub.get(editInfo).get(section).contains(removeSubject)){
+                                                            System.out.print("Are you sure (Press Y for yes or any key to go back)? ");
+                                                            char yn = scn.next().toUpperCase().charAt(0);
+                                                            if(yn == 'Y'){
+                                                                int subjectRemove = tSub.get(editInfo).get(section).indexOf(removeSubject);
+                                                                tSub.get(editInfo).get(section).remove(subjectRemove);
+                                                                System.out.println("The section handled has been removed permanently.");
+                                                                lineGenerator();
+                                                                System.out.println("Here are the subjects handled within the section: " + tSub.get(editInfo).get(section));
+                                                            }
+                                                            else{
+                                                                teacherList();
+                                                            }
+                                                            break;
+                                                        }
+                                                        else{
+                                                            System.out.println("This subject does not exist. Please try again.");
+                                                        }
                                                     }
                                                     break;
                                                 }
                                                 else{
-                                                    System.out.println("This subject does not exist. Please try again.");
+                                                    System.out.println("This section does not exist or is not handled by the teacher.");
                                                 }
                                             }
                                             break;
@@ -1033,7 +1041,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                 if(details == 'Y'){
                     lineGenerator();
                     System.out.println("The teacher has been added.\n");
-                    String year = teacherInfo.get("Date Employed").substring(6);
+                    String year = teacherInfo.get("DATE EMPLOYED").substring(6);
                     eNum = eNum+1;
                     String employeeNumber = year + "-" + eNum;
                     teacherInfo.put("USERNAME", teacherInfo.get("LAST NAME").toLowerCase().concat(".").concat(Integer.toString(eNum)));
@@ -1095,19 +1103,26 @@ public class Admin extends Variables implements Courses, Subjects  {
                 System.out.println("Account Number: " + payment.getAccount());
                 System.out.println("Account Name: " + payment.getAccountName());
                 lineGenerator();
-                System.out.print("Enter account number of " + paymentMethodCurrent + " account: ");
+                System.out.print("Enter account number of " + paymentMethodCurrent + " account (Press 0 to go back): ");
                 scn.nextLine();
-                payment.setAccount(scn.nextLine());
-                System.out.print("Enter name of owner: ");
-                payment.setAccountName(scn.nextLine());
-                lineGenerator();
-                System.out.println("Updated successfully!");
-                System.out.println("Current " + paymentMethodCurrent + " Account Number: " + payment.getAccount());
-                System.out.println("Current " + paymentMethodCurrent + " Account Name: " + payment.getAccountName());
-                System.out.print("Press any key to go back: ");
-                String paymentResetKey = scn.next();
-                if(paymentResetKey != null){
+                String accountNum = scn.nextLine();
+                if(accountNum.equals("0")){
                     editPInfo();
+                    break;
+                }
+                else{
+                    payment.setAccount(accountNum);
+                    System.out.print("Enter name of owner: ");
+                    payment.setAccountName(scn.nextLine());
+                    lineGenerator();
+                    System.out.println("Updated successfully!");
+                    System.out.println("Current " + paymentMethodCurrent + " Account Number: " + payment.getAccount());
+                    System.out.println("Current " + paymentMethodCurrent + " Account Name: " + payment.getAccountName());
+                    System.out.print("Press any key to go back: ");
+                    String paymentResetKey = scn.next();
+                    if(paymentResetKey != null){
+                        editPInfo();
+                    }
                 }
                 break;
             }
@@ -1115,38 +1130,51 @@ public class Admin extends Variables implements Courses, Subjects  {
                 lineGenerator();
                 System.out.println("Current Email Address: " + payment.getEmailLink());
                 lineGenerator();
-                System.out.print("Enter email where receipt can be sent: ");
+                System.out.print("Enter email where receipt can be sent (Press 0 to go back): ");
                 scn.nextLine();
-                payment.setEmail(scn.nextLine());
-                lineGenerator();
-                System.out.println("Updated successfully!");
-                System.out.println("Updated Email Address: " + payment.getEmailLink());
-                System.out.print("\nPress any key to go back: ");
-                if(scn.next() != null){
+                String email = scn.nextLine();
+                if(email.equals("0")){
                     editPInfo();
+                    break;
+                }
+                else{
+                    payment.setEmail(email);
+                    lineGenerator();
+                    System.out.println("Updated successfully!");
+                    System.out.println("Updated Email Address: " + payment.getEmailLink());
+                    System.out.print("\nPress any key to go back: ");
+                    if(scn.next() != null){
+                        editPInfo();
+                    }
                 }
                 break;
             }
             if(Integer.parseInt(choice) == paymentSize+2){
-                System.out.print("Enter new payment method name (e.g. Metrobank): ");
+                System.out.print("Enter new payment method name (e.g. Metrobank) (Press 0 to go back): ");
                 scn.nextLine();
                 String newMethod = scn.nextLine();
-                System.out.print("Enter account number: ");
-                String newAccount = scn.nextLine();
-                System.out.print("Enter name of owner: ");
-                String newOwner = scn.nextLine();
-                payment.setAccount(newMethod, newAccount, newOwner);
-                payment.setPaymentSize();
-                lineGenerator();
-                System.out.println("Payment method added successfully!");
-                System.out.println("New Payment Method Details: ");
-                payment.setToRetrieve(payment.getPaymentSize());
-                System.out.println(payment.getPaymentMethod());
-                System.out.println("Account Number: " + payment.getAccount());
-                System.out.println("Account Name: " + payment.getAccountName());
-                System.out.print("\nPress any key to go back: ");
-                if(scn.next() != null){
+                if(newMethod.equals("0")){
                     editPInfo();
+                    break;
+                }
+                else{
+                    System.out.print("Enter account number: ");
+                    String newAccount = scn.nextLine();
+                    System.out.print("Enter name of owner: ");
+                    String newOwner = scn.nextLine();
+                    payment.setAccount(newMethod, newAccount, newOwner);
+                    payment.setPaymentSize();
+                    lineGenerator();
+                    System.out.println("Payment method added successfully!");
+                    System.out.println("New Payment Method Details: ");
+                    payment.setToRetrieve(payment.getPaymentSize());
+                    System.out.println(payment.getPaymentMethod());
+                    System.out.println("Account Number: " + payment.getAccount());
+                    System.out.println("Account Name: " + payment.getAccountName());
+                    System.out.print("\nPress any key to go back: ");
+                    if(scn.next() != null){
+                        editPInfo();
+                    }
                 }
                 break;
             }
@@ -1311,20 +1339,28 @@ public class Admin extends Variables implements Courses, Subjects  {
                                 for (Map.Entry entryy : newSteps.entrySet()) {
                                     System.out.println(entryy.getKey() + ": " + entryy.getValue());
                                 }
-                                lineGenerator();
-                                System.out.print("Enter step number (e.g. Step 5)(0 to go back): ");
-                                scn.nextLine();
-                                String stepAdd = scn.nextLine().toUpperCase();
-                                if(stepAdd.equals("0")){
-                                    editAdmission();
-                                    break;
-                                }
-                                System.out.print("Enter step details: ");
-                                newSteps.put(stepAdd, scn.nextLine());
-                                System.out.println("Step added successfully.");
-                                System.out.print("\nPress any key to go back: ");
-                                if(scn.next() != null){
-                                    editAdmission();
+                                while(true){
+                                    lineGenerator();
+                                    System.out.print("Enter step number (e.g. Step 5)(0 to go back): ");
+                                    scn.nextLine();
+                                    String stepAdd = scn.nextLine().toUpperCase();
+                                    if(stepAdd.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(newSteps.containsKey(stepAdd)){
+                                        System.out.println("This step already exists. Please try again.");
+                                    }
+                                    if(!newSteps.containsKey(stepAdd)){
+                                        System.out.print("Enter step details: ");
+                                        newSteps.put(stepAdd, scn.nextLine());
+                                        System.out.println("Step added successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
                                 }
                                 break;
                             }
@@ -1334,20 +1370,28 @@ public class Admin extends Variables implements Courses, Subjects  {
                                 for (Map.Entry entryy : oldSteps.entrySet()) {
                                     System.out.println(entryy.getKey() + ": " + entryy.getValue());
                                 }
-                                lineGenerator();
-                                System.out.print("Enter step number (e.g. Step 5)(0 to go back): ");
-                                scn.nextLine();
-                                String stepAdd = scn.nextLine().toUpperCase();
-                                if(stepAdd.equals("0")){
-                                    editAdmission();
-                                    break;
-                                }
-                                System.out.print("Enter step details: ");
-                                oldSteps.put(stepAdd, scn.nextLine());
-                                System.out.println("Step added successfully.");
-                                System.out.print("\nPress any key to go back: ");
-                                if(scn.next() != null){
-                                    editAdmission();
+                                while(true){
+                                    lineGenerator();
+                                    System.out.print("Enter step number (e.g. Step 5)(0 to go back): ");
+                                    scn.nextLine();
+                                    String stepAdd = scn.nextLine().toUpperCase();
+                                    if(stepAdd.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(oldSteps.containsKey(stepAdd)){
+                                        System.out.println("This step already exists. Please try again.");
+                                    }
+                                    if(!oldSteps.containsKey(stepAdd)){
+                                        System.out.print("Enter step details: ");
+                                        oldSteps.put(stepAdd, scn.nextLine());
+                                        System.out.println("Step added successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                        break;
+                                    }
                                 }
                                 break;
                             }
@@ -1528,20 +1572,27 @@ public class Admin extends Variables implements Courses, Subjects  {
                                 for (Map.Entry entryy : freshmenReq.entrySet()) {
                                     System.out.println(entryy.getKey() + ": " + entryy.getValue());
                                 }
-                                lineGenerator();
-                                System.out.print("Enter requirement number (e.g. Requirement 1)(0 to go back): ");
-                                scn.nextLine();
-                                String reqAdd = scn.nextLine().toUpperCase();
-                                if(reqAdd.equals("0")){
-                                    editAdmission();
-                                    break;
-                                }
-                                System.out.print("Enter requirement details: ");
-                                freshmenReq.put(reqAdd, scn.nextLine());
-                                System.out.println("Requirement added successfully.");
-                                System.out.print("\nPress any key to go back: ");
-                                if(scn.next() != null){
-                                    editAdmission();
+                                while(true){
+                                    lineGenerator();
+                                    System.out.print("Enter requirement number (e.g. Requirement 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String reqAdd = scn.nextLine().toUpperCase();
+                                    if(reqAdd.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(freshmenReq.containsKey(reqAdd)){
+                                        System.out.println("This requirement already exists. Please try again.");
+                                    }
+                                    if(!freshmenReq.containsKey(reqAdd)){
+                                        System.out.print("Enter requirement details: ");
+                                        freshmenReq.put(reqAdd, scn.nextLine());
+                                        System.out.println("Requirement added successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                    }
                                 }
                                 break;
                             }
@@ -1551,20 +1602,27 @@ public class Admin extends Variables implements Courses, Subjects  {
                                 for (Map.Entry entryy : transfereesReq.entrySet()) {
                                     System.out.println(entryy.getKey() + ": " + entryy.getValue());
                                 }
-                                lineGenerator();
-                                System.out.print("Enter requirement number (e.g. Requirement 1)(0 to go back): ");
-                                scn.nextLine();
-                                String reqAdd = scn.nextLine().toUpperCase();
-                                if(reqAdd.equals("0")){
-                                    editAdmission();
-                                    break;
-                                }
-                                System.out.print("Enter requirement details: ");
-                                transfereesReq.put(reqAdd, scn.nextLine());
-                                System.out.println("Requirement added successfully.");
-                                System.out.print("\nPress any key to go back: ");
-                                if(scn.next() != null){
-                                    editAdmission();
+                                while(true){
+                                    lineGenerator();
+                                    System.out.print("Enter requirement number (e.g. Requirement 1)(0 to go back): ");
+                                    scn.nextLine();
+                                    String reqAdd = scn.nextLine().toUpperCase();
+                                    if(reqAdd.equals("0")){
+                                        editAdmission();
+                                        break;
+                                    }
+                                    if(transfereesReq.containsKey(reqAdd)){
+                                        System.out.println("This requirement already exists. Please try again.");
+                                    }
+                                    if(!transfereesReq.containsKey(reqAdd)){
+                                        System.out.print("Enter requirement details: ");
+                                        transfereesReq.put(reqAdd, scn.nextLine());
+                                        System.out.println("Requirement added successfully.");
+                                        System.out.print("\nPress any key to go back: ");
+                                        if(scn.next() != null){
+                                            editAdmission();
+                                        }
+                                    }
                                 }
                                 break;
                             }
@@ -2277,7 +2335,7 @@ public class Admin extends Variables implements Courses, Subjects  {
         Scanner scn = new Scanner(System.in);
         boolean hasRequest = false;
         System.out.print("""
-                ------------------------------------------------------- VIEW DOCUMENT REQUESTS ---------------------------------------------------------
+                ------------------------------------------------------- VIEW DOCUMENT REQUESTS --------------------------------------------------------
                 """);
         for(Map.Entry e: docuRequest.entrySet()){
             Map<String, String> value = (Map<String, String>) e.getValue();
@@ -2427,7 +2485,7 @@ public class Admin extends Variables implements Courses, Subjects  {
                     adminPass = adminPassNew;
                     System.out.println("Password changed!");
                     lineGenerator();
-                    System.out.print("Press 0 to re-login: ");
+                    System.out.print("Press any key to re-login: ");
                     if(scn.next() != null){
                         new Employee();
                         break;
