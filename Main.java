@@ -165,7 +165,7 @@ public class Main {
     public void about(){
         Scanner scn = new Scanner(System.in);
         System.out.print("""
-        ------------------------------------------------------------------ ABOUT TBD COLLEGE -----------------------------------------------------
+        ---------------------------------------------------------------- ABOUT TBD COLLEGE ----------------------------------------------------
         """);
         About about = new About();
         about.displayAbout();

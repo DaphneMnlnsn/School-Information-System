@@ -130,7 +130,7 @@ public class Admission extends Variables implements Courses, Grades{
         lineGenerator();
         while(true){
             System.out.print("Your answer: ");
-            String yearL = scn.next();
+            yearL = scn.next();
             if(yearL.equals("1")){
                 yearLevel = "1st Year";
                 break;
@@ -266,7 +266,7 @@ public class Admission extends Variables implements Courses, Grades{
                 String studentNumber = year + "-" + sNum;
                 studentInfo.put("SCHOOL EMAIL", studentInfo.get("LAST NAME").toLowerCase().concat(".").concat(Integer.toString(sNum)).concat("@tbd.edu"));
                 studentInfo.put("PASSWORD", studentInfo.get("LAST NAME").toLowerCase().concat("." + studentInfo.get("BIRTHDATE").replace("/", "")));
-                studentInfo.put("SECTION", studentCourse.substring(studentCourse.indexOf("(")+1, studentCourse.indexOf(")")).concat(" " + yearL) + "A");
+                studentInfo.put("SECTION", studentCourse.substring(studentCourse.indexOf("(")+1, studentCourse.indexOf(")")).concat(" " + Integer.parseInt(yearL)) + "A");
                 enrolled.put(studentNumber, studentInfo);
                 System.out.println("Your email address is " + studentInfo.get("SCHOOL EMAIL"));
                 System.out.println("Your password is " + studentInfo.get("PASSWORD"));

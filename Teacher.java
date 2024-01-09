@@ -66,13 +66,14 @@ public class Teacher extends Variables implements Grades{
                     if(enrolled.get(e.getKey()).get("SECTION").equals(section)){
                         hasStudent = true;
                         Map<String, String> value = (Map<String, String>) e.getValue();
-                        System.out.println(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+                        System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
                         if(!value.get("MIDDLE NAME").equals("NA")){
-                            System.out.print(value.get(" MIDDLE NAME"));
+                            System.out.print(" " + value.get("MIDDLE NAME"));
                         }
                         if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
-                            System.out.print(value.get(" SUFFIX"));
+                            System.out.print(" " + value.get("SUFFIX"));
                         }
+                        System.out.println();
                     }
                 }
                 if(hasStudent == false){
@@ -169,13 +170,14 @@ public class Teacher extends Variables implements Grades{
                     if(enrolled.get(e.getKey()).get("SECTION").equals(section)){
                         hasStudent = true;
                         Map<String, String> value = (Map<String, String>) e.getValue();
-                        System.out.println(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
+                        System.out.print(e.getKey() + " - " + value.get("LAST NAME") + ", " + value.get("FIRST NAME"));
                         if(!value.get("MIDDLE NAME").equals("NA")){
-                            System.out.print(value.get(" MIDDLE NAME"));
+                            System.out.print(" " + value.get("MIDDLE NAME"));
                         }
                         if(!value.get("SUFFIX").equalsIgnoreCase("NA")){
-                            System.out.print(value.get(" SUFFIX"));
+                            System.out.print(" " + value.get("SUFFIX"));
                         }
+                        System.out.println();
                     }
                 }
                 if(hasStudent == false){
